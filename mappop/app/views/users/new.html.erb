@@ -1,0 +1,13 @@
+
+<% content_for :js_css_include do %>
+<% end %>
+
+<div class="signup_container">
+
+	<h2 class="title0">ユーザー登録</h2>
+
+	<%= render 'form', user:@user %>
+
+	<%= link_to 'TwitterIDで登録', '/auth/twitter', :class => 'twitter_btn' %>
+
+</div>

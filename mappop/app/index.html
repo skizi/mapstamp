@@ -1,0 +1,129 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<!DOCTYPE html>
+
+	<title>MapPop</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<meta name="viewport" content="width=320, initial-scale=1, user-scalable=no">
+
+ 	<link rel="stylesheet" type="text/css" href="./assets/stylesheets/all.css"/>
+ 
+	<script type="text/javascript" src="./assets/javascripts/libs.js"></script>
+	<script type="text/javascript" src="./assets/javascripts/Common.js"></script>
+	<script type="text/javascript" src="./assets/javascripts/Main.js"></script>
+	<script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-image/v0.0.4/leaflet-image.js'></script>
+ </head>
+<body class="home_index">
+
+
+<div class="wrapper">
+	<header>
+		<a href="javascript:void(0);" class="prev">戻る</a>
+		<h1><img src="./assets/images/header/logo.png" alt="MapPop"></h1>
+		<a href="javascript:void(0);" class="next">次へ</a>
+	</header>
+
+	<div class="container">
+
+		<div class="map">
+			<div class="leaflet" id="leafletMap"></div>
+			<div class="pixi"></div>
+			<div class="cover"></div>
+		</div>
+
+		<div class="interface">
+
+			<div class="about_container">
+				<h3>自分が今いる場所を共有しよう！</h3>
+
+				<ul class="examples">
+					<li><img src="assets/images/top/0.gif"></li>
+					<li><img src="assets/images/top/2.gif"></li>
+				</ul>
+
+				<p class="border_text">
+					<span>地図の上に<br>キャラクターやかざりをデコって<br>TwitterやFaceBookに<br>シェアしよう！</span>
+				</p>
+				<a href="javascript:void(0);" class="btn0">はじめる！</a>
+			</div>
+
+			
+			<div class="capture_btn_container">
+				<p class="border_text">
+					<span>地図をフリックして<br>位置を調整しよう！</span>
+				</p>
+				<a href="javascript:void(0);" class="btn0">決定！</a>
+			</div>
+
+
+			<div class="editor">
+				<p class="border_text">
+					<span>スタンプやフィルターで<br>デコろう！</span>
+				</p>
+				<div class="bottom slider">
+					<ul class="stamps">
+						<li>None</li>
+						<li><img src="../public/images/stamp/0.png"></li>
+						<li><img src="../public/images/stamp/1.png"></li>
+						<li><img src="../public/images/stamp/2.png"></li>
+					</ul>
+					<ul class="decorations">
+						<li>None</li>
+						<li><img src="../public/images/filter/0.png"></li>
+					</ul>
+					<ul class="filters">
+					</ul>
+				</div>
+				<ul class="select_menu">
+					<li>スタンプ</li>
+					<li>かざり</li>
+					<li>フィルター</li>
+				</ul>
+				<a href="javascript:void(0);" class="btn0">決定！</a>
+			</div>
+
+
+			<div class="text_editor">
+				<p class="border_text">
+					<span>アピールしたいことを<br>文章で書こう！</span>
+				</p>
+				<textarea maxlength="10"></textarea>
+				<a href="javascript:void(0);" class="btn0">決定！</a>
+			</div>
+
+
+			<div class="animation_editor">
+				<p class="border_text">
+					<span>アニメーションを<br>設定して演出しよう！</span>
+				</p>
+				<div class="slider">
+					<ul>
+					</ul>
+				</div>
+				<a href="javascript:void(0);" class="btn0">決定！</a>
+			</div>
+			
+
+			<div class="share">
+				<a href="javascript:void(0);" class="btn0 twitter">Twitterにシェアする</a>
+				<a href="javascript:void(0);" class="btn0 facebook">FaceBookにシェアする</a>
+				<a href="javascript:void(0);" class="btn0 download">画像をダウンロードする</a>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+		
+
+<section class="loading_cover">
+</section>
+
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+defaults: &defaults
+
+  # 全体ページ
+  site:
+    name: #マップポップ MapStamp
+    root_url: https://www.mapstamp.net
+    meta:
+      title: マップスタンプ MapStamp
+      charset: UTF-8
+      description: スタンプでデコって現在地を共有できるwebサービス、MapStamp！
+      keywords: 地図, 街, 位置共有, GIFアニメ, スタンプ, おもしろスポット
+      webclipicon: /webclipicon.png
+      favicon: /favicon.ico
+      viewport: 'width=320'
+      og:
+        title: マップスタンプ MapStamp
+        description: スタンプでデコって現在地を共有できるwebサービス、MapStamp！
+        image:
+          _: /assets/ogp.png
+          type: png
+          width: 1200
+          height: 630
+        type: website
+      fb:
+        app_id: 1604539589666300
+      twitter:
+        account_id: 77250350
+        card: summary_large_image
+        site: '@awesome_now' #@でエラー起きるのでコーテーションで囲う
+        title: マップスタンプ MapStamp
+        description: スタンプでデコって現在地を共有できるwebサービス、MapStamp！
+        image: /assets/ogp.png
+        domain: mapstamp.net
+        creator: '@awesome_now' #@でエラー起きるのでコーテーションで囲う
+    sns_account:
+      twitter: https://twitter.com/awesome_now
+      instagram: https://www.instagram.com/s_k_i_z_i
+
+  # 個別ページ
+  home:
+    # name: about about
+    meta:
+      title: about page
+
+  about:
+    meta:
+      title: about page
+      description: about description
+      keywords: about1, about2, about3
+
+  # 複数OGP
+  ogp:
+    - index: 1
+      title: ogp1 title
+      description: ogp1 description
+      share_description: ogp1 share_description
+    - index: 2
+      title: ogp2 title
+      description: ogp2 description
+      share_description: ogp2 share_description
+    - index: 3
+      title: ogp3 title
+      description: ogp3 description
+      share_description: ogp3 share_description
+
+  # share
+  share:
+    twitter:
+      text: |-
+        description
+        #hashtag description
+      hashtags: hashtag1, hashtag2
+    line:
+      text: |-
+        description
+        description
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

@@ -1,0 +1,13 @@
+<div class="login_container">
+
+	<h2 class="title0">ログイン</h2>
+
+	
+	<%= link_to 'TwitterIDでログイン', '/auth/twitter', :class => 'twitter_btn c_mb30' %>
+
+	<%= link_to "Facebookでログイン", '/auth/facebook', :class => 'twitter_btn c_mb30' %>
+
+	<% if logged_in? %>
+		<%= link_to "ログアウト", logout_path, method: :delete %>
+	<% end %>
+</div>

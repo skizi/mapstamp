@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+
+    <% if controller_name == 'post_images' && action_name == 'show' %>
+
+    <%=
+      # ハッシュをコピー
+      meta = Marshal.load(Marshal.dump(Settings.site.meta))
+
+      imgType = @postImage.image_type
+      ogType = 'video.other'
+      ogpUrl = root_url + 'images/post_images/' + @postImage.id.to_s + '.' + imgType
+      url = ogpUrl
+      if imgType == 'png'
+        ogType = 'website'
+        url = root_url + 'post_images/' + @postImage.id.to_s
+      end
+      title = 'マップポップ MapPop | ' + @postImage.title
+
+      meta[:title] = title
+      meta[:og][:type] = ogType
+      meta[:og][:title] = title
+      meta[:og][:url] = url
+      meta[:og][:image] = { _: ogpUrl,
+                            type: 'image/' + imgType,
+                            width: 320,
+                            height: 320
+                          }
+      meta[:twitter][:title] = title
+      meta[:twitter][:image] = ogpUrl
+
+      display_meta_tags(meta)
+    %>
+
+
+    <% else %>
+      <%= display_meta_tags(default_meta_tags) %>
+    <% end %>
+
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag 'all', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'libs', media:'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'Common', media:'all', 'data-turbolinks-track': 'reload' %>
+
+    <%= yield :js_css_include %>
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5388886836544453",
+        enable_page_level_ads: true
+      });
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-34320893-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-34320893-2');
+    </script>
+
+  </head>
+
+  <body class="<%= controller.controller_name %>_<%= controller.action_name %>">
+
+    <div class="wrapper">
+
+      <%= render 'shared/header' %>
+      <section class="main_content">
+  	    <%= yield %>
+
+    	</section>
+      <%= render 'shared/footer' %>
+    
+    </div>
+
+  </body>
+</html>
+

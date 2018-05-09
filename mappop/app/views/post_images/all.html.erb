@@ -1,0 +1,14 @@
+
+
+<h2>投稿一覧</h2>
+
+<% @postImages.each do |postImage| %>
+	<img src="/images/post_images/<%= postImage.id %>.<%= postImage.image_type %>">
+	<p>title:<%= postImage.title %></p>
+	<p>id:<%= postImage.id %></p>
+	<p>content:<%= postImage.content %></p>
+	<p>user_id:<%= postImage.user_id %></p>
+	<p>lat:<%= postImage.lat %></p>
+	<p>lng:<%= postImage.lng %></p>
+	<hr>
+<% end %>
