@@ -41,12 +41,7 @@
 					<span>地図の上に<br>キャラクターやかざりをデコって<br>TwitterやFaceBookに<br>シェアしよう！</span>
 				</p>
 				
-				<% if logged_in? %>
-					<a href="javascript:void(0);" class="btn0 start_btn c_mb40">はじめる！</a>
-				<% else %>
-					<%= link_to 'Twitterでログイン', '/auth/twitter', :class => 'btn0 twitter c_mb20' %>
-					<%= link_to 'Facebookでログイン', '/auth/facebook', :class => 'btn0 facebook c_mb40' %>
-				<% end %>
+				<a href="javascript:void(0);" class="btn0 start_btn c_mb40">はじめる！</a>
 
 
 				<section class="howto c_mb40">
@@ -77,12 +72,7 @@
 					</ul>
 				</section>
 					
-				<% if logged_in? %>
-					<a href="javascript:void(0);" class="btn0 start_btn">はじめる！</a>
-				<% else %>
-					<%= link_to 'Twitterでログイン', '/auth/twitter', :class => 'btn0 twitter c_mb20' %>
-					<%= link_to 'Facebookでログイン', '/auth/facebook', :class => 'btn0 facebook' %>
-				<% end %>
+				<a href="javascript:void(0);" class="btn0 start_btn">はじめる！</a>
 
 
 				<!--
@@ -148,8 +138,14 @@
 			
 
 			<div class="share">
-				<a href="javascript:void(0);" class="btn0 twitter">Twitterにシェアする</a>
-				<a href="javascript:void(0);" class="btn0 facebook">FaceBookにシェアする</a>
+
+				<% if logged_in? %>
+					<a href="javascript:void(0);" class="btn0 twitter">Twitterにシェアする</a>
+					<a href="javascript:void(0);" class="btn0 facebook">FaceBookにシェアする</a>
+				<% else %>
+					<%= link_to 'Twitterでログインしてシェアする', '/auth/twitter', :class => 'btn0 twitter' %>
+					<%= link_to 'Facebookでログインしてシェアする', '/auth/facebook', :class => 'btn0 facebook' %>
+				<% end %>
 				<a href="javascript:void(0);" class="btn0 download">画像をダウンロードする</a>
 			</div>
 		</div>

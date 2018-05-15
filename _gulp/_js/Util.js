@@ -1,6 +1,9 @@
 module.exports = {
 
 	ua:null,
+
+	loginProvider:'',
+
 	mouseX:0,
 	mouseY:0,
 	touchHitTime:150,

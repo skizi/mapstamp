@@ -92,12 +92,15 @@ body.home_index{
 				text-align: center;
 				cursor:pointer;
 			    border-radius: 8px;
+		        user-select: none;
 
 				img{
 					max-width: 80px;
 					max-height: 80px;
 					transform: scale(0.8);
 					vertical-align: middle;
+			        user-select: none;
+		            -webkit-user-drag: none;
 				}
 			}
 		}
@@ -187,6 +190,7 @@ body.home_index{
 					text-align: center;
 					cursor:pointer;
 					border-radius: 80px;
+			        user-select: none;
 
 					&:first-child{
 						background-color: #f2f2f2;
@@ -259,21 +263,21 @@ body.home_index{
 .btn0.twitter,
 .btn0.facebook,
 .btn0.download{
-    width: 274px;
+    width: 270px;
     height: 40px;
     line-height: 40px;
     margin: 0 auto;
-    padding-left: 26px;
+    padding-left: 30px;
     display: block;
     border-radius: 5px;
     background-color: #55acee;
     background-image: url(./twitter_icon.png);
     background-size: auto 18px;
     background-repeat: no-repeat;
-    background-position: 21px 50%;
+    background-position: 15px 50%;
     text-align: center;
     color: #fff;
-    font-size: 18px;
+    font-size: 15px;
     text-decoration: none;
     letter-spacing: 0px;
     transition-duration: 0.3s;
@@ -303,7 +307,7 @@ body.home_index{
                 3px 3px 0px #374771,
                 4px 4px 0px #374771;
     background-image: url(./facebook_icon.png);
-    background-position: 25px 50%;
+    background-position: 19px 50%;
 }
 .btn0.download{
 	background-color:#ebb314;

@@ -31,6 +31,7 @@ class Main{
 
     Util.clickEventName = 'touchend';
     if( Util.ua.platform == 'pc' ) Util.clickEventName = 'click';
+    Util.clickEventName = 'click';
 
     Util.loading = new Loading();
 
@@ -50,11 +51,11 @@ class Main{
 
 
     this.aboutContainer = document.getElementsByClassName( 'about_container' )[0];
-    if( !this.aboutContainer.getElementsByClassName( 'twitter' )[0] ){
+    // if( !this.aboutContainer.getElementsByClassName( 'twitter' )[0] ){
       this.startBtns = this.aboutContainer.getElementsByClassName( 'start_btn' );
       this.startBtns[0].addEventListener( Util.clickEventName, this.startBtnClickHandler.bind( this ) );
       this.startBtns[1].addEventListener( Util.clickEventName, this.startBtnClickHandler.bind( this ) );
-    }
+    // }
 
 
     this.captureBtnContainer = document.querySelector( '.capture_btn_container' );

@@ -31,16 +31,26 @@ export default class Share{
       });
     });
 
-    if( localStorage.getItem('twitterImgBase64') && Util.loginProvider == 'twitter' ){
-      Util.loading.showLoading( 'Twitterに投稿しています。' );
-      var base64 = localStorage.getItem('twitterImgBase64');
-      var type = localStorage.getItem('twitterImgType');
-      var message = localStorage.getItem('twitterMessage');
-      var blob = this.dataURLtoBlob( base64, type );
-      this.postTwitter( blob, type, message );
-      localStorage.removeItem('twitterImgBase64');
-      localStorage.removeItem('twitterImgType');
-      localStorage.removeItem( 'twitterMessage' );
+
+    if( localStorage.getItem('cacheImgBase64') ){
+      var base64 = localStorage.getItem('cacheImgBase64');
+      var imgType = localStorage.getItem('cacheImgType');
+      var blob = this.dataURLtoBlob( base64, imgType );
+      var content = localStorage.getItem('cacheMessage');
+      this.provider = localStorage.getItem('cacheProvider');
+      var lat = localStorage.getItem('cacheLat');
+      var lng = localStorage.getItem('cacheLng');
+
+      Util.loading.showLoading( 'Gifアニメを生成しています。' );
+      this.submit( blob, lat, lng, content, imgType );
+      
+      localStorage.removeItem('cacheImgBase64');
+      localStorage.removeItem('cacheImgType');
+      localStorage.removeItem( 'cacheMessage' );
+      localStorage.removeItem( 'cacheProvider' );
+      localStorage.removeItem( 'cacheLat' );
+      localStorage.removeItem( 'cacheLng' );
+
     }
 
   }
@@ -62,12 +72,17 @@ export default class Share{
 
   btnClickHandler( provider, e ){
 
-    if( Util.ua.platform != 'pc' ){
-      if( new Date().getTime() - Util.downTime > Util.touchHitTime ) return;
-    }
+    // if( Util.ua.platform != 'pc' ){
+    //   if( new Date().getTime() - Util.downTime > Util.touchHitTime ) return;
+    // }
 
     this.provider = provider;
-    Util.loading.showLoading( 'Gifアニメを生成しています。' );
+    var str = 'Gifアニメを生成しています。';
+    if( this.provider == 'twitter' && Util.loginProvider != 'twitter' || this.provider == 'facebook' && Util.loginProvider != 'facebook' ){
+      str = 'ログインしています。';
+      e.preventDefault();
+    }
+    Util.loading.showLoading( str );
     this.element.dispatchEvent( new CustomEvent( 'ysdCallback', { detail:{ value:{ type:'generateGif' } } } ) );
 
   }
@@ -75,6 +90,26 @@ export default class Share{
 
   submit( blob, lat, lng, content, imgType ){
 
+    //まだログインしていない場合はログインさせる
+    //画像データを一時保存
+    if( this.provider == 'twitter' && Util.loginProvider != 'twitter' || this.provider == 'facebook' && Util.loginProvider != 'facebook' ){
+      var reader = new FileReader();
+      reader.readAsDataURL(blob); 
+      reader.onloadend = function() {
+        var dataURI = reader.result;
+        localStorage.setItem( 'cacheImgBase64', dataURI );
+        localStorage.setItem( 'cacheImgType', imgType );
+        localStorage.setItem( 'cacheMessage', content );
+        localStorage.setItem( 'cacheProvider', this.provider );
+        localStorage.setItem( 'cacheLat', lat );
+        localStorage.setItem( 'cacheLng', lng );
+        location.href = '/auth/' + this.provider;
+      }.bind( this );
+      return;
+    }
+
+
+    //mapStampサーバーにPOST
     this.blob = blob;
 
     var formData = new FormData();
@@ -113,12 +148,14 @@ export default class Share{
 
     this.postImageId = postImageId;
 
+
     //ダウンロード
     if( this.provider == 'download' ){
 
       var a = document.createElement('a');
       var url = window.URL.createObjectURL( this.blob );
       a.href = url;
+      // a.setAttribute( 'target', '_blank' ); //iosバグる
       a.download = "mapstamp." + imgType;
       document.body.appendChild( a );
       a.click();
@@ -129,6 +166,19 @@ export default class Share{
 
     }else if( this.provider == 'facebook' ){
 
+      this.postFacebook( content );
+
+    }else if( this.provider == 'twitter' ){
+
+      this.postTwitter( this.blob, imgType, content );
+
+    }
+
+  }
+
+
+  postFacebook( content ){
+      
       // var mobileFlag = false;
       // if( Util.ua.platform != 'pc' ) mobileFlag = true;
       if( Util.ua.browser == 'safari' ){
@@ -139,33 +189,12 @@ export default class Share{
         this.shareFaceBook( content );
       }
 
-    }else if( this.provider == 'twitter' ){
-
-      Util.loading.setText( 'Twitterに投稿しています。' );
-
-      //Twitterでログインしていない場合はログインさせる
-      //画像データを一時保存
-      if( Util.loginProvider != 'twitter' ){
-        var reader = new FileReader();
-        reader.readAsDataURL(this.blob); 
-        reader.onloadend = function() {
-          var dataURI = reader.result;
-          localStorage.setItem( 'twitterImgBase64', dataURI );
-          localStorage.setItem( 'twitterImgType', imgType );
-          localStorage.setItem( 'twitterMessage', content );
-          location.href = '/auth/twitter';
-        }
-        return;
-      }
-
-      this.postTwitter( this.blob, imgType, content );
-
-    }
-
   }
 
 
   postTwitter( blob, type, message ){
+
+    Util.loading.setText( 'Twitterに投稿しています。' );
 
     var formData = new FormData();
     var name = 'anime.' + type;

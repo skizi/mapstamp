@@ -51,7 +51,7 @@ export default class Editor{
     if( type == 'stamp' ){
       var ul = this.stamps;
       var func = this.stampBtnClickHandler;
-      var length = 81 + 1;
+      var length = 78 + 1;
     }else if( type == 'decoration' ){
       length = 13 + 1;
       ul = this.decorations;
@@ -83,9 +83,9 @@ export default class Editor{
 
   selectBtnClickHandler( type ){
     
-    if( Util.ua.platform != 'pc' ){
-      if( new Date().getTime() - Util.downTime > Util.touchHitTime ) return;
-    }
+    // if( Util.ua.platform != 'pc' ){
+    //   if( new Date().getTime() - Util.downTime > Util.touchHitTime ) return;
+    // }
 
     for( var i = 0; i < this.selectBtns.length; i++ ){
       this.selectBtns[i].style.backgroundColor = '#fff';
@@ -120,9 +120,9 @@ export default class Editor{
 
   stampBtnClickHandler( i ){
 
-    if( Util.ua.platform != 'pc' ){
-      if( new Date().getTime() - Util.downTime > Util.touchHitTime ) return;
-    }
+    // if( Util.ua.platform != 'pc' ){
+    //   if( new Date().getTime() - Util.downTime > Util.touchHitTime ) return;
+    // }
 
     var img = this.stampBtns[i].getElementsByTagName( 'img' )[0];
     this.element.dispatchEvent( new CustomEvent( 'ysdCallback', { detail:{ value:{ type:'selectStamp', img:img, index:i } } } ) );
@@ -132,9 +132,9 @@ export default class Editor{
 
   decorationBtnClickHandler( i ){
 
-    if( Util.ua.platform != 'pc' ){
-      if( new Date().getTime() - Util.downTime > Util.touchHitTime ) return;
-    }
+    // if( Util.ua.platform != 'pc' ){
+    //   if( new Date().getTime() - Util.downTime > Util.touchHitTime ) return;
+    // }
 
     var img = this.decorationBtns[i].getElementsByTagName( 'img' )[0];
     this.element.dispatchEvent( new CustomEvent( 'ysdCallback', { detail:{ value:{ type:'selectDecoration', img:img, index:i } } } ) );
@@ -144,9 +144,9 @@ export default class Editor{
 
   filterBtnClickHandler( i ){
 
-    if( Util.ua.platform != 'pc' ){
-      if( new Date().getTime() - Util.downTime > Util.touchHitTime ) return;
-    }
+    // if( Util.ua.platform != 'pc' ){
+    //   if( new Date().getTime() - Util.downTime > Util.touchHitTime ) return;
+    // }
 
     var img = this.filterBtns[i].getElementsByTagName( 'img' )[0];
     this.element.dispatchEvent( new CustomEvent( 'ysdCallback', { detail:{ value:{ type:'selectFilter', img:img, index:i } } } ) );

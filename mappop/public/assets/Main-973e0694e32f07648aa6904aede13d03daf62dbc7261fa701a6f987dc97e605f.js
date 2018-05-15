@@ -986,7 +986,7 @@ var Map = function () {
         } else {
           //初回アクセス
 
-          this.map.setView(latLng, 16);
+          this.map.setView(latLng, 13);
           this.userMaker = L.marker([latLng.lat, latLng.lng]).addTo(this.map);
         }
       }.bind(this), function (error) {
@@ -1510,7 +1510,8 @@ var Share = function () {
       });
     });
 
-    if (localStorage.getItem('cacheImgBase64')) {
+    if (localStorage.getItem('cacheImgBase64') && _Util2.default.loginProvider == 'twitter') {
+      // Util.loading.showLoading( 'Twitterに投稿しています。' );
       var base64 = localStorage.getItem('cacheImgBase64');
       var imgType = localStorage.getItem('cacheImgType');
       var blob = this.dataURLtoBlob(base64, imgType);
@@ -1519,8 +1520,13 @@ var Share = function () {
       var lat = localStorage.getItem('cacheLat');
       var lng = localStorage.getItem('cacheLng');
 
-      _Util2.default.loading.showLoading('Gifアニメを生成しています。');
       this.submit(blob, lat, lng, content, imgType);
+
+      // if( provider == 'twitter' ){
+      //   this.postTwitter( blob, type, message );
+      // }else{
+
+      // }
 
       localStorage.removeItem('cacheImgBase64');
       localStorage.removeItem('cacheImgType');
@@ -1552,12 +1558,7 @@ var Share = function () {
       // }
 
       this.provider = provider;
-      var str = 'Gifアニメを生成しています。';
-      if (this.provider == 'twitter' && _Util2.default.loginProvider != 'twitter' || this.provider == 'facebook' && _Util2.default.loginProvider != 'facebook') {
-        str = 'ログインしています。';
-        e.preventDefault();
-      }
-      _Util2.default.loading.showLoading(str);
+      _Util2.default.loading.showLoading('Gifアニメを生成しています。');
       this.element.dispatchEvent(new CustomEvent('ysdCallback', { detail: { value: { type: 'generateGif' } } }));
     }
   }, {
@@ -1566,20 +1567,22 @@ var Share = function () {
 
       //まだログインしていない場合はログインさせる
       //画像データを一時保存
-      if (this.provider == 'twitter' && _Util2.default.loginProvider != 'twitter' || this.provider == 'facebook' && _Util2.default.loginProvider != 'facebook') {
-        var reader = new FileReader();
-        reader.readAsDataURL(blob);
-        reader.onloadend = function () {
-          var dataURI = reader.result;
-          localStorage.setItem('cacheImgBase64', dataURI);
-          localStorage.setItem('cacheImgType', imgType);
-          localStorage.setItem('cacheMessage', content);
-          localStorage.setItem('cacheProvider', this.provider);
-          localStorage.setItem('cacheLat', lat);
-          localStorage.setItem('cacheLng', lng);
-          location.href = '/auth/' + this.provider;
-        }.bind(this);
-        return;
+      if (this.provider == 'twitter' || this.provider == 'facebook') {
+        if (_Util2.default.loginProvider == '') {
+          var reader = new FileReader();
+          reader.readAsDataURL(blob);
+          reader.onloadend = function () {
+            var dataURI = reader.result;
+            localStorage.setItem('cacheImgBase64', dataURI);
+            localStorage.setItem('cacheImgType', imgType);
+            localStorage.setItem('cacheMessage', content);
+            localStorage.setItem('cacheProvider', this.provider);
+            localStorage.setItem('cacheLat', lat);
+            localStorage.setItem('cacheLng', lng);
+            location.href = '/auth/' + this.provider;
+          };
+          return;
+        }
       }
 
       //mapStampサーバーにPOST
@@ -1626,7 +1629,7 @@ var Share = function () {
         var a = document.createElement('a');
         var url = window.URL.createObjectURL(this.blob);
         a.href = url;
-        // a.setAttribute( 'target', '_blank' ); //iosバグる
+        a.setAttribute('target', '_blank');
         a.download = "mapstamp." + imgType;
         document.body.appendChild(a);
         a.click();

@@ -282,7 +282,7 @@ export default class Map{
         
         }else{//初回アクセス
 
-          this.map.setView( latLng, 13 );
+          this.map.setView( latLng, 16 );
           this.userMaker = L.marker([ latLng.lat, latLng.lng ]).addTo(this.map);
         
         }
