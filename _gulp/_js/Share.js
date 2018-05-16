@@ -43,13 +43,6 @@ export default class Share{
 
       Util.loading.showLoading( 'Gifアニメを生成しています。' );
       this.submit( blob, lat, lng, content, imgType );
-      
-      localStorage.removeItem('cacheImgBase64');
-      localStorage.removeItem('cacheImgType');
-      localStorage.removeItem( 'cacheMessage' );
-      localStorage.removeItem( 'cacheProvider' );
-      localStorage.removeItem( 'cacheLat' );
-      localStorage.removeItem( 'cacheLng' );
 
     }
 
@@ -70,6 +63,18 @@ export default class Share{
   }
 
 
+  removeStorageItem(){
+
+      localStorage.removeItem('cacheImgBase64');
+      localStorage.removeItem('cacheImgType');
+      localStorage.removeItem( 'cacheMessage' );
+      localStorage.removeItem( 'cacheProvider' );
+      localStorage.removeItem( 'cacheLat' );
+      localStorage.removeItem( 'cacheLng' );
+
+  }
+
+
   btnClickHandler( provider, e ){
 
     // if( Util.ua.platform != 'pc' ){
@@ -78,12 +83,14 @@ export default class Share{
 
     this.provider = provider;
     var str = 'Gifアニメを生成しています。';
+    var notLoginFlag = false;
     if( this.provider == 'twitter' && Util.loginProvider != 'twitter' || this.provider == 'facebook' && Util.loginProvider != 'facebook' ){
       str = 'ログインしています。';
+      notLoginFlag = true;
       e.preventDefault();
     }
     Util.loading.showLoading( str );
-    this.element.dispatchEvent( new CustomEvent( 'ysdCallback', { detail:{ value:{ type:'generateGif' } } } ) );
+    this.element.dispatchEvent( new CustomEvent( 'ysdCallback', { detail:{ value:{ type:'generateGif', notLoginFlag:notLoginFlag } } } ) );
 
   }
 

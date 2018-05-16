@@ -118,11 +118,6 @@ var Editor = function () {
 
     this.addBtns('stamp');
     this.addBtns('decoration');
-    this.filterBtns = this.filters.getElementsByTagName('li');
-    var length = this.filterBtns.length;
-    for (var i = 0; i < length; i++) {
-      this.filterBtns[i].addEventListener(_Util2.default.clickEventName, this.filterBtnClickHandler.bind(this, i));
-    }
 
     this.submitBtn = this.element.getElementsByClassName('btn0')[0];
     this.submitBtn.addEventListener('click', this.submitBtnClickHandler.bind(this));
@@ -175,6 +170,16 @@ var Editor = function () {
       }
     }
   }, {
+    key: 'initFilterBtns',
+    value: function initFilterBtns() {
+
+      this.filterBtns = this.filters.getElementsByTagName('li');
+      var length = this.filterBtns.length;
+      for (var i = 0; i < length; i++) {
+        this.filterBtns[i].addEventListener(_Util2.default.clickEventName, this.filterBtnClickHandler.bind(this, i));
+      }
+    }
+  }, {
     key: 'selectBtnClickHandler',
     value: function selectBtnClickHandler(type) {
 
@@ -214,10 +219,6 @@ var Editor = function () {
     key: 'stampBtnClickHandler',
     value: function stampBtnClickHandler(i) {
 
-      // if( Util.ua.platform != 'pc' ){
-      //   if( new Date().getTime() - Util.downTime > Util.touchHitTime ) return;
-      // }
-
       var img = this.stampBtns[i].getElementsByTagName('img')[0];
       this.element.dispatchEvent(new CustomEvent('ysdCallback', { detail: { value: { type: 'selectStamp', img: img, index: i } } }));
     }
@@ -225,20 +226,12 @@ var Editor = function () {
     key: 'decorationBtnClickHandler',
     value: function decorationBtnClickHandler(i) {
 
-      // if( Util.ua.platform != 'pc' ){
-      //   if( new Date().getTime() - Util.downTime > Util.touchHitTime ) return;
-      // }
-
       var img = this.decorationBtns[i].getElementsByTagName('img')[0];
       this.element.dispatchEvent(new CustomEvent('ysdCallback', { detail: { value: { type: 'selectDecoration', img: img, index: i } } }));
     }
   }, {
     key: 'filterBtnClickHandler',
     value: function filterBtnClickHandler(i) {
-
-      // if( Util.ua.platform != 'pc' ){
-      //   if( new Date().getTime() - Util.downTime > Util.touchHitTime ) return;
-      // }
 
       var img = this.filterBtns[i].getElementsByTagName('img')[0];
       this.element.dispatchEvent(new CustomEvent('ysdCallback', { detail: { value: { type: 'selectFilter', img: img, index: i } } }));
@@ -418,9 +411,6 @@ var Main = function () {
     this.moveTo = new MoveTo({ tolerance: 0, duration: 300, easing: 'easeOutQuart' });
     this.header = document.getElementsByTagName('header')[0];
 
-    this.map = new _Map2.default();
-    this.map.element.addEventListener('ysdCallback', this.mapCallBackHandler.bind(this));
-
     this.aboutContainer = document.getElementsByClassName('about_container')[0];
     // if( !this.aboutContainer.getElementsByClassName( 'twitter' )[0] ){
     this.startBtns = this.aboutContainer.getElementsByClassName('start_btn');
@@ -435,6 +425,10 @@ var Main = function () {
 
     this.editor = new _Editor2.default();
     this.editor.element.addEventListener('ysdCallback', this.editorCallBackHandler.bind(this));
+
+    this.map = new _Map2.default();
+    this.map.element.addEventListener('ysdCallback', this.mapCallBackHandler.bind(this));
+    this.editor.initFilterBtns();
 
     this.textEditor = document.getElementsByClassName('text_editor')[0];
     this.textEditorBtn = this.textEditor.getElementsByClassName('btn0')[0];
@@ -492,6 +486,30 @@ var Main = function () {
       });
      }.bind(this) );
     */
+
+    if (localStorage.getItem('cacheImgBase64')) {
+
+      this.aboutContainer.style.display = 'none';
+
+      this.state = 'share';
+
+      this.prevBtn.style.display = 'block';
+      this.nextBtn.style.display = 'none';
+
+      //map
+      this.map.setInterface('share');
+      this.map.setHeight(320);
+      var lat = localStorage.getItem('cacheLat');
+      var lng = localStorage.getItem('cacheLng');
+      this.map.setLatLng(lat, lng);
+      setTimeout(function () {
+        this.map.capture();
+      }.bind(this), 1000);
+
+      //share
+      this.share.show();
+      this.share.removeStorageItem();
+    }
   }
 
   _createClass(Main, [{
@@ -698,6 +716,10 @@ var Main = function () {
 
         case 'generateGif':
           this.map.generateGif();
+          if (obj.notLoginFlag) {
+            //今からログインする場合はデータ保存
+            this.map.saveData();
+          }
           break;
 
       }
@@ -882,19 +904,19 @@ var Map = function () {
     key: 'addStamp',
     value: function addStamp(img, index) {
 
-      this.pixiView.drawStamp(img, index);
+      this.pixiView.drawStamp(img, index, true);
     }
   }, {
     key: 'addDecoration',
     value: function addDecoration(img, index) {
 
-      this.pixiView.drawDecoration(img, index);
+      this.pixiView.drawDecoration(img, index, true);
     }
   }, {
     key: 'addFilter',
     value: function addFilter(img, index) {
 
-      this.pixiView.drawFilter(img, index);
+      this.pixiView.drawFilter(img, index, true);
     }
   }, {
     key: 'addText',
@@ -986,8 +1008,10 @@ var Map = function () {
         } else {
           //初回アクセス
 
-          this.map.setView(latLng, 16);
-          this.userMaker = L.marker([latLng.lat, latLng.lng]).addTo(this.map);
+          if (!localStorage.getItem('cacheImgBase64')) {
+            this.map.setView(latLng, 16);
+            this.userMaker = L.marker([latLng.lat, latLng.lng]).addTo(this.map);
+          }
         }
       }.bind(this), function (error) {
 
@@ -1008,6 +1032,20 @@ var Map = function () {
       this.pixiView.encodeGifAnimation(function () {
         this.pixiView.generateGifAnimation();
       }.bind(this));
+    }
+  }, {
+    key: 'setLatLng',
+    value: function setLatLng(lat, lng) {
+
+      var latLng = L.latLng(lat, lng);
+      this.map.setView(latLng, 16);
+      this.userMaker = L.marker([latLng.lat, latLng.lng]).addTo(this.map);
+    }
+  }, {
+    key: 'saveData',
+    value: function saveData() {
+
+      this.pixiView.saveData();
     }
   }, {
     key: 'resize',
@@ -1137,6 +1175,21 @@ var PixiView = function () {
 
 		//カメラ　アニメーション用
 		this.animationData = { frames: [] };
+
+		//データ保存
+		if (localStorage.getItem('pixiCacheData')) {
+			this.cacheData = JSON.parse(localStorage.getItem('pixiCacheData'));
+			this.setCaches();
+			localStorage.removeItem('pixiCacheData');
+			this.show();
+		} else {
+			this.cacheData = { stamp: [], decoration: [], filter: [], content: '' };
+		}
+
+		// window.addEventListener("unload", function() {
+		//   var str = JSON.stringify( this.cacheData );
+		//   localStorage.setItem( 'pixiCacheData', str );
+		// }.bind( this ), false);
 	}
 
 	_createClass(PixiView, [{
@@ -1194,7 +1247,15 @@ var PixiView = function () {
 		}
 	}, {
 		key: 'drawStamp',
-		value: function drawStamp(img) {
+		value: function drawStamp(img, index, cacheFlag) {
+
+			if (cacheFlag) {
+				if (index == 0) {
+					this.cacheData.stamp = [];
+				} else {
+					this.cacheData.stamp.push({ index: index, x: 0, y: 0 });
+				}
+			}
 
 			if (!img) {
 				for (var i = 0; i < this.stamps.length; i++) {
@@ -1211,15 +1272,25 @@ var PixiView = function () {
 			stamp.x = 0;
 			stamp.y = 0;
 			stamp.scale.set(0.9);
-			stamp.on('pointerdown', this.onDragStart.bind(this)).on('pointerup', this.onDragEnd.bind(this)).on('pointerupoutside', this.onDragEnd.bind(this)).on('pointermove', this.onDragMove);
+			stamp.on('pointerdown', this.onDragStart.bind(this)).on('pointerup', this.onDragEnd.bind(this)).on('pointerupoutside', this.onDragEnd.bind(this)).on('pointermove', this.onDragMove.bind(this, this.cacheData.stamp.length - 1));
 			stamp.interactive = true;
 			stamp.buttonMode = true;
 			this.stamps.push(stamp);
 			this.container.addChild(stamp);
+
+			return stamp;
 		}
 	}, {
 		key: 'drawDecoration',
-		value: function drawDecoration(img, index) {
+		value: function drawDecoration(img, index, cacheFlag) {
+
+			if (cacheFlag) {
+				if (index == 0) {
+					this.cacheData.decoration = [];
+				} else {
+					this.cacheData.decoration.push(index);
+				}
+			}
 
 			if (!img) {
 				for (var i = 0; i < this.decorations.length; i++) {
@@ -1242,7 +1313,15 @@ var PixiView = function () {
 		}
 	}, {
 		key: 'drawFilter',
-		value: function drawFilter(img, index) {
+		value: function drawFilter(img, index, cacheFlag) {
+
+			if (cacheFlag) {
+				if (index == 0) {
+					this.cacheData.filter = [];
+				} else {
+					this.cacheData.filter.push(index);
+				}
+			}
 
 			if (this.filterNames[index] == 'なし') {
 				this.container.filters = [];
@@ -1258,6 +1337,8 @@ var PixiView = function () {
 	}, {
 		key: 'drawText',
 		value: function drawText(text) {
+
+			this.cacheData.content = text;
 
 			this.text.text = text;
 			this.text.x = (320 - this.text.width) * 0.5;
@@ -1444,12 +1525,62 @@ var PixiView = function () {
 		}
 	}, {
 		key: 'onDragMove',
-		value: function onDragMove() {
-			if (this.dragging) {
-				var newPosition = this.data.getLocalPosition(this.parent);
-				this.x = newPosition.x;
-				this.y = newPosition.y;
+		value: function onDragMove(i, e) {
+			var target = e.currentTarget;
+			if (target.dragging) {
+				var newPosition = target.data.getLocalPosition(target.parent);
+				target.x = newPosition.x;
+				target.y = newPosition.y;
+				this.cacheData.stamp[i].x = target.x;
+				this.cacheData.stamp[i].y = target.y;
 			}
+		}
+	}, {
+		key: 'saveData',
+		value: function saveData() {
+
+			var str = JSON.stringify(this.cacheData);
+			localStorage.setItem('pixiCacheData', str);
+		}
+	}, {
+		key: 'setCaches',
+		value: function setCaches() {
+
+			var stamps = document.querySelector('.editor .stamps');
+			var decorations = document.querySelector('.editor .decorations');
+			var filters = document.querySelector('.editor .filters');
+
+			var stampBtns = stamps.getElementsByTagName('li');
+			var decorationBtns = decorations.getElementsByTagName('li');
+			var filterBtns = filters.getElementsByTagName('li');
+
+			var length = this.cacheData.stamp.length;
+			for (var i = 0; i < length; i++) {
+				var obj = this.cacheData.stamp[i];
+				var index = obj.index;
+				var img = stampBtns[index].getElementsByTagName('img')[0];
+				var stamp = this.drawStamp(img, index, false);
+				stamp.x = obj.x;
+				stamp.y = obj.y;
+			}
+
+			length = this.cacheData.decoration.length;
+			for (i = 0; i < length; i++) {
+				index = this.cacheData.decoration[i];
+				img = decorationBtns[index].getElementsByTagName('img')[0];
+				this.drawDecoration(img, index, false);
+			}
+
+			length = this.cacheData.filter.length;
+			for (i = 0; i < length; i++) {
+				index = this.cacheData.filter[i];
+				img = filterBtns[index].getElementsByTagName('img')[0];
+				this.drawFilter(img, index, false);
+			}
+
+			var textarea = document.getElementsByTagName('textarea')[0];
+			textarea.value = this.cacheData.content;
+			this.drawText(this.cacheData.content);
 		}
 	}, {
 		key: 'animate',
@@ -1521,13 +1652,6 @@ var Share = function () {
 
       _Util2.default.loading.showLoading('Gifアニメを生成しています。');
       this.submit(blob, lat, lng, content, imgType);
-
-      localStorage.removeItem('cacheImgBase64');
-      localStorage.removeItem('cacheImgType');
-      localStorage.removeItem('cacheMessage');
-      localStorage.removeItem('cacheProvider');
-      localStorage.removeItem('cacheLat');
-      localStorage.removeItem('cacheLng');
     }
   }
 
@@ -1544,6 +1668,17 @@ var Share = function () {
       this.element.style.display = 'none';
     }
   }, {
+    key: 'removeStorageItem',
+    value: function removeStorageItem() {
+
+      localStorage.removeItem('cacheImgBase64');
+      localStorage.removeItem('cacheImgType');
+      localStorage.removeItem('cacheMessage');
+      localStorage.removeItem('cacheProvider');
+      localStorage.removeItem('cacheLat');
+      localStorage.removeItem('cacheLng');
+    }
+  }, {
     key: 'btnClickHandler',
     value: function btnClickHandler(provider, e) {
 
@@ -1553,12 +1688,14 @@ var Share = function () {
 
       this.provider = provider;
       var str = 'Gifアニメを生成しています。';
+      var notLoginFlag = false;
       if (this.provider == 'twitter' && _Util2.default.loginProvider != 'twitter' || this.provider == 'facebook' && _Util2.default.loginProvider != 'facebook') {
         str = 'ログインしています。';
+        notLoginFlag = true;
         e.preventDefault();
       }
       _Util2.default.loading.showLoading(str);
-      this.element.dispatchEvent(new CustomEvent('ysdCallback', { detail: { value: { type: 'generateGif' } } }));
+      this.element.dispatchEvent(new CustomEvent('ysdCallback', { detail: { value: { type: 'generateGif', notLoginFlag: notLoginFlag } } }));
     }
   }, {
     key: 'submit',

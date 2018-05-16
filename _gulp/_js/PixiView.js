@@ -8,6 +8,8 @@ export default class PixiView{
 
 		this.element = document.querySelector( '.map .pixi' );  	
 
+
+
 		this.stage = new PIXI.Stage();
 		this.renderer = PIXI.autoDetectRenderer( 320, 320, {  transparent: true, antialias : true, resolution:2, backgroundColor:0x00000000, preserveDrawingBuffer: true } );
 		this.element.appendChild( this.renderer.view );
@@ -110,6 +112,22 @@ export default class PixiView{
 		//カメラ　アニメーション用
 		this.animationData = { frames:[] };
 
+
+		//データ保存
+	    if( localStorage.getItem('pixiCacheData') ){
+	      this.cacheData = JSON.parse( localStorage.getItem('pixiCacheData') );
+	      this.setCaches();
+	      localStorage.removeItem('pixiCacheData');
+	      this.show();
+	    }else{
+	      this.cacheData = { stamp:[], decoration:[], filter:[], content:'' };
+	    }
+
+	    // window.addEventListener("unload", function() {
+	    //   var str = JSON.stringify( this.cacheData );
+	    //   localStorage.setItem( 'pixiCacheData', str );
+	    // }.bind( this ), false);
+
 	}
 
 
@@ -179,7 +197,15 @@ export default class PixiView{
 	}
 
 
-	drawStamp( img ){
+	drawStamp( img, index, cacheFlag ){
+      	
+      	if( cacheFlag ){
+		    if( index == 0 ){
+		      this.cacheData.stamp = [];
+		    }else{
+		      this.cacheData.stamp.push( { index:index, x:0, y:0 } );
+		    }
+		}
 
 		if( !img ){
 			for( var i = 0; i < this.stamps.length; i++ ){
@@ -200,16 +226,26 @@ export default class PixiView{
 		stamp.on('pointerdown', this.onDragStart.bind( this ))
 	        .on('pointerup', this.onDragEnd.bind( this ))
 	        .on('pointerupoutside', this.onDragEnd.bind( this ))
-	        .on('pointermove', this.onDragMove);
+	        .on('pointermove', this.onDragMove.bind( this, this.cacheData.stamp.length-1 ));
 	    stamp.interactive = true;
 		stamp.buttonMode = true;
 		this.stamps.push( stamp );
 		this.container.addChild( stamp );
 
+		return stamp;
+
 	}
 
 
-	drawDecoration( img, index ){
+	drawDecoration( img, index, cacheFlag ){
+
+      	if( cacheFlag ){
+		    if( index == 0 ){
+		      this.cacheData.decoration = [];
+		    }else{
+		      this.cacheData.decoration.push( index );
+		    }
+		}
 
 		if( !img ){
 			for( var i = 0; i < this.decorations.length; i++ ){
@@ -232,7 +268,15 @@ export default class PixiView{
 	}
 
 
-	drawFilter( img, index ){
+	drawFilter( img, index, cacheFlag ){
+
+      	if( cacheFlag ){
+		    if( index == 0 ){
+		      this.cacheData.filter = [];
+		    }else{
+		      this.cacheData.filter.push( index );
+		    }
+		}
 
 		if( this.filterNames[index] == 'なし' ){
 			this.container.filters = [];
@@ -249,6 +293,8 @@ export default class PixiView{
 
 
 	drawText( text ){
+
+		this.cacheData.content = text;
 
 		this.text.text = text;
 		this.text.x = ( 320 - this.text.width ) * 0.5;
@@ -438,12 +484,65 @@ export default class PixiView{
 	    target.dragging = false;
 	}
 
-	onDragMove() {
-	    if (this.dragging) {
-	        var newPosition = this.data.getLocalPosition(this.parent);
-	        this.x = newPosition.x;
-	        this.y = newPosition.y;
+	onDragMove( i, e ) {
+		var target = e.currentTarget;
+	    if (target.dragging) {
+	        var newPosition = target.data.getLocalPosition(target.parent);
+	        target.x = newPosition.x;
+	        target.y = newPosition.y;
+	        this.cacheData.stamp[i].x = target.x;
+	        this.cacheData.stamp[i].y = target.y;
 	    }
+	}
+
+
+	saveData(){
+
+		var str = JSON.stringify( this.cacheData );
+		localStorage.setItem( 'pixiCacheData', str );
+
+	}
+
+
+	setCaches(){
+
+  		var stamps = document.querySelector( '.editor .stamps' );
+  		var decorations = document.querySelector( '.editor .decorations' );
+  		var filters = document.querySelector( '.editor .filters' );
+
+	    var stampBtns = stamps.getElementsByTagName( 'li' );
+	    var decorationBtns = decorations.getElementsByTagName( 'li' );
+	    var filterBtns = filters.getElementsByTagName( 'li' );
+
+		var length = this.cacheData.stamp.length;
+		for( var i = 0; i < length; i++ ){
+		  var obj = this.cacheData.stamp[i];
+		  var index = obj.index;
+		  var img = stampBtns[index].getElementsByTagName( 'img' )[0];
+		  var stamp = this.drawStamp( img, index, false );
+		  stamp.x = obj.x;
+		  stamp.y = obj.y;
+		}
+
+		length = this.cacheData.decoration.length;
+		for( i = 0; i < length; i++ ){
+		  index = this.cacheData.decoration[i];
+		  img = decorationBtns[index].getElementsByTagName( 'img' )[0];
+		  this.drawDecoration( img, index, false );
+		}
+
+		length = this.cacheData.filter.length;
+		for( i = 0; i < length; i++ ){
+		  index = this.cacheData.filter[i];
+		  img = filterBtns[index].getElementsByTagName( 'img' )[0];
+		  this.drawFilter( img, index, false );
+		}
+
+
+	    var textarea = document.getElementsByTagName( 'textarea' )[0];
+	    textarea.value = this.cacheData.content;
+		this.drawText( this.cacheData.content );
+
 	}
 
 

@@ -19,11 +19,7 @@ export default class Editor{
 
     this.addBtns( 'stamp' );
     this.addBtns( 'decoration' );
-    this.filterBtns = this.filters.getElementsByTagName( 'li' );
-    var length = this.filterBtns.length;
-    for( var i = 0; i < length; i++ ){
-      this.filterBtns[i].addEventListener( Util.clickEventName, this.filterBtnClickHandler.bind( this, i ) )
-    }
+    
 
 
     this.submitBtn = this.element.getElementsByClassName( 'btn0' )[0];
@@ -81,6 +77,17 @@ export default class Editor{
   }
 
 
+  initFilterBtns(){
+    
+    this.filterBtns = this.filters.getElementsByTagName( 'li' );
+    var length = this.filterBtns.length;
+    for( var i = 0; i < length; i++ ){
+      this.filterBtns[i].addEventListener( Util.clickEventName, this.filterBtnClickHandler.bind( this, i ) )
+    }
+
+  }
+
+
   selectBtnClickHandler( type ){
     
     // if( Util.ua.platform != 'pc' ){
@@ -120,10 +127,6 @@ export default class Editor{
 
   stampBtnClickHandler( i ){
 
-    // if( Util.ua.platform != 'pc' ){
-    //   if( new Date().getTime() - Util.downTime > Util.touchHitTime ) return;
-    // }
-
     var img = this.stampBtns[i].getElementsByTagName( 'img' )[0];
     this.element.dispatchEvent( new CustomEvent( 'ysdCallback', { detail:{ value:{ type:'selectStamp', img:img, index:i } } } ) );
 
@@ -132,10 +135,6 @@ export default class Editor{
 
   decorationBtnClickHandler( i ){
 
-    // if( Util.ua.platform != 'pc' ){
-    //   if( new Date().getTime() - Util.downTime > Util.touchHitTime ) return;
-    // }
-
     var img = this.decorationBtns[i].getElementsByTagName( 'img' )[0];
     this.element.dispatchEvent( new CustomEvent( 'ysdCallback', { detail:{ value:{ type:'selectDecoration', img:img, index:i } } } ) );
 
@@ -143,10 +142,6 @@ export default class Editor{
 
 
   filterBtnClickHandler( i ){
-
-    // if( Util.ua.platform != 'pc' ){
-    //   if( new Date().getTime() - Util.downTime > Util.touchHitTime ) return;
-    // }
 
     var img = this.filterBtns[i].getElementsByTagName( 'img' )[0];
     this.element.dispatchEvent( new CustomEvent( 'ysdCallback', { detail:{ value:{ type:'selectFilter', img:img, index:i } } } ) );

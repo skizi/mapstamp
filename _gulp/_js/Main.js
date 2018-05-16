@@ -46,10 +46,6 @@ class Main{
     this.header = document.getElementsByTagName( 'header' )[0];
 
 
-    this.map = new Map();
-    this.map.element.addEventListener( 'ysdCallback', this.mapCallBackHandler.bind( this ) );
-
-
     this.aboutContainer = document.getElementsByClassName( 'about_container' )[0];
     // if( !this.aboutContainer.getElementsByClassName( 'twitter' )[0] ){
       this.startBtns = this.aboutContainer.getElementsByClassName( 'start_btn' );
@@ -65,6 +61,11 @@ class Main{
 
     this.editor = new Editor();
     this.editor.element.addEventListener( 'ysdCallback', this.editorCallBackHandler.bind( this ) );
+
+
+    this.map = new Map();
+    this.map.element.addEventListener( 'ysdCallback', this.mapCallBackHandler.bind( this ) );
+    this.editor.initFilterBtns();
 
 
     this.textEditor = document.getElementsByClassName( 'text_editor' )[0];
@@ -131,6 +132,31 @@ class Main{
 
     }.bind(this) );
     */
+
+    if( localStorage.getItem('cacheImgBase64') ){
+
+        this.aboutContainer.style.display = 'none';
+
+        this.state = 'share';
+
+        this.prevBtn.style.display = 'block';
+        this.nextBtn.style.display = 'none';
+
+        //map
+        this.map.setInterface( 'share' );
+        this.map.setHeight( 320 );
+        var lat = localStorage.getItem('cacheLat');
+        var lng = localStorage.getItem('cacheLng');
+        this.map.setLatLng( lat, lng );
+        setTimeout(function(){
+          this.map.capture();
+        }.bind( this ), 1000 );
+
+        //share
+        this.share.show();
+        this.share.removeStorageItem();
+
+    }
     
   }
 
@@ -344,6 +370,9 @@ class Main{
 
       case 'generateGif':
         this.map.generateGif();
+        if( obj.notLoginFlag ){//今からログインする場合はデータ保存
+          this.map.saveData();
+        }
         break;
 
     }

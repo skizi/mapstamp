@@ -165,21 +165,21 @@ export default class Map{
 
   addStamp( img, index ){
 
-    this.pixiView.drawStamp( img, index );
+    this.pixiView.drawStamp( img, index, true );
 
   }
 
 
   addDecoration( img, index ){
 
-    this.pixiView.drawDecoration( img, index );
+    this.pixiView.drawDecoration( img, index, true );
     
   }
 
 
   addFilter( img, index ){
 
-    this.pixiView.drawFilter( img, index );
+    this.pixiView.drawFilter( img, index, true );
 
   }
 
@@ -282,9 +282,10 @@ export default class Map{
         
         }else{//初回アクセス
 
-          this.map.setView( latLng, 16 );
-          this.userMaker = L.marker([ latLng.lat, latLng.lng ]).addTo(this.map);
-        
+          if( !localStorage.getItem('cacheImgBase64') ){
+            this.map.setView( latLng, 16 );
+            this.userMaker = L.marker([ latLng.lat, latLng.lng ]).addTo(this.map);
+          }
         }
       }.bind( this ),
       function( error ){
@@ -310,6 +311,22 @@ export default class Map{
     this.pixiView.encodeGifAnimation( function(){
       this.pixiView.generateGifAnimation();
     }.bind( this ) );
+
+  }
+
+
+  setLatLng( lat, lng ){
+
+    var latLng = L.latLng( lat, lng );
+    this.map.setView( latLng, 16 );
+    this.userMaker = L.marker([ latLng.lat, latLng.lng ]).addTo(this.map);
+
+  }
+
+
+  saveData(){
+
+    this.pixiView.saveData();
 
   }
 
