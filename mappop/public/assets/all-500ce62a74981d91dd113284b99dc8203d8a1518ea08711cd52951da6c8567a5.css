@@ -1,5 +1,6 @@
-@charset "UTF-8";
+
 /** Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/) http://cssreset.com */
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
 
 /* HTML5 display-role reset for older browsers */
@@ -622,14 +623,14 @@ input[type="submit"], input[type="button"] { border-radius: 0; -webkit-box-sizin
 input[type="submit"]::-webkit-search-decoration, input[type="button"]::-webkit-search-decoration { display: none; }
 input[type="submit"]::focus, input[type="button"]::focus { outline-offset: -2px; }
 
-header { width: 100%; height: 60px; background-color: #fff; border-bottom: 3px solid #ebb314; box-sizing: border-box; box-shadow: 0px 0px 3px 3px rgba(1, 1, 1, 0.1); }
+header { width: 100%; height: 50px; background-color: #fff; border-bottom: 3px solid #ebb314; box-sizing: border-box; box-shadow: 0px 0px 3px 3px rgba(1, 1, 1, 0.1); }
 header .inner { margin: 0 auto; position: relative; }
-header h2 { width: 118px; margin: 0 auto; padding: 9px 0 6px; }
+header h2 { width: 118px; margin: 0 auto; padding-top: 12px; }
 header h2 img { width: 100%; }
-header h1 { width: 100%; font-size: 10px; text-align: center; color: #ebb314; }
-header a.prev, header a.next { position: absolute; right: 20px; top: 23px; text-decoration: none; display: none; color: #ff8e73; font-size: 14px; }
+header h1 { font-size: 10px; width: 100%; text-align: center; }
+header a.prev, header a.next { position: absolute; right: 14px; top: 18px; text-decoration: none; display: none; color: #ff8e73; font-size: 14px; }
 header a.prev:visited, header a.prev:link, header a.next:visited, header a.next:link { color: #ff8e73; }
-header a.prev.prev, header a.next.prev { left: 20px; right: auto; }
+header a.prev.prev, header a.next.prev { left: 14px; right: auto; }
 header a.login_btn { width: 100px; height: 36px; line-height: 36px; background-color: #ebb313; display: block; position: absolute; top: 13px; right: 13px; border-radius: 5px; color: #fff; text-align: center; text-decoration: none; font-size: 13px; display: none; }
 header a.main_menu_btn { width: 24px; height: 13px; display: block; position: absolute; top: 24px; left: 25px; }
 header a.main_menu_btn img { width: 100%; }
@@ -1298,7 +1299,6 @@ body.home_index .interface .editor .select_menu { overflow: hidden; *zoom: 1; wi
 body.home_index .interface .editor .select_menu li { width: 33%; height: 50px; line-height: 50px; float: left; text-align: center; cursor: pointer; border-radius: 80px; user-select: none; }
 body.home_index .interface .editor .select_menu li:first-child { background-color: #f2f2f2; }
 body.home_index .interface .text_editor textarea { width: 300px; max-width: 290px; height: 40px; line-height: 40px; margin: 0 auto 10px; display: block; float: none; text-align: center; }
-body.home_index .interface .share textarea { width: 300px; max-width: 290px; height: 60px; line-height: 30px; margin: 0 auto 10px; display: block; float: none; text-align: left; }
 body.home_index .interface .share .btn0 { margin-bottom: 20px; }
 body.home_index .interface .share img.gif { width: 200px; margin: 0 auto 50px; display: block; }
 body.home_index .howto { text-align: left; width: 300px; margin: 0 auto; }

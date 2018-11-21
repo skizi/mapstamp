@@ -16,20 +16,40 @@ export default class Share{
     this.authenticity_token = document.getElementById( 'authenticity_token' ).value;
 
     //FaceBookのSDKをロード
-    $.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
-      FB.init({
-        appId: '1604539589666300',
-        version: 'v2.7' // or v2.1, v2.2, v2.3, ...
-      });
+    // $.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
+    //   FB.init({
+    //     appId: '1604539589666300',
+    //     version: 'v2.7' // or v2.1, v2.2, v2.3, ...
+    //   });
 
-      FB.getLoginStatus(function( e ){
-        if( e.authResponse ){
-          Util.faceBookLoginFlag = true;
-          Util.faceBookUserId = e.authResponse.userID;
-          Util.faceBookToken = e.authResponse.accessToken;
-        }
+    //   FB.getLoginStatus(function( e ){
+    //     if( e.authResponse ){
+    //       Util.faceBookLoginFlag = true;
+    //       Util.faceBookUserId = e.authResponse.userID;
+    //       Util.faceBookToken = e.authResponse.accessToken;
+    //     }
+    //   });
+    // });
+
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1604539589666300',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v2.7'
       });
-    });
+        
+      FB.AppEvents.logPageView();   
+        
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
 
 
     if( localStorage.getItem('cacheImgBase64') ){
@@ -207,7 +227,7 @@ export default class Share{
     var name = 'anime.' + type;
     formData.append( 'upfile', blob, name );
     formData.append( 'provider', 'twitter' );
-    message += ' | スタンプでデコって現在地を共有できるwebサービス、MapStamp！ https://www.mapstamp.net #MapStamp Map data © OpenStreetMap'
+    message = message + ' | スタンプでデコって現在地を共有できるwebサービス、MapStamp！ https://www.mapstamp.net #MapStamp Map data © OpenStreetMap'
     formData.append( 'message', message );
 
     var url = Util.apiHeadUrl + '/home/post_sns';

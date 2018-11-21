@@ -47,7 +47,7 @@ export default class Editor{
     if( type == 'stamp' ){
       var ul = this.stamps;
       var func = this.stampBtnClickHandler;
-      var length = 78 + 1;
+      var length = 81 + 1;
     }else if( type == 'decoration' ){
       length = 13 + 1;
       ul = this.decorations;
@@ -55,7 +55,7 @@ export default class Editor{
     }
 
     var none = document.createElement( 'li' );
-    none.innerHTML = 'なし';
+    none.innerHTML = '全削除';
     ul.appendChild( none );
     var btns = [ none ];
     for( var i = 0; i < length; i++ ){

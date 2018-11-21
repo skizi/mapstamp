@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 	get 'privacypolicy' => 'home#privacypolicy'
 	get 'rule' => 'home#rule'
 	get 'help' => 'home#help'
+	get 'info' => 'home#info'
 
 	get 'login' => 'sessions#new'
 	# 'sessions#new'
@@ -25,12 +26,12 @@ Rails.application.routes.draw do
 	get 'users/new' => 'users#new'
 	get 'users/token/:uuid' => 'users#token'
 	get 'users/tmp'
-	get 'users/all'
+	get 'users/all' => redirect('/') #productionで閲覧されないように
 	get 'users/:id' => 'users#show'
 	post 'users/upload_process'
 
 
-	get 'post_images/all'
+	get 'post_images/all' => redirect('/') #productionで閲覧されないように
 	post 'post_images/create'
 	get 'post_images/:id' => 'post_images#show'
 
@@ -40,5 +41,8 @@ Rails.application.routes.draw do
 
 
 	get 'users/index'
+
+	#404, 500エラー処理
+	get '*path', controller: 'application', action: 'render_404'
 
 end

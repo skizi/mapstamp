@@ -1,5 +1,6 @@
-@charset "UTF-8";
+
 /** Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/) http://cssreset.com */
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
 
 /* HTML5 display-role reset for older browsers */
@@ -1298,7 +1299,6 @@ body.home_index .interface .editor .select_menu { overflow: hidden; *zoom: 1; wi
 body.home_index .interface .editor .select_menu li { width: 33%; height: 50px; line-height: 50px; float: left; text-align: center; cursor: pointer; border-radius: 80px; user-select: none; }
 body.home_index .interface .editor .select_menu li:first-child { background-color: #f2f2f2; }
 body.home_index .interface .text_editor textarea { width: 300px; max-width: 290px; height: 40px; line-height: 40px; margin: 0 auto 10px; display: block; float: none; text-align: center; }
-body.home_index .interface .share textarea { width: 300px; max-width: 290px; height: 60px; line-height: 30px; margin: 0 auto 10px; display: block; float: none; text-align: left; }
 body.home_index .interface .share .btn0 { margin-bottom: 20px; }
 body.home_index .interface .share img.gif { width: 200px; margin: 0 auto 50px; display: block; }
 body.home_index .howto { text-align: left; width: 300px; margin: 0 auto; }
@@ -1341,3 +1341,19 @@ body.home_privacypolicy .container ul, body.home_rule .container ul, body.home_h
 @media screen and (min-width: 375px) { body.home_privacypolicy .container, body.home_rule .container, body.home_help .container { width: 600px; margin: 0 auto; padding: 50px 0; }
   body.home_privacypolicy .container p, body.home_rule .container p, body.home_help .container p { margin-bottom: 40px; } }
 body.post_images_show img.post_image { width: 280px; margin: 0 auto; display: block; padding: 20px 0 20px; }
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */
+

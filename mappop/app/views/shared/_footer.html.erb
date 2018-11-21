@@ -16,6 +16,9 @@
 					<li>
 						<%= link_to 'プライバシーポリシー', :controller => "home", :action => "privacypolicy" %>
 					</li>
+					<li>
+						<%= link_to '運営者情報', :controller => "home", :action => "info" %>
+					</li>
 					<% if logged_in? %>
 					<li>
 						<%= link_to "ログアウト", logout_path, method: :delete %>

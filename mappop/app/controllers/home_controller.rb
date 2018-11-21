@@ -32,6 +32,7 @@ class HomeController < ApplicationController
 			  # config.access_token_secret = "31pi6NnKaKjgbkIUKlCypFRGLSNz5bwY61bSYZz2raiLR"
 			end
 		elsif params['provider'] == 'facebook'
+			#以下のトークンは使用していない
 			token = 'EAAWzUfxFJfwBAFhFlD1lUaNrXZB3xDwyUmveOHK2zDMUPePXFYvtZAy8ZCgS3SWR3slWr3R5tLcTqYm0vxHlNZATdHRMNrb46Nlqbj3MHtrn2RBXz2ZBL4ErJ0oZCSovVN9uaCZAbTJBGfAwsOaNp3XjiltOPjkl04j8BGmQTCCuEAT2rDV8JilExD8amkdzWOBB4PNVoUQMAZDZD'
 		    graph = Koala::Facebook::API.new( session[:token] )
 		end

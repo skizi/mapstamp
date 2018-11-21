@@ -49,7 +49,7 @@ export default class PixiView{
 		//this.filters[3].size = 10; //ascii
 
 
-		this.filterNames = [ 'なし', 'フィルム', 'ズーム', /*'Ascii',*/ 'ドット', 'モザイク', /*'Bloom',*/ 'グレー' ];
+		this.filterNames = [ '全削除', 'フィルム', 'ズーム', /*'Ascii',*/ 'ドット', 'モザイク', /*'Bloom',*/ 'グレー' ];
 
 	    var _filters = document.querySelector( '.editor .filters' );
 	    var length = this.filters.length;
@@ -278,7 +278,7 @@ export default class PixiView{
 		    }
 		}
 
-		if( this.filterNames[index] == 'なし' ){
+		if( this.filterNames[index] == '全削除' ){
 			this.container.filters = [];
 			return;
 		}

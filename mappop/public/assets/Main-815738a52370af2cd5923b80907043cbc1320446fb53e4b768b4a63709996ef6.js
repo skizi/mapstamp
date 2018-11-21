@@ -142,7 +142,7 @@ var Editor = function () {
       if (type == 'stamp') {
         var ul = this.stamps;
         var func = this.stampBtnClickHandler;
-        var length = 81 + 1;
+        var length = 78 + 1;
       } else if (type == 'decoration') {
         length = 13 + 1;
         ul = this.decorations;
@@ -582,8 +582,6 @@ var Main = function () {
           break;
 
       }
-
-      gtag('event', this.state, { 'event_category': 'prevState', 'event_label': 'click', 'value': this.state });
     }
   }, {
     key: 'nextBtnClickHandler',
@@ -624,8 +622,6 @@ var Main = function () {
           break;
 
       }
-
-      gtag('event', this.state, { 'event_category': 'nextState', 'event_label': 'click', 'value': this.state });
     }
   }, {
     key: 'startBtnClickHandler',
@@ -676,8 +672,6 @@ var Main = function () {
         //   break;
 
         case 'generateBlob':
-          var pluseMessage = document.getElementsByClassName('pluse_message')[0].value;
-          obj.content = pluseMessage + ' ' + obj.content;
           this.share.submit(obj.blob, obj.lat, obj.lng, obj.content, obj.imgType);
           break;
 
@@ -1646,42 +1640,20 @@ var Share = function () {
     this.authenticity_token = document.getElementById('authenticity_token').value;
 
     //FaceBookのSDKをロード
-    // $.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
-    //   FB.init({
-    //     appId: '1604539589666300',
-    //     version: 'v2.7' // or v2.1, v2.2, v2.3, ...
-    //   });
-
-    //   FB.getLoginStatus(function( e ){
-    //     if( e.authResponse ){
-    //       Util.faceBookLoginFlag = true;
-    //       Util.faceBookUserId = e.authResponse.userID;
-    //       Util.faceBookToken = e.authResponse.accessToken;
-    //     }
-    //   });
-    // });
-
-    window.fbAsyncInit = function () {
+    $.getScript('https://connect.facebook.net/en_US/sdk.js', function () {
       FB.init({
         appId: '1604539589666300',
-        cookie: true,
-        xfbml: true,
-        version: 'v2.7'
+        version: 'v2.7' // or v2.1, v2.2, v2.3, ...
       });
 
-      FB.AppEvents.logPageView();
-    };
-
-    (function (d, s, id) {
-      var js,
-          fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {
-        return;
-      }
-      js = d.createElement(s);js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    })(document, 'script', 'facebook-jssdk');
+      FB.getLoginStatus(function (e) {
+        if (e.authResponse) {
+          _Util2.default.faceBookLoginFlag = true;
+          _Util2.default.faceBookUserId = e.authResponse.userID;
+          _Util2.default.faceBookToken = e.authResponse.accessToken;
+        }
+      });
+    });
 
     if (localStorage.getItem('cacheImgBase64')) {
       var base64 = localStorage.getItem('cacheImgBase64');
@@ -1845,7 +1817,7 @@ var Share = function () {
       var name = 'anime.' + type;
       formData.append('upfile', blob, name);
       formData.append('provider', 'twitter');
-      message = message + ' | スタンプでデコって現在地を共有できるwebサービス、MapStamp！ https://www.mapstamp.net #MapStamp Map data © OpenStreetMap';
+      message += ' | スタンプでデコって現在地を共有できるwebサービス、MapStamp！ https://www.mapstamp.net #MapStamp Map data © OpenStreetMap';
       formData.append('message', message);
 
       var url = _Util2.default.apiHeadUrl + '/home/post_sns';

@@ -72,6 +72,7 @@ class Main{
     this.textEditorBtn = this.textEditor.getElementsByClassName( 'btn0' )[0];
     this.textEditorBtn.addEventListener( Util.clickEventName, function(){
       this.nextBtnClickHandler();
+      this.moveTo.move( this.header );
     }.bind( this ) );
     this.textarea = this.textEditor.getElementsByTagName( 'textarea' )[0];
     var oldText = this.textarea.value;
@@ -157,6 +158,17 @@ class Main{
         this.share.removeStorageItem();
 
     }
+
+
+    setTimeout(function(){
+
+        this.captureBtnContainer.style.display = 'none';
+        this.editor.hide();
+        this.textEditor.style.display = 'none';
+        this.animationEditor.hide();
+        this.share.hide();
+
+    }.bind( this ), 1000 );
     
   }
 
@@ -220,6 +232,7 @@ class Main{
 
     }
 
+    gtag('event', this.state, {'event_category': 'prevState', 'event_label': 'click', 'value': this.state });
   }
 
 
@@ -261,7 +274,8 @@ class Main{
 
     }
 
-    this.moveTo.move( this.header );
+
+    gtag('event', this.state, {'event_category': 'nextState', 'event_label': 'click', 'value': this.state });
 
   }
 
@@ -279,6 +293,8 @@ class Main{
     this.map.setInterface( 'map' );
     this.map.setHeight( 320 );
 
+    this.moveTo.move( this.header );
+
   }
 
 
@@ -288,6 +304,8 @@ class Main{
     this.state = 'editor';
     this.map.setInterface( 'editor' );
     this.setEditor();
+
+    this.moveTo.move( this.header );
 
   }
 
@@ -312,6 +330,8 @@ class Main{
       //   break;
 
       case 'generateBlob':
+        var pluseMessage = document.getElementsByClassName( 'pluse_message' )[0].value;
+        obj.content = pluseMessage + ' ' + obj.content;
         this.share.submit( obj.blob, obj.lat, obj.lng, obj.content, obj.imgType );
         break;
 
@@ -338,6 +358,7 @@ class Main{
 
       case 'submit':
         this.nextBtnClickHandler();
+        this.moveTo.move( this.header );
         break;
 
     }
@@ -356,6 +377,7 @@ class Main{
 
       case 'submit':
         this.nextBtnClickHandler();
+        this.moveTo.move( this.header );
         break;
 
     }

@@ -2,6 +2,10 @@
 @import "mixin";
 
 
+.adsbygoogle {
+	margin:0 auto 20px;
+}
+
 
 .border_text{
 	display:block;
@@ -150,7 +154,7 @@ body.home_index{
 		}
 
 	    .capture_btn_container{
-	        display: none;
+	        //display:none;
 	        text-align: center;
 
 	        p{
@@ -164,7 +168,7 @@ body.home_index{
 	    }
 
 		.editor{
-			display:none;
+			//display:none;
 
 			ul{
 				&.decorations{
@@ -201,7 +205,7 @@ body.home_index{
 
 
 		.text_editor{
-			display:none;
+			//display:none;
 
 			textarea{
 				width: 300px;
@@ -217,12 +221,23 @@ body.home_index{
 
 
 		.animation_editor{
-			display:none;
+			//display:none;
 		}
 
 
 		.share{
-			display:none;
+			//display:none;
+
+			textarea{
+				width: 300px;
+				max-width: 290px;
+				height: 60px;
+				line-height: 30px;
+				margin: 0 auto 10px;
+			    display: block;
+				float:none;
+			    text-align: left;
+			}
 
 			.btn0{
 				margin-bottom: 20px;
@@ -442,7 +457,8 @@ body.users_show{
 
 body.home_privacypolicy,
 body.home_rule,
-body.home_help{
+body.home_help,
+body.home_info{
 
 	.container{
 	    padding: 30px 20px 40px;

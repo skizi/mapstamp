@@ -6,7 +6,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :facebook,
   		Rails.application.secrets.facebook_api_key,
   		Rails.application.secrets.facebook_api_secret,
-		scope: "user_photos, user_videos, user_status, publish_actions, pages_show_list, public_profile",
+		scope: "email",
 		display: "popup",
 		client_options: {
 			site: 'https://graph.facebook.com/v2.12',
