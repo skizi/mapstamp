@@ -5,6 +5,8 @@ Railsで作られたスタンプを地図上にデコることができる、位
 ・サーバーサイドAPI : Rails  
 ・インフラ : nginx  
 ・Webフロントエンド : gulp, babel, sass  
+ruby 2.4.3  
+Rails 5.1.6   
 
 ## できること
 ・イラストのデコレーション  
