@@ -8,7 +8,9 @@ var plumber   = require('gulp-plumber');
 var source = require('vinyl-source-stream');// bundle の返したファイルストリームを vinyl に変換
 var babelify = require('babelify');
 var browserify = require('browserify');
+const browserSync = require("browser-sync");
 var notify = require('gulp-notify');
+const vueify = require('vueify');
 
 
 
@@ -42,28 +44,68 @@ gulp.task('concat_libs', function() {
 });
 
 
-gulp.task('concat', function() {
+// gulp.task('concat', function() {
 
-    var jsFiles = [
-            'Main.js',
-            'Common.js',
-        ];
-    jsFiles.forEach(function(fileName) {
-        browserify({
-                entries: "./_js/" + fileName,
-                extensions: [".js"]
-            })
-            .transform(babelify, {presets: ['es2015']})
-            .bundle()
-            .on("error", function (err) {
-                console.log("Error : " + err.message);
-                this.emit("end");
-            })
-            .pipe(source( fileName ))
-            .pipe(gulp.dest( '../mappop/app/assets/javascripts' ))
-            .pipe(notify('jsコンパイル完了'));
+//     var jsFiles = [
+//             'Main.js',
+//             'Common.js',
+//         ];
+//     jsFiles.forEach(function(fileName) {
+//         browserify({
+//                 entries: "./_js/" + fileName,
+//                 extensions: [".js"]
+//             })
+//             .transform(babelify, {presets: ['es2015']})
+//             .bundle()
+//             .on("error", function (err) {
+//                 console.log("Error : " + err.message);
+//                 this.emit("end");
+//             })
+//             .pipe(source( fileName ))
+//             .pipe(gulp.dest( '../mappop/app/assets/javascripts' ))
+//             .pipe(notify('jsコンパイル完了'));
+//     });
+// });
+
+let jsEntities = {
+    src: 'vue',
+    dest: 'mappop/app/assets/javascripts',
+    files: [
+      'app.js'
+    ]
+};
+
+var envify = require('envify/custom');
+gulp.task('vue', () => {
+    jsEntities.files.forEach(entry => {
+        browserify(path.join(jsEntities.src, entry), {
+            debug: false,
+            extensions: ['.js', '.vue'],
+            transform: [
+                [vueify, {
+                    sass: {
+                        // includePaths: ["./src/sass/import/_vars.scss"]
+                    }
+                }],
+                babelify.configure({ 'presets': ['es2015'] })
+            ],
+        })
+        .transform(
+            { global: true },
+            envify({ NODE_ENV: 'production' })
+        )
+        .bundle()
+        .on('error', err => {
+            console.log(err.message);
+            console.log(err.stack);
+        })
+        .pipe(source(entry))
+        .pipe(buffer())
+        .pipe(gulp.dest(jsEntities.dest))
+        .pipe(browserSync.reload({stream:true}));
     });
 });
+
 
 //Sassファイル(Compass)をコンパイル
 gulp.task('compass', function() {
