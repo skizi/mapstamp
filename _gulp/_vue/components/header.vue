@@ -8,8 +8,8 @@
 
 
 <style lang="sass" scoped>
-  @import "../../sass/import/_vars.scss";
-  @import "../../sass/import/_header.scss";
+  /*@import "../../sass/import/_vars.scss";*/
+  /*@import "../../sass/import/_header.scss";*/
 </style>
 
 

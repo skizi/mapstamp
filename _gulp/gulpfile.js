@@ -8,9 +8,11 @@ var plumber   = require('gulp-plumber');
 var source = require('vinyl-source-stream');// bundle の返したファイルストリームを vinyl に変換
 var babelify = require('babelify');
 var browserify = require('browserify');
+const path = require('path');
 const browserSync = require("browser-sync");
 var notify = require('gulp-notify');
 const vueify = require('vueify');
+const buffer = require('vinyl-buffer');
 
 
 
@@ -68,7 +70,7 @@ gulp.task('concat_libs', function() {
 // });
 
 let jsEntities = {
-    src: 'vue',
+    src: '_vue',
     dest: 'mappop/app/assets/javascripts',
     files: [
       'app.js'
@@ -134,13 +136,16 @@ gulp.task('default', function() {
         gulp.run('concat_libs');
     });
 
-    gulp.watch('_js/**/*.js', function(event) {
-        gulp.run('concat');
-    });
+    // gulp.watch('_js/**/*.js', function(event) {
+    //     gulp.run('concat');
+    // });
 
     //Sassファイルの変更を監視
     gulp.watch('_scss/**', function(event) {
         gulp.run('compass');
     });
+
+    //vue
+    gulp.watch(path.join(jsEntities.src, '**/*.*'), ['vue']);
 
 });

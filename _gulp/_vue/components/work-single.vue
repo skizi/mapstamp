@@ -7,7 +7,7 @@
 
 
 <style lang="sass">
-  @import "../../sass/import/_vars.scss";
+  /*@import "../../sass/import/_vars.scss";*/
 </style>
 
 

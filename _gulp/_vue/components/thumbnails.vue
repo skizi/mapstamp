@@ -16,8 +16,8 @@
 
 
 <style lang="sass">
-  @import "../../sass/import/_vars.scss";
-  @import "../../sass/import/_thumbnails.scss";
+  /*@import "../../sass/import/_vars.scss";*/
+  /*@import "../../sass/import/_thumbnails.scss";*/
 </style>
 
 
