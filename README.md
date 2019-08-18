@@ -13,4 +13,4 @@ Railsで作られたスタンプを地図上にデコることができる、位
 ・フィルターのデコレーション  
 ・アニメーションさせることができる  
 ・TwitterとFaceBookへのシェア  
-<img src="http://skizi.jp/portfolio/private/img/mapstamp.jpg" width="300">
+<img src="http://skizi.jp/img/mapstamp.jpg" width="300">
