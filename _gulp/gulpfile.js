@@ -71,7 +71,7 @@ gulp.task('concat_libs', function() {
 
 let jsEntities = {
     src: '_vue',
-    dest: 'mappop/app/assets/javascripts',
+    dest: '../mappop/app/assets/javascripts',
     files: [
       'app.js'
     ]
