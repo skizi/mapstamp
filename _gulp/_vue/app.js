@@ -29,12 +29,18 @@ const app = new Vue({
   // el: '#app',
   // router : router,
   store : store,
-  render: h => h(Index),
-
   mounted : function(){
-    // alert(1);
   },
+  el: '#app',
+  // components: { Index },
+  data: {
+    nowState: "hogege"// store.getters.nowState
+  },
+  render: function(h){
+    return h( Index )
+  },
+  // template: '<Index v-bind:nowState="nowState" />'
 
-}).$mount('#app')
+});//.$mount('#app')
 
 

@@ -19,6 +19,7 @@ const store = new Vuex.Store({
 	 * ミューテーション以外から直接書き換えてはいけない。
 	 */
 	state : {
+		nowState : 'about',
 		works : [
 			{ id:0, title:'ガンスターヒーローズ', category:'action' },
 			{ id:1, title:'サンダーフォース', category:'shooting' },
@@ -96,6 +97,10 @@ const store = new Vuex.Store({
 
 
 	getters: {
+
+		nowState: ( state ) =>{
+			return state.nowState;
+		},
 	
 		works: ( state ) => {
 			return state.works;

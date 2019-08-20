@@ -21,7 +21,8 @@
 
       <div class="interface">
 
-        <about></about>
+        <about v-if="this.$store.getters.nowState == 'about'"></about>
+        <capture v-else-if="this.$store.getters.nowState == 'capture'"></capture>
 
       </div>
 
@@ -301,6 +302,7 @@ footer{
 import Vue from 'vue';
 import MapVue from './map-vue';
 import About from './about';
+import Capture from './capture';
 
 
 module.exports = {
@@ -310,7 +312,14 @@ module.exports = {
   components: {
     'map-vue': MapVue,
     'about': About,
+    'capture': Capture
   },
+
+  // data: function () {
+  //   return {
+  //     nowState: ""
+  //   }
+  // },
 
   mounted: function() {
 
@@ -325,6 +334,7 @@ module.exports = {
 
 
   props : {
+    nowState : String
   }
 
 };
