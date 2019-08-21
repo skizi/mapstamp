@@ -23,23 +23,23 @@ var router_mode = (is_devmode)? 'hash' : 'history';
 //   routes: routes,
 // });
 
-    
 const app = new Vue({
 
   // el: '#app',
   // router : router,
   store : store,
-  mounted : function(){
-  },
+  // mounted : function(){
+  // },
   el: '#app',
   // components: { Index },
-  data: {
-    nowState: "hogege"// store.getters.nowState
-  },
-  render: function(h){
-    return h( Index )
-  },
-  // template: '<Index v-bind:nowState="nowState" />'
+  // template: '<index :now-state="nowState"></index>',
+  // data: {
+  //   nowState: "hogege"// store.getters.nowState
+  // },
+  render : h => h( Index )
+  // render: function(h){
+  //   return h( Index, this.nowState )
+  // },
 
 });//.$mount('#app')
 

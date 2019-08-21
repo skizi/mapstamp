@@ -1,8 +1,9 @@
 <template>
-	<div class="capture_btn_container">
+	<div class="text_editor">
 		<p class="border_text">
-			<span>地図をフリックして<br>位置を調整しよう！</span>
+			<span>アピールしたいことを<br>文章で書こう！</span>
 		</p>
+		<textarea maxlength="12" placeholder="ここにメッセージを入力してね"></textarea>
 
 		<a href="javascript:void(0);" class="btn0" @click="clickSubmitBtn">決定！</a>
 	</div>
@@ -21,7 +22,7 @@ import Vue from 'vue';
 
 module.exports = {
 
-  name: 'Capture',
+  name: 'TextEditor',
 
   mounted: function() {
 
@@ -33,7 +34,7 @@ module.exports = {
 
   	clickSubmitBtn : function(){
 
-  		this.$store.commit( 'nowState', 'editor' );
+  		this.$store.commit( 'nowState', 'animationEditor' );
 
   	}
 

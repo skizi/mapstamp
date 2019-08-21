@@ -1,11 +1,14 @@
 
 import Util from './Util';
+import UserAgent from './UserAgent';
 import PixiView from './PixiView';
 
 
 export default class Map{
 
-  constructor(){
+  constructor( state ){
+
+    Util.ua = new UserAgent();
 
     this.zoom = 13;
     this.debugFlag = false;
@@ -46,7 +49,7 @@ export default class Map{
     this.cover = this.element.getElementsByClassName( 'cover' )[0];
     this.copy = document.getElementsByClassName( 'leaflet-control-attribution' )[0];
 
-    this.pixiView = new PixiView();
+    this.pixiView = new PixiView( state );
     this.pixiView.element.addEventListener( 'ysdCallback', function( e ){    
       var obj = e.detail.value;
       var latlng = this.map.getCenter();

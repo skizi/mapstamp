@@ -4,10 +4,9 @@ import Util from './Util';
 
 export default class PixiView{
 
-  constructor(){
+  constructor( state ){
 
 		this.element = document.querySelector( '.map .pixi' );  	
-
 
 
 		this.stage = new PIXI.Stage();
@@ -50,15 +49,7 @@ export default class PixiView{
 
 
 		this.filterNames = [ '全削除', 'フィルム', 'ズーム', /*'Ascii',*/ 'ドット', 'モザイク', /*'Bloom',*/ 'グレー' ];
-
-	    var _filters = document.querySelector( '.editor .filters' );
-	    var length = this.filters.length;
-	    for( var i = 0; i < length; i++ ){
-	    	var li = document.createElement( 'li' );
-	    	li.innerHTML = this.filterNames[i];
-		    _filters.appendChild( li );
-		}
-		_filters.style.width = length * 90 + 'px';
+		this.initFilters( state );
 
 
 		this.stage.interactive = true;
@@ -141,6 +132,22 @@ export default class PixiView{
 	hide(){
 
 		this.element.style.display = 'none';
+
+	}
+
+
+	initFilters( state ){
+		
+		if( state == 'editor' ){
+		    var _filters = document.querySelector( '.editor .filters' );
+		    var length = this.filters.length;
+		    for( var i = 0; i < length; i++ ){
+		    	var li = document.createElement( 'li' );
+		    	li.innerHTML = this.filterNames[i];
+			    _filters.appendChild( li );
+			}
+			_filters.style.width = length * 90 + 'px';
+		}
 
 	}
 

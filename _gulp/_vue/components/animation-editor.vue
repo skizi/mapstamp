@@ -1,8 +1,12 @@
 <template>
-	<div class="capture_btn_container">
+	<div class="animation_editor">
 		<p class="border_text">
-			<span>地図をフリックして<br>位置を調整しよう！</span>
+			<span>アニメーションを<br>設定して演出しよう！</span>
 		</p>
+		<div class="slider">
+			<ul>
+			</ul>
+		</div>
 
 		<a href="javascript:void(0);" class="btn0" @click="clickSubmitBtn">決定！</a>
 	</div>
@@ -21,7 +25,7 @@ import Vue from 'vue';
 
 module.exports = {
 
-  name: 'Capture',
+  name: 'AnimationEditor',
 
   mounted: function() {
 
@@ -33,7 +37,7 @@ module.exports = {
 
   	clickSubmitBtn : function(){
 
-  		this.$store.commit( 'nowState', 'editor' );
+  		this.$store.commit( 'nowState', 'share' );
 
   	}
 

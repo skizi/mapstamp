@@ -622,40 +622,6 @@ input[type="submit"], input[type="button"] { border-radius: 0; -webkit-box-sizin
 input[type="submit"]::-webkit-search-decoration, input[type="button"]::-webkit-search-decoration { display: none; }
 input[type="submit"]::focus, input[type="button"]::focus { outline-offset: -2px; }
 
-header { width: 100%; height: 60px; background-color: #fff; border-bottom: 3px solid #ebb314; box-sizing: border-box; box-shadow: 0px 0px 3px 3px rgba(1, 1, 1, 0.1); }
-header .inner { margin: 0 auto; position: relative; }
-header h2 { width: 118px; margin: 0 auto; padding: 9px 0 6px; }
-header h2 img { width: 100%; }
-header h1 { width: 100%; font-size: 10px; text-align: center; color: #ebb314; }
-header a.prev, header a.next { position: absolute; right: 20px; top: 23px; text-decoration: none; display: none; color: #ff8e73; font-size: 14px; }
-header a.prev:visited, header a.prev:link, header a.next:visited, header a.next:link { color: #ff8e73; }
-header a.prev.prev, header a.next.prev { left: 20px; right: auto; }
-header a.login_btn { width: 100px; height: 36px; line-height: 36px; background-color: #ebb313; display: block; position: absolute; top: 13px; right: 13px; border-radius: 5px; color: #fff; text-align: center; text-decoration: none; font-size: 13px; display: none; }
-header a.main_menu_btn { width: 24px; height: 13px; display: block; position: absolute; top: 24px; left: 25px; }
-header a.main_menu_btn img { width: 100%; }
-
-@media screen and (min-width: 375px) { header { width: 100%; }
-  header .inner { width: 380px; }
-  header a.login_btn { transition-duration: 0.3s; transition-property: opacity; }
-  header a.login_btn:hover { opacity: 0.7; } }
-footer { width: 100%; padding-bottom: 10px; border-top: 2px solid #ebb314; }
-footer div.inner { overflow: hidden; *zoom: 1; min-height: 120px; }
-footer div.inner div.left { width: 50%; margin-left: 25px; padding-top: 29px; float: left; }
-footer div.inner div.left img { width: 118px; }
-footer div.inner div.right { padding-top: 29px; margin-left: 21px; float: left; }
-footer div.inner div.right nav ul li { margin-bottom: 0px; list-style: none; position: relative; height: 16px; line-height: 16px; }
-footer div.inner div.right nav ul li:after { content: ''; width: 2px; height: 2px; display: block; background-color: #a7a7a7; position: absolute; left: -10px; top: 8px; }
-footer div.inner div.right nav ul li a { color: #a7a7a7; font-size: 10px; text-decoration: none; }
-footer p.copy { color: #a7a7a7; text-align: center; }
-footer p.copy a { text-decoration: none; font-size: 10px; }
-
-@media screen and (min-width: 375px) { footer { width: 100%; }
-  footer div.inner div.left { width: 40%; margin-left: 16%; }
-  footer div.inner div.left a, footer div.inner div.right a, footer p.copy a { transition-duration: 0.3s; transition-property: opacity; }
-  footer div.inner div.left a:hover, footer div.inner div.right a:hover, footer p.copy a:hover { opacity: 0.7; }
-  footer div.inner { width: 400px; margin: 0 auto; min-height: 140px; }
-  footer div.inner div.left { width: auto; margin-left: 30px; }
-  footer div.inner div.right { min-width: auto; margin-right: 30px; float: right; } }
 .file_selector { text-align: center; }
 .file_selector label { width: 80px; height: 80px; background-color: #ebb314; background-image: url("./camera_icon1.png"); background-repeat: no-repeat; background-position: 50% 19px; box-shadow: 1px 1px 0px #bc8e10, 2px 2px 0px #bc8e10, 3px 3px 0px #bc8e10, 4px 4px 0px #bc8e10; position: relative; display: inline-block; overflow: hidden; }
 .file_selector label:active { box-shadow: none; transform: translate(4px, 4px); }

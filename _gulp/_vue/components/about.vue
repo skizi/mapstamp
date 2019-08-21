@@ -12,7 +12,7 @@
 		</p>
 		
 
-		<a href="javascript:void(0);" class="btn0 start_btn c_mb40">はじめる！</a>
+		<a href="javascript:void(0);" class="btn0 start_btn c_mb40" @click="clickStartBtn()">はじめる！</a>
 
 
 		<section class="howto c_mb40">
@@ -44,7 +44,7 @@
 			</ul>
 		</section>
 			
-		<a href="javascript:void(0);" class="btn0 start_btn">はじめる！</a>
+		<a href="javascript:void(0);" class="btn0 start_btn" @click="clickStartBtn()">はじめる！</a>
 
 	</div>
 </template>
@@ -129,6 +129,17 @@ module.exports = {
 
   mounted: function() {
 
+
+  },
+
+
+  methods: {
+
+  	clickStartBtn : function(){
+
+  		this.$store.commit( 'nowState', 'capture' );
+
+  	}
 
   },
 

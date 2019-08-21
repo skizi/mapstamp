@@ -81,7 +81,7 @@ var envify = require('envify/custom');
 gulp.task('vue', () => {
     jsEntities.files.forEach(entry => {
         browserify(path.join(jsEntities.src, entry), {
-            debug: false,
+            debug: true,
             extensions: ['.js', '.vue'],
             transform: [
                 [vueify, {

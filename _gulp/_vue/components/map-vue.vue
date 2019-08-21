@@ -71,18 +71,26 @@ module.exports = {
 
   mounted: function() {
 
-  	new Map();
+  	this.map = new Map( this.nowState );
 
   },
 
 
   watch: {
     
+    nowState : function( from, to ){
+
+      if( from != to ){
+        this.map.initFilters( this.nowState );
+      }
+
+    }
 
   },
 
 
   props : {
+    nowState : String
   }
 
 };

@@ -4,25 +4,30 @@
 
     <header>
       <div class="inner">
-        <a href="javascript:void(0);" class="prev">戻る</a>
+        <a href="javascript:void(0);" class="prev" v-if="this.$store.getters.nowState != 'about'">戻る</a>
         <h2>
           <img src="./assets/images/header/logo.png" alt="MapStamp マップスタンプ">
         </h2>
         <h1>位置情報共有サービス マップスタンプ</h1>
-        <a href="javascript:void(0);" class="next">次へ</a>
+        <a href="javascript:void(0);" class="next" v-if="this.$store.getters.nowState != 'share'">次へ</a>
       </div>
     </header>
 
     
+    nowState:{{this.$store.getters.nowState}}
     <div class="container">
 
-      <map-vue></map-vue>
+      <map-vue :now-state="nowState"></map-vue>
       
 
       <div class="interface">
 
         <about v-if="this.$store.getters.nowState == 'about'"></about>
         <capture v-else-if="this.$store.getters.nowState == 'capture'"></capture>
+        <editor v-else-if="this.$store.getters.nowState == 'editor'"></editor>
+        <text-editor v-else-if="this.$store.getters.nowState == 'textEditor'"></text-editor>
+        <animation-editor v-else-if="this.$store.getters.nowState == 'animationEditor'"></animation-editor>
+        <share v-else-if="this.$store.getters.nowState == 'share'"></share>
 
       </div>
 
@@ -102,7 +107,6 @@ header{
         right: 20px;
         top: 23px;
         text-decoration: none;
-        display: none;
         color: #ff8e73;
         font-size: 14px;
 
@@ -303,6 +307,10 @@ import Vue from 'vue';
 import MapVue from './map-vue';
 import About from './about';
 import Capture from './capture';
+import Editor from './editor';
+import TextEditor from './text-editor';
+import AnimationEditor from './animation-editor';
+import Share from './share';
 
 
 module.exports = {
@@ -312,30 +320,39 @@ module.exports = {
   components: {
     'map-vue': MapVue,
     'about': About,
-    'capture': Capture
+    'capture': Capture,
+    'editor' : Editor,
+    'text-editor' : TextEditor,
+    'animation-editor' : AnimationEditor,
+    'share' : Share
   },
 
-  // data: function () {
-  //   return {
-  //     nowState: ""
-  //   }
-  // },
+  data: function () {
+    return {
+      nowState: this.$store.getters.nowState
+    }
+  },
 
   mounted: function() {
 
+    // alert( this.nowState );
 
   },
 
 
   watch: {
+
+    // nowState : function( f, t ){
+    //   console.log(t);
+    // }
     
 
   },
 
 
-  props : {
-    nowState : String
-  }
+  // props : {
+  //   nowState : String
+  // }
 
 };
 

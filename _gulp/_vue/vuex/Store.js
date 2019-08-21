@@ -36,6 +36,12 @@ const store = new Vuex.Store({
 	 */
 	mutations: {
 
+		nowState( state, nowState ){
+			
+	      state.nowState = nowState;
+
+		},
+
 	    get_works( state, works ){
 	    	
 	      state.works = works;
