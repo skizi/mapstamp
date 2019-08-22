@@ -69,6 +69,11 @@ module.exports = {
 
   name: 'MapVue',
 
+  data: function(){
+    return {
+    }
+  },
+
   mounted: function() {
 
   	this.map = new Map( this.nowState );
@@ -78,19 +83,43 @@ module.exports = {
 
   watch: {
     
-    nowState : function( from, to ){
+    nowState : function( to, from ){
 
       if( from != to ){
-        this.map.initFilters( this.nowState );
+        this.map.changeState( this.nowState );
       }
 
+    },
+
+
+    stamp : function( to, from ){
+
+      this.map.addStamp( to.img, to.index );
+
+    },
+
+
+    decoration : function( to, from ){
+
+      this.map.addDecoration( to.img, to.index );        
+
+    },
+
+     
+    filter : function( to, from ){
+
+      this.map.addFilter( to.img, to.index );        
+      
     }
 
   },
 
 
   props : {
-    nowState : String
+    nowState : String,
+    stamp : Object,
+    decoration : Object,
+    filter : Object
   }
 
 };

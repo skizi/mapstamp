@@ -2,6 +2,7 @@
  * Vue本処理
  * ----------------------------------------------- */
 import Vue from 'vue';
+import Util from '../_js/Util';
 // import VueRouter from 'vue-router';
 
 // Vue.use( VueRouter );
@@ -23,6 +24,8 @@ var router_mode = (is_devmode)? 'hash' : 'history';
 //   routes: routes,
 // });
 
+Util.clickEventName = 'click';
+
 Vue.component('index', Index);
 
 const app = new Vue({
@@ -31,15 +34,14 @@ const app = new Vue({
   // router : router,
   store : store,
   mounted : function(){
-    alert(1);
   },
   el: '#app',
-  components: { Index },
-  template: '<index></index>',
+  // components: { Index },
+  // template: '<index></index>',
   // data: {
   //   nowState: "hogege"// store.getters.nowState
   // },
-  // render : h => h( Index )
+  render : h => h( Index )
   // render: function(h){
   //   return h( Index, this.nowState )
   // },

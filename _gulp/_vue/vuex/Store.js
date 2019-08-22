@@ -20,11 +20,9 @@ const store = new Vuex.Store({
 	 */
 	state : {
 		nowState : 'about',
-		works : [
-			{ id:0, title:'ガンスターヒーローズ', category:'action' },
-			{ id:1, title:'サンダーフォース', category:'shooting' },
-		],
-		work : {}, //作品詳細データ
+		stamp : {},
+		decoration : {},
+		filter : {},
 	},
 
 
@@ -42,16 +40,21 @@ const store = new Vuex.Store({
 
 		},
 
-	    get_works( state, works ){
-	    	
-	      state.works = works;
-	      state.cacheWorks = works;
+	    stamp( state, stamp ){
+console.log( stamp );
+	      state.stamp = stamp;
 	    
 	    },
 
-	    get_work( state, work ){
+	    decoration( state, decoration ){
 	    
-	      state.work = work;
+	      state.decoration = decoration;
+	    
+	    },
+
+	    filter( state, filter ){
+console.log( filter );
+	      state.filter = filter;
 	    
 	    },
 
@@ -108,12 +111,16 @@ const store = new Vuex.Store({
 			return state.nowState;
 		},
 	
-		works: ( state ) => {
-			return state.works;
+		stamp: ( state ) => {
+			return state.stamp;
 		},
 
-		work: ( state ) => {
-			return state.work;
+		decoration: ( state ) => {
+			return state.decoration;
+		},
+
+		filter: ( state ) => {
+			return state.filter;
 		},
 
 	}

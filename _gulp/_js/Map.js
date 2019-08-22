@@ -90,6 +90,23 @@ export default class Map{
   }
 
 
+  changeState( state ){
+
+    if( state == 'about' ){
+      this.setHeight( 150 );
+    }else{
+      this.setHeight( 320 );
+    }
+
+    this.setInterface( state );
+
+    if( state == 'capture' ){
+      this.capture();
+    }
+
+  }
+
+
   setHeight( h ){
 
     this.element.style.height = h + 'px';
@@ -119,7 +136,7 @@ export default class Map{
 
 
   setInterface( type ){
-
+    
     switch( type ){
 
       case 'about':
@@ -127,7 +144,7 @@ export default class Map{
         this.cover.style.display = 'block';
         break;
 
-      case 'map':
+      case 'capture':
         this.leafletControlZoom.style.display = 'block';
         this.cover.style.display = 'none';
         this.pixiView.hide();
@@ -150,6 +167,7 @@ export default class Map{
 
   capture(){
 
+    console.log("capture!!!!");
     this.copy.style.display = 'none';
 
     html2canvas( this.container, { useCORS: true } ).then(function( canvas ) {
