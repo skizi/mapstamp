@@ -4,12 +4,12 @@
 
     <header>
       <div class="inner">
-        <a href="javascript:void(0);" class="prev" v-if="this.$store.getters.nowState != 'about'">戻る</a>
+        <a href="javascript:void(0);" class="prev" v-if="this.$store.getters.nowState != 'about'" @click="prevBtnClick">戻る</a>
         <h2>
           <img src="./assets/images/header/logo.png" alt="MapStamp マップスタンプ">
         </h2>
         <h1>位置情報共有サービス マップスタンプ</h1>
-        <a href="javascript:void(0);" class="next" v-if="this.$store.getters.nowState != 'share'">次へ</a>
+        <a href="javascript:void(0);" class="next" v-if="this.$store.getters.nowState != 'share'" @click="nextBtnClick">次へ</a>
       </div>
     </header>
 
@@ -337,17 +337,50 @@ module.exports = {
 
     // alert( this.nowState );
 
+    this.states = [ 'about', 'capture', 'editor', 'textEditor', 'animationEditor', 'share' ];
+
   },
 
 
   watch: {
 
-    // nowState : function( f, t ){
-    //   console.log(t);
-    // }
+    nowState : function( f, t ){
+      console.log(t);
+    }
     
 
   },
+
+
+  methods : {
+
+    nextBtnClick : function(){
+
+        this.changeState( 1 );
+
+        
+    },
+
+    prevBtnClick : function(){
+
+        this.changeState( -1 );
+
+    },
+
+
+    changeState : function( adjustIndex ){
+
+        let state = this.$store.getters.nowState;
+        let nextIndex = this.states.indexOf( state ) + adjustIndex;
+        let nextState = this.states[ nextIndex ];
+
+        if( nextState ){
+            this.$store.commit( 'nowState', nextState );
+        }
+
+    }
+
+  }
 
 
   // props : {

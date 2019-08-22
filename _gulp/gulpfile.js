@@ -106,6 +106,10 @@ gulp.task('vue', () => {
         .pipe(gulp.dest(jsEntities.dest))
         .pipe(browserSync.reload({stream:true}));
     });
+
+    // gulp.src( jsEntities.src + '/**/*.vue' )
+    //     .pipe(vueify())
+    //     .pipe( gulp.dest( jsEntities.dest ) );
 });
 
 

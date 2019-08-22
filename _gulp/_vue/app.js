@@ -23,20 +23,23 @@ var router_mode = (is_devmode)? 'hash' : 'history';
 //   routes: routes,
 // });
 
+Vue.component('index', Index);
+
 const app = new Vue({
 
   // el: '#app',
   // router : router,
   store : store,
-  // mounted : function(){
-  // },
+  mounted : function(){
+    alert(1);
+  },
   el: '#app',
-  // components: { Index },
-  // template: '<index :now-state="nowState"></index>',
+  components: { Index },
+  template: '<index></index>',
   // data: {
   //   nowState: "hogege"// store.getters.nowState
   // },
-  render : h => h( Index )
+  // render : h => h( Index )
   // render: function(h){
   //   return h( Index, this.nowState )
   // },

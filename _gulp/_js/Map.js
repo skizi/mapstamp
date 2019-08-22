@@ -293,7 +293,7 @@ export default class Map{
       }.bind( this ),
       function( error ){
 
-        console.log( error );
+        // console.log( error );
         if( error.code == 1 ){
           alert( "位置情報の利用が許可されていません" );
         }
