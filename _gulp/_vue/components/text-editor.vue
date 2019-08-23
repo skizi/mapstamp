@@ -19,13 +19,22 @@
 <script>
 import Vue from 'vue';
 
-
+  
 module.exports = {
 
   name: 'TextEditor',
 
   mounted: function() {
 
+    this.textEditor = document.getElementsByClassName( 'text_editor' )[0];
+    this.textarea = this.textEditor.getElementsByTagName( 'textarea' )[0];
+    var oldText = this.textarea.value;
+    setInterval( function(){
+      if( oldText != this.textarea.value ){
+        this.$store.commit( 'text', this.textarea.value );
+        oldText = this.textarea.value;
+      }
+    }.bind( this ), 1000 );
 
   },
 

@@ -77,6 +77,34 @@ module.exports = {
   mounted: function() {
 
   	this.map = new Map( this.nowState );
+    this.map.element.addEventListener( 'ysdCallback', this.mapCallBackHandler.bind( this ) );
+
+  },
+
+
+  methods : {
+
+    
+    mapCallBackHandler : function( e ){
+      
+      var obj = e.detail.value;
+      switch( obj.type ){
+
+        // case 'popupClick':
+        //   this.showPostModal.refresh();
+        //   this.showPostModal.setText( obj.data );
+        //   this.showPostModal.show();
+        //   break;
+
+        case 'generateBlob':
+          var pluseMessage = document.getElementsByClassName( 'pluse_message' )[0].value;
+          obj.content = pluseMessage + ' ' + obj.content;
+          this.share.submit( obj.blob, obj.lat, obj.lng, obj.content, obj.imgType );
+          //↑ comitに差し替える
+          break;
+
+      }
+    }
 
   },
 
@@ -110,6 +138,32 @@ module.exports = {
 
       this.map.addFilter( to.img, to.index );        
       
+    },
+
+
+    text : function( to, from ){
+
+        this.map.addText( to );
+
+    },
+
+
+    animation : function( to, from ){
+
+        this.map.addAnimation( to );
+
+    },
+
+
+    generateGifState : function( to, from ){
+
+      if( to.state == 'generateGif' ){
+        this.map.generateGif();
+        if( to.notLoginFlag ){//今からログインする場合はデータ保存
+          this.map.saveData();
+        }
+      }
+
     }
 
   },
@@ -119,7 +173,10 @@ module.exports = {
     nowState : String,
     stamp : Object,
     decoration : Object,
-    filter : Object
+    filter : Object,
+    text : String,
+    animation : Object,
+    generateGifState : Object
   }
 
 };

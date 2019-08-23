@@ -206,7 +206,7 @@ export default class Map{
 
 
   addText( text ){
-
+    
     this.pixiView.drawText( text );
   
   }

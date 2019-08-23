@@ -3,6 +3,7 @@
  * ----------------------------------------------- */
 import Vue from 'vue';
 import Util from '../_js/Util';
+import Loading from '../_js/Loading';
 // import VueRouter from 'vue-router';
 
 // Vue.use( VueRouter );
@@ -25,6 +26,7 @@ var router_mode = (is_devmode)? 'hash' : 'history';
 // });
 
 Util.clickEventName = 'click';
+Util.loading = new Loading();
 
 Vue.component('index', Index);
 

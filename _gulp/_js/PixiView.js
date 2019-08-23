@@ -283,7 +283,7 @@ export default class PixiView{
 
 
 	drawText( text ){
-
+		
 		this.cacheData.content = text;
 
 		this.text.text = text;

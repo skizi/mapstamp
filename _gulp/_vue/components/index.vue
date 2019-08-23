@@ -17,7 +17,7 @@
     nowState:{{this.$store.getters.nowState}}
     <div class="container">
 
-      <map-vue :now-state="this.$store.getters.nowState" :stamp="this.$store.getters.stamp" :decoration="this.$store.getters.decoration" :filter="this.$store.getters.filter"></map-vue>
+      <map-vue :now-state="this.$store.getters.nowState" :stamp="this.$store.getters.stamp" :decoration="this.$store.getters.decoration" :filter="this.$store.getters.filter" :text="this.$store.getters.text" :animation="this.$store.getters.animation" :generate-gif-state="this.$store.getters.generateGifState"></map-vue>
       
 
       <div class="interface">

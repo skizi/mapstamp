@@ -23,6 +23,9 @@ const store = new Vuex.Store({
 		stamp : {},
 		decoration : {},
 		filter : {},
+		text : '',
+		animation : {},
+		generateGifState : {}
 	},
 
 
@@ -41,7 +44,7 @@ const store = new Vuex.Store({
 		},
 
 	    stamp( state, stamp ){
-console.log( stamp );
+
 	      state.stamp = stamp;
 	    
 	    },
@@ -53,8 +56,28 @@ console.log( stamp );
 	    },
 
 	    filter( state, filter ){
-console.log( filter );
+
 	      state.filter = filter;
+	    
+	    },
+
+	    text( state, text ){
+
+	      state.text = text;
+	    
+	    },
+
+
+	    animation( state, animation ){
+
+	      state.animation = animation;
+	    
+	    },
+
+
+	    generateGifState( state, generateGifState ){
+
+	      state.generateGifState = generateGifState;
 	    
 	    },
 
@@ -121,6 +144,18 @@ console.log( filter );
 
 		filter: ( state ) => {
 			return state.filter;
+		},
+
+		text: ( state ) => {
+			return state.text;
+		},
+
+		animation: ( state ) => {
+			return state.animation;
+		},
+
+		generateGifState: ( state ) => {
+			return state.generateGifState;
 		},
 
 	}
