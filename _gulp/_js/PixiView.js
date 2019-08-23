@@ -106,7 +106,7 @@ export default class PixiView{
 		//データ保存
 	    if( localStorage.getItem('pixiCacheData') ){
 	      this.cacheData = JSON.parse( localStorage.getItem('pixiCacheData') );
-	      this.setCaches();
+	      // this.setCaches();
 	      localStorage.removeItem('pixiCacheData');
 	      this.show();
 	    }else{

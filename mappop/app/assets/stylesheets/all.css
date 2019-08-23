@@ -686,7 +686,7 @@ label { height: 46px; line-height: 46px; display: inline-block; color: #848484; 
   .modal .inner .close_btn:hover { transform: rotate(90deg); } }
 .loading_cover { width: 320px; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: none; opacity: 0; position: fixed; top: 0px; left: 0px; background-image: url("./loading.gif"); background-repeat: no-repeat; background-position: center center; transition-duration: 0.3s; transition-property: opacity; }
 .loading_cover p { width: 100%; margin-top: 28px; position: absolute; top: 50%; text-align: center; color: #fff; font-size: 12px; letter-spacing: 1px; }
-.loading_cover p.facebook_share_btn { opacity: 0; display: none; margin-top: 60px; margin-left: -150px; left: 50%; cursor: pointer; }
+.loading_cover a.facebook_share_btn { opacity: 0; display: none; margin-top: 60px; margin-left: -150px; text-align: center; position: absolute; left: 50%; top: 50%; }
 
 @media screen and (min-width: 375px) { .loading_cover { width: 100%; } }
 /* required styles */

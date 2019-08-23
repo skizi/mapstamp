@@ -99,8 +99,10 @@ module.exports = {
         case 'generateBlob':
           var pluseMessage = document.getElementsByClassName( 'pluse_message' )[0].value;
           obj.content = pluseMessage + ' ' + obj.content;
-          this.share.submit( obj.blob, obj.lat, obj.lng, obj.content, obj.imgType );
+          // this.share.submit( obj.blob, obj.lat, obj.lng, obj.content, obj.imgType );
           //↑ comitに差し替える
+
+          this.$store.commit( 'shareObj', { blob:obj.blob, lat:obj.lat, lng:obj.lng, content:obj.content, imgType:obj.imgType } );
           break;
 
       }

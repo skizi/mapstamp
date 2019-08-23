@@ -27,7 +27,7 @@
         <editor v-else-if="this.$store.getters.nowState == 'editor'"></editor>
         <text-editor v-else-if="this.$store.getters.nowState == 'textEditor'"></text-editor>
         <animation-editor v-else-if="this.$store.getters.nowState == 'animationEditor'"></animation-editor>
-        <share v-else-if="this.$store.getters.nowState == 'share'"></share>
+        <share v-else-if="this.$store.getters.nowState == 'share'" :share-obj="this.$store.getters.shareObj"></share>
 
       </div>
 

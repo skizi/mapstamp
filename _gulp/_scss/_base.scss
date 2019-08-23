@@ -535,15 +535,17 @@ label{
         color: #fff;
         font-size: 12px;
         letter-spacing: 1px;
+    }
 
-        &.facebook_share_btn{
-            opacity:0;
-            display: none;
-            margin-top: 60px;
-            margin-left: -150px;
-            left: 50%;
-            cursor:pointer;
-        }
+    a.facebook_share_btn{
+        opacity:0;
+        display: none;
+        margin-top: 60px;
+        margin-left: -150px;
+        text-align: center;
+        position: absolute;
+        left: 50%;
+        top: 50%;
     }
 }
 

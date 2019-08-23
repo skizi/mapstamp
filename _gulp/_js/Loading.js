@@ -8,7 +8,7 @@ export default class Loading{
 
 		this.element = document.getElementsByClassName( 'loading_cover' )[0];
 		this.text = this.element.getElementsByTagName( 'p' )[0];
-		// this.faceBookShareBtn = this.element.getElementsByClassName( 'facebook_share_btn' )[0];
+		this.faceBookShareBtn = this.element.getElementsByClassName( 'facebook_share_btn' )[0];
 		// this.faceBookShareBtn.addEventListener( Util.clickEventName, this.shareFaceBook.bind( this ) );
 		this.timeoutId;
 
@@ -40,15 +40,15 @@ export default class Loading{
 	}
 
 
-	// showFaceBookShareBtn( callback ){
+	showFaceBookShareBtn( url ){
 
-	// 	this.faceBookShareBtn.style.display = 'block';
-	// 	setTimeout(function(){
-	// 		this.faceBookShareBtn.style.opacity = 1;
-	// 		this.shareFaceBookCallBack = callback;
-	// 	}.bind( this ), 100 );
+		this.faceBookShareBtn.style.display = 'block';
+		setTimeout(function(){
+			this.faceBookShareBtn.style.opacity = 1;
+			this.faceBookShareBtn.setAttribute( 'href', url );
+		}.bind( this ), 100 );
 
-	// }
+	}
 
 
 	// shareFaceBook( e ){

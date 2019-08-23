@@ -52,46 +52,31 @@ module.exports = {
     //   });
     // });
 
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '1604539589666300',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v2.7'
-      });
-        
-      FB.AppEvents.logPageView();   
-        
-    };
 
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
+    // if( localStorage.getItem('cacheImgBase64') ){
+    //   var base64 = localStorage.getItem('cacheImgBase64');
+    //   var imgType = localStorage.getItem('cacheImgType');
+    //   var blob = this.dataURLtoBlob( base64, imgType );
+    //   var content = localStorage.getItem('cacheMessage');
+    //   this.provider = localStorage.getItem('cacheProvider');
+    //   var lat = localStorage.getItem('cacheLat');
+    //   var lng = localStorage.getItem('cacheLng');
 
+    //   Util.loading.showLoading( 'Gifアニメを生成しています。' );
+    //   this.submit( blob, lat, lng, content, imgType );
 
-    if( localStorage.getItem('cacheImgBase64') ){
-      var base64 = localStorage.getItem('cacheImgBase64');
-      var imgType = localStorage.getItem('cacheImgType');
-      var blob = this.dataURLtoBlob( base64, imgType );
-      var content = localStorage.getItem('cacheMessage');
-      this.provider = localStorage.getItem('cacheProvider');
-      var lat = localStorage.getItem('cacheLat');
-      var lng = localStorage.getItem('cacheLng');
-
-      Util.loading.showLoading( 'Gifアニメを生成しています。' );
-      this.submit( blob, lat, lng, content, imgType );
-
-    }
+    // }
 
   },
 
 
   watch: {
     
+    shareObj( to, from ){
+
+      this.submit( to.blob, to.lat, to.lng, to.content, to.imgType );
+
+    }
 
   },
 
@@ -135,7 +120,7 @@ module.exports = {
 
       //まだログインしていない場合はログインさせる
       //画像データを一時保存
-      if( this.provider == 'twitter' && Util.loginProvider != 'twitter' || this.provider == 'facebook' && Util.loginProvider != 'facebook' ){
+      if( this.provider == 'twitter' && Util.loginProvider != 'twitter' ){
         var reader = new FileReader();
         reader.readAsDataURL(blob); 
         reader.onloadend = function() {
@@ -222,15 +207,18 @@ module.exports = {
 
     postFacebook : function( content ){
         
-        // var mobileFlag = false;
-        // if( Util.ua.platform != 'pc' ) mobileFlag = true;
-        if( Util.ua.browser == 'safari' ){
+
+        content += 'スタンプでデコって現在地を共有できるwebサービス、MapStamp！ Map data openstreetmap.org'
+        var postImageUrl = 'https://www.mapstamp.net/post_images/' + this.postImageId;
+        var url = 'http://www.facebook.com/sharer.php?src=bm&u=' + encodeURI( postImageUrl );
+
+        // if( Util.ua.browser == 'safari' ){
           Util.loading.setText( '投稿ボタンを押して下さい。' );
-          Util.loading.showFaceBookShareBtn( this.shareFaceBook.bind( this, content ) );
-        }else{
-          Util.loading.setText( 'FaceBookに投稿しています。' );
-          this.shareFaceBook( content );
-        }
+          Util.loading.showFaceBookShareBtn( url );
+        // }else{
+        //   Util.loading.setText( 'FaceBookに投稿しています。' );
+        //   this.shareFaceBook( content );
+        // }
 
     },
 
@@ -270,6 +258,7 @@ module.exports = {
 
         message += 'スタンプでデコって現在地を共有できるwebサービス、MapStamp！ Map data openstreetmap.org'
         var postImageUrl = 'https://www.mapstamp.net/post_images/' + this.postImageId;
+
         FB.ui({
           method: 'share',
           href: postImageUrl,
@@ -361,6 +350,7 @@ module.exports = {
 
 
   props : {
+    shareObj : Object
   }
 
 };
