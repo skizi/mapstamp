@@ -79,6 +79,19 @@ module.exports = {
   	this.map = new Map( this.nowState );
     this.map.element.addEventListener( 'ysdCallback', this.mapCallBackHandler.bind( this ) );
 
+
+    if( localStorage.getItem('cacheImgBase64') ){
+
+        this.map.setInterface( 'share' );
+        this.map.setHeight( 320 );
+        var lat = localStorage.getItem('cacheLat');
+        var lng = localStorage.getItem('cacheLng');
+        this.map.setLatLng( lat, lng );
+        setTimeout(function(){
+          this.map.capture();
+        }.bind( this ), 1000 );
+      }
+
   },
 
 
@@ -115,9 +128,7 @@ module.exports = {
     
     nowState : function( to, from ){
 
-      if( from != to ){
-        this.map.changeState( this.nowState );
-      }
+      this.map.changeState( this.nowState );
 
     },
 

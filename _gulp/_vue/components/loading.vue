@@ -2,6 +2,7 @@
 	<section class="loading_cover">
 		<p class="status"></p>
 		<a href="#" target="_blank" class="facebook_share_btn btn0 facebook">FaceBookに投稿！</a>
+		<a href="#" target="_blank" class="download_btn btn0 download">ダウンロード</a>
 	</section>
 </template>
 
@@ -36,7 +37,8 @@
         letter-spacing: 1px;
     }
 
-    a.facebook_share_btn{
+    a.facebook_share_btn,
+    a.download_btn{
         opacity:0;
         display: none;
         margin-top: 60px;
@@ -60,6 +62,7 @@
 
 <script>
 import Vue from 'vue';
+import Util from '../../_js/Util';
 
   
 module.exports = {
@@ -71,7 +74,11 @@ module.exports = {
 	this.element = document.getElementsByClassName( 'loading_cover' )[0];
 	this.text = this.element.getElementsByTagName( 'p' )[0];
 	this.faceBookShareBtn = this.element.getElementsByClassName( 'facebook_share_btn' )[0];
-	// this.faceBookShareBtn.addEventListener( Util.clickEventName, this.shareFaceBook.bind( this ) );
+	this.faceBookShareBtn.addEventListener( Util.clickEventName, this.clickBtn.bind( this ) );
+
+	this.downloadBtn = this.element.getElementsByClassName( 'download_btn' )[0];
+	this.downloadBtn.addEventListener( Util.clickEventName, this.clickBtn.bind( this ) );
+
 	this.timeoutId;
 
   },
@@ -121,15 +128,27 @@ module.exports = {
 	},
 
 
-	// shareFaceBook( e ){
+	showDownloadBtn( url ){
 
-	// 	if( this.shareFaceBookCallBack ) this.shareFaceBookCallBack();
+		this.downloadBtn.style.display = 'block';
+		setTimeout(function(){
+			this.downloadBtn.style.opacity = 1;
+			this.downloadBtn.setAttribute( 'href', url );
+		}.bind( this ), 100 );
 
-	// 	this.faceBookShareBtn.style.opacity = 0;
-	// 	setTimeout(function(){
-	// 		this.faceBookShareBtn.style.display = 'block';
-	// 	}.bind( this ), 300 );
-	// }
+	},
+
+
+	clickBtn( e ){
+
+		this.faceBookShareBtn.style.opacity = 1;
+		this.faceBookShareBtn.style.display = 'none';
+		this.downloadBtn.style.opacity = 1;
+		this.downloadBtn.style.display = 'none';
+		
+		this.hideLoading();
+
+	}
 
   },
 
@@ -155,6 +174,10 @@ module.exports = {
     		case 'showFacebook':
     			this.showLoading( to.message );
     			this.showFaceBookShareBtn( to.url );
+    			break;
+
+    		case 'showDownloadBtn':
+    			this.showDownloadBtn( to.url );
     			break;
 
     	}

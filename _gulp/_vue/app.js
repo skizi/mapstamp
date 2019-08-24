@@ -31,22 +31,10 @@ Vue.component('index', Index);
 
 const app = new Vue({
 
-  // el: '#app',
   // router : router,
   store : store,
-  mounted : function(){
-  },
   el: '#app',
-  // components: { Index },
-  // template: '<index></index>',
-  // data: {
-  //   nowState: "hogege"// store.getters.nowState
-  // },
   render : h => h( Index )
-  // render: function(h){
-  //   return h( Index, this.nowState )
-  // },
 
-});//.$mount('#app')
-
+});
 

@@ -122,36 +122,21 @@ module.exports = {
 
     this.authenticity_token = document.getElementById( 'authenticity_token' ).value;
 
-    //FaceBookのSDKをロード
-    // $.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
-    //   FB.init({
-    //     appId: '1604539589666300',
-    //     version: 'v2.7' // or v2.1, v2.2, v2.3, ...
-    //   });
 
-    //   FB.getLoginStatus(function( e ){
-    //     if( e.authResponse ){
-    //       Util.faceBookLoginFlag = true;
-    //       Util.faceBookUserId = e.authResponse.userID;
-    //       Util.faceBookToken = e.authResponse.accessToken;
-    //     }
-    //   });
-    // });
+    if( localStorage.getItem('cacheImgBase64') ){
+      var base64 = localStorage.getItem('cacheImgBase64');
+      var imgType = localStorage.getItem('cacheImgType');
+      var blob = this.dataURLtoBlob( base64, imgType );
+      var content = localStorage.getItem('cacheMessage');
+      this.provider = localStorage.getItem('cacheProvider');
+      var lat = localStorage.getItem('cacheLat');
+      var lng = localStorage.getItem('cacheLng');
 
+    this.$store.commit( 'loadingState', { state:'changeMessage', message:'Gifアニメを生成しています。' } );
+      this.submit( blob, lat, lng, content, imgType );
 
-    // if( localStorage.getItem('cacheImgBase64') ){
-    //   var base64 = localStorage.getItem('cacheImgBase64');
-    //   var imgType = localStorage.getItem('cacheImgType');
-    //   var blob = this.dataURLtoBlob( base64, imgType );
-    //   var content = localStorage.getItem('cacheMessage');
-    //   this.provider = localStorage.getItem('cacheProvider');
-    //   var lat = localStorage.getItem('cacheLat');
-    //   var lng = localStorage.getItem('cacheLng');
-
-    //this.$store.commit( 'loadingState', { state:'changeMessage', message:'Gifアニメを生成しています。' } );
-    //   this.submit( blob, lat, lng, content, imgType );
-
-    // }
+      this.removeStorageItem();
+    }
 
   },
 
@@ -161,6 +146,16 @@ module.exports = {
     shareObj( to, from ){
 
       this.submit( to.blob, to.lat, to.lng, to.content, to.imgType );
+
+    },
+    
+    
+    loadingState( to, from ){
+      
+      // console.log("to.state:" + to.state);
+      // if( to.state == 'postFacebook' ){
+      //   location.href = this.postImageUrl;
+      // }
 
     }
 
@@ -266,17 +261,8 @@ module.exports = {
       //ダウンロード
       if( this.provider == 'download' ){
 
-        var a = document.createElement('a');
-        var url = window.URL.createObjectURL( this.blob );
-        a.href = url;
-        // a.setAttribute( 'target', '_blank' ); //iosバグる
-        a.download = "mapstamp." + imgType;
-        document.body.appendChild( a );
-        a.click();
-        // URL.revokeObjectURL(url); //ios safariでバグ
-        // window.open( url, '_blank'); //safariで動作しない
-
-        this.$store.commit( 'loadingState', { state:'hide' } );
+        var url = 'https://www.mapstamp.net/post_images/' + this.postImageId;
+        this.$store.commit( 'loadingState', { state:'showDownloadBtn', url:url } );
 
       }else if( this.provider == 'facebook' ){
 
@@ -295,8 +281,8 @@ module.exports = {
         
 
         content += 'スタンプでデコって現在地を共有できるwebサービス、MapStamp！ Map data openstreetmap.org'
-        var postImageUrl = 'https://www.mapstamp.net/post_images/' + this.postImageId;
-        var url = 'http://www.facebook.com/sharer.php?src=bm&u=' + encodeURI( postImageUrl );
+        this.postImageUrl = 'https://www.mapstamp.net/post_images/' + this.postImageId;
+        var url = 'http://www.facebook.com/sharer.php?src=bm&u=' + encodeURI( this.postImageUrl );
 
         // if( Util.ua.browser == 'safari' ){
           this.$store.commit( 'loadingState', { state:'showFacebook', message:'投稿ボタンを押して下さい。', url:url } );
@@ -335,27 +321,6 @@ module.exports = {
               alert( 'あれれ、エラーです。もう一度試してみよう！' );
           }.bind( this )
       });
-
-    },
-
-
-    shareFaceBook : function( message ){
-
-        message += 'スタンプでデコって現在地を共有できるwebサービス、MapStamp！ Map data openstreetmap.org'
-        var postImageUrl = 'https://www.mapstamp.net/post_images/' + this.postImageId;
-
-        FB.ui({
-          method: 'share',
-          href: postImageUrl,
-          hashtag:'#MapStamp',
-          // quote:message,
-          app_id:1604539589666300,
-          // redirect_uri:Util.apiHeadUrl,
-          // mobile_iframe: mobileFlag
-        }, function(response){
-          if( response ) alert( '投稿完了！' );
-          this.$store.commit( 'loadingState', { state:'hide' } );
-        }.bind( this ));
 
     },
 
