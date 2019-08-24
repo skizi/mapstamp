@@ -115,7 +115,9 @@ module.exports = {
 
         if( state == 'about' ){
             this.prevBtn.style.display = 'none';
+            this.nextBtn.style.display = 'block';
         }else if( state == 'share' ){
+            this.prevBtn.style.display = 'block';
             this.nextBtn.style.display = 'none';
         }else{
             this.prevBtn.style.display = 'block';

@@ -130,6 +130,7 @@ module.exports = {
       var imgType = localStorage.getItem('cacheImgType');
       var blob = this.dataURLtoBlob( base64, imgType );
       var content = localStorage.getItem('cacheMessage');
+      var pluseMessage = localStorage.getItem('cachePluseMessage');
       this.provider = localStorage.getItem('cacheProvider');
       var lat = localStorage.getItem('cacheLat');
       var lng = localStorage.getItem('cacheLng');
@@ -138,6 +139,9 @@ module.exports = {
 
       this.removeStorageItem();
       this.submit( blob, lat, lng, content, imgType );
+
+
+      document.getElementsByClassName( 'pluse_message' )[0].value = pluseMessage;
 
     }
 
@@ -163,6 +167,7 @@ module.exports = {
         localStorage.removeItem('cacheImgBase64');
         localStorage.removeItem('cacheImgType');
         localStorage.removeItem( 'cacheMessage' );
+        localStorage.removeItem( 'cachePluseMessage' );
         localStorage.removeItem( 'cacheProvider' );
         localStorage.removeItem( 'cacheLat' );
         localStorage.removeItem( 'cacheLng' );
@@ -195,9 +200,11 @@ module.exports = {
         reader.readAsDataURL(blob); 
         reader.onloadend = function() {
           var dataURI = reader.result;
+          var pluseMessage = document.getElementsByClassName( 'pluse_message' )[0].value;
           localStorage.setItem( 'cacheImgBase64', dataURI );
           localStorage.setItem( 'cacheImgType', imgType );
           localStorage.setItem( 'cacheMessage', content );
+          localStorage.setItem( 'cachePluseMessage', pluseMessage );
           localStorage.setItem( 'cacheProvider', this.provider );
           localStorage.setItem( 'cacheLat', lat );
           localStorage.setItem( 'cacheLng', lng );
@@ -293,7 +300,10 @@ module.exports = {
       var name = 'anime.' + type;
       formData.append( 'upfile', blob, name );
       formData.append( 'provider', 'twitter' );
-      message = message + ' | スタンプでデコって現在地を共有できるwebサービス、MapStamp！ https://www.mapstamp.net #MapStamp Map data © OpenStreetMap'
+
+      var pluseMessage = document.getElementsByClassName( 'pluse_message' )[0].value;
+
+      message = pluseMessage + ' ' + message + ' | スタンプでデコって現在地を共有できるwebサービス、MapStamp！ https://www.mapstamp.net #MapStamp Map data © OpenStreetMap'
       formData.append( 'message', message );
 
       var url = Util.apiHeadUrl + '/home/post_sns';

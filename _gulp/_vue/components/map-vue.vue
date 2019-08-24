@@ -110,8 +110,7 @@ module.exports = {
         //   break;
 
         case 'generateBlob':
-          var pluseMessage = document.getElementsByClassName( 'pluse_message' )[0].value;
-          obj.content = pluseMessage + ' ' + obj.content;
+          obj.content = obj.content;
           // this.share.submit( obj.blob, obj.lat, obj.lng, obj.content, obj.imgType );
           //↑ comitに差し替える
 

@@ -25,6 +25,7 @@
     background-position:center center;
     transition-duration: 0.3s;
     transition-property: opacity;
+    z-index: 1;
 
     p{
         width: 100%;
