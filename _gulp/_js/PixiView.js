@@ -182,8 +182,6 @@ export default class PixiView{
 		// this.bg.width = 320;
 		// this.bg.height = 320;
 
-		console.log("add map...");
-
 	}
 
 

@@ -67,7 +67,6 @@ export default class Map{
 
 
     if( Util.ua.ieVer < 12 ){
-      console.log( "load html2canvas_old" );
       var script = document.createElement( 'script' );
       script.type = 'text/javascript';
       script.src = '/js/html2canvas_old.js';
@@ -169,7 +168,6 @@ export default class Map{
 
   capture(){
 
-    console.log("capture!!!!");
     this.copy.style.display = 'none';
 
     html2canvas( this.container, { useCORS: true } ).then(function( canvas ) {
@@ -297,8 +295,7 @@ export default class Map{
       function( pos ){
 
         var latLng = L.latLng( pos.coords.latitude, pos.coords.longitude );
-        //console.log( latLng );
-        
+
         if( this.userMaker ){
         
           this.userMaker.setLatLng( latLng );
@@ -313,7 +310,6 @@ export default class Map{
       }.bind( this ),
       function( error ){
 
-        // console.log( error );
         if( error.code == 1 ){
           alert( "位置情報の利用が許可されていません" );
         }

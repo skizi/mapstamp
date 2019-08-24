@@ -123,7 +123,7 @@ module.exports = {
   watch: {
     
     pageName : function( to, from ){
-console.log(to);
+      
       this.map.changeState( to );
 
     },
