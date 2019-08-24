@@ -11,7 +11,7 @@
         <about v-if="this.$store.getters.nowState == 'about'"></about>
         <capture v-else-if="this.$store.getters.nowState == 'capture'"></capture>
         <editor v-else-if="this.$store.getters.nowState == 'editor'"></editor>
-        <text-editor v-else-if="this.$store.getters.nowState == 'textEditor'"></text-editor>
+        <text-editor v-else-if="this.$store.getters.nowState == 'textEditor'" :text="this.$store.getters.text"></text-editor>
         <animation-editor v-else-if="this.$store.getters.nowState == 'animationEditor'"></animation-editor>
         <share v-else-if="this.$store.getters.nowState == 'share'" :share-obj="this.$store.getters.shareObj"></share>
 
@@ -75,11 +75,6 @@ module.exports = {
     'loading' : Loading
   },
 
-  // data: function () {
-  //   return {
-  //     nowState: this.$store.getters.nowState
-  //   }
-  // },
 
   mounted: function() {
 
@@ -94,6 +89,15 @@ module.exports = {
     this.prevBtn.addEventListener( 'click', this.prevBtnClick.bind( this ) );
 
 
+    if( localStorage.getItem('cacheImgBase64') ){
+
+        var content = localStorage.getItem('cacheMessage');
+        this.$store.commit( 'text', content );
+        this.$store.commit( 'nowState', 'share' );
+
+    }
+
+
     this.initHeaderBtns( this.$store.getters.nowState );
     this.$store.watch(
       (state, getters) => getters.nowState,
@@ -101,20 +105,6 @@ module.exports = {
         this.initHeaderBtns( to );
       }
     )
-
-
-    if( localStorage.getItem('cacheImgBase64') ){
-
-        this.$store.commit( 'nowState', 'share' );
-
-    }
-
-  },
-
-
-
-  wtach : {
-
 
   },
 
@@ -158,7 +148,7 @@ module.exports = {
             this.$store.commit( 'nowState', nextState );
         }
 
-    }
+    },
 
   }
 

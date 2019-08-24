@@ -106,7 +106,7 @@ export default class PixiView{
 		//データ保存
 	    if( localStorage.getItem('pixiCacheData') ){
 	      this.cacheData = JSON.parse( localStorage.getItem('pixiCacheData') );
-	      // this.setCaches();
+	      this.setCaches();
 	      localStorage.removeItem('pixiCacheData');
 	      this.show();
 	    }else{
@@ -258,7 +258,7 @@ export default class PixiView{
 	}
 
 
-	drawFilter( img, index, cacheFlag ){
+	drawFilter( index, cacheFlag ){
 
       	if( cacheFlag ){
 		    if( index == 0 ){
@@ -344,7 +344,7 @@ export default class PixiView{
 
 		var frameLength = this.animationData.frames.length;
 		if( frameLength == 0 ){
-        	Util.loading.setText( '画像を生成しています。' );
+		    this.element.dispatchEvent( new CustomEvent( 'ysdCallback', { detail:{ value:{ type:'changeLoadingText', message:'画像を生成しています。' } } } ) );
 			callback();
 			return;
 		}
@@ -496,19 +496,12 @@ export default class PixiView{
 
 	setCaches(){
 
-  		var stamps = document.querySelector( '.editor .stamps' );
-  		var decorations = document.querySelector( '.editor .decorations' );
-  		var filters = document.querySelector( '.editor .filters' );
-
-	    var stampBtns = stamps.getElementsByTagName( 'li' );
-	    var decorationBtns = decorations.getElementsByTagName( 'li' );
-	    var filterBtns = filters.getElementsByTagName( 'li' );
-
 		var length = this.cacheData.stamp.length;
 		for( var i = 0; i < length; i++ ){
 		  var obj = this.cacheData.stamp[i];
-		  var index = obj.index;
-		  var img = stampBtns[index].getElementsByTagName( 'img' )[0];
+		  var index = obj.index - 1;
+		  var img = new Image();
+		  img.setAttribute( 'src', '/images/stamp/' + index + '.png' );
 		  var stamp = this.drawStamp( img, index, false );
 		  stamp.x = obj.x;
 		  stamp.y = obj.y;
@@ -516,21 +509,19 @@ export default class PixiView{
 
 		length = this.cacheData.decoration.length;
 		for( i = 0; i < length; i++ ){
-		  index = this.cacheData.decoration[i];
-		  img = decorationBtns[index].getElementsByTagName( 'img' )[0];
+		  index = this.cacheData.decoration[i] - 1;
+		  var img = new Image();
+		  img.setAttribute( 'src', '/images/decoration/' + index + '.png' );
 		  this.drawDecoration( img, index, false );
 		}
 
 		length = this.cacheData.filter.length;
 		for( i = 0; i < length; i++ ){
 		  index = this.cacheData.filter[i];
-		  img = filterBtns[index].getElementsByTagName( 'img' )[0];
-		  this.drawFilter( img, index, false );
+		  this.drawFilter( index, false );
 		}
 
 
-	    var textarea = document.getElementsByTagName( 'textarea' )[0];
-	    textarea.value = this.cacheData.content;
 		this.drawText( this.cacheData.content );
 
 	}

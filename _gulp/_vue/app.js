@@ -25,6 +25,7 @@ var router_mode = (is_devmode)? 'hash' : 'history';
 // });
 
 Util.clickEventName = 'click';
+if( window.app.loginFlag ) Util.loginProvider = window.app.provider;
 
 
 Vue.component('index', Index);

@@ -14,7 +14,7 @@
 
 		<a href="javascript:void(0);" class="btn0 start_btn c_mb40" @click="clickStartBtn()">はじめる！</a>
 
-
+		<!--
 		<section class="howto c_mb40">
 			<h2 class="c_title1">マップスタンプってどんなサービス？</h2>
 			<p class="c_mb40">
@@ -45,7 +45,7 @@
 		</section>
 			
 		<a href="javascript:void(0);" class="btn0 start_btn" @click="clickStartBtn()">はじめる！</a>
-
+		-->
 	</div>
 </template>
 

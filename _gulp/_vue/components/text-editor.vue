@@ -3,7 +3,7 @@
 		<p class="border_text">
 			<span>アピールしたいことを<br>文章で書こう！</span>
 		</p>
-		<textarea maxlength="12" placeholder="ここにメッセージを入力してね"></textarea>
+		<textarea maxlength="12" placeholder="ここにメッセージを入力してね">{{text}}</textarea>
 
 		<a href="javascript:void(0);" class="btn0" @click="clickSubmitBtn">決定！</a>
 	</div>
@@ -50,13 +50,8 @@ module.exports = {
   },
 
 
-  watch: {
-    
-
-  },
-
-
   props : {
+    text : String
   }
 
 };

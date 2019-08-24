@@ -118,7 +118,12 @@ module.exports = {
           this.$store.commit( 'shareObj', { blob:obj.blob, lat:obj.lat, lng:obj.lng, content:obj.content, imgType:obj.imgType } );
           break;
 
+        case 'changeLoadingText':
+          this.$store.commit( 'loadingState', { state:'changeMessage', message:obj.message } );
+          break;
+
       }
+      
     }
 
   },

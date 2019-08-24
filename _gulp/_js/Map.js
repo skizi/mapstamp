@@ -52,9 +52,11 @@ export default class Map{
     this.pixiView = new PixiView( state );
     this.pixiView.element.addEventListener( 'ysdCallback', function( e ){    
       var obj = e.detail.value;
-      var latlng = this.map.getCenter();
-      obj.lat = latlng.lat;
-      obj.lng = latlng.lng;
+      if( obj.type == 'generateBlob' ){
+        var latlng = this.map.getCenter();
+        obj.lat = latlng.lat;
+        obj.lng = latlng.lng;
+      }
       this.element.dispatchEvent( new CustomEvent( 'ysdCallback', { detail:{ value:obj } } ) );
     }.bind( this ) );
 
@@ -100,7 +102,7 @@ export default class Map{
 
     this.setInterface( state );
 
-    if( state == 'capture' ){
+    if( state == 'editor' ){
       this.capture();
     }
 
@@ -200,7 +202,7 @@ export default class Map{
 
   addFilter( img, index ){
 
-    this.pixiView.drawFilter( img, index, true );
+    this.pixiView.drawFilter( index, true );
 
   }
 

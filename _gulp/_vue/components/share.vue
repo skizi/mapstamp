@@ -122,6 +122,8 @@ module.exports = {
 
     this.authenticity_token = document.getElementById( 'authenticity_token' ).value;
 
+    this.postImageId = -1;
+
 
     if( localStorage.getItem('cacheImgBase64') ){
       var base64 = localStorage.getItem('cacheImgBase64');
@@ -132,10 +134,11 @@ module.exports = {
       var lat = localStorage.getItem('cacheLat');
       var lng = localStorage.getItem('cacheLng');
 
-    this.$store.commit( 'loadingState', { state:'changeMessage', message:'Gifアニメを生成しています。' } );
-      this.submit( blob, lat, lng, content, imgType );
+      this.$store.commit( 'loadingState', { state:'changeMessage', message:'Gifアニメを生成しています。' } );
 
       this.removeStorageItem();
+      this.submit( blob, lat, lng, content, imgType );
+
     }
 
   },
@@ -143,21 +146,12 @@ module.exports = {
 
   watch: {
     
+    //shareObjに変更が加えられたら == gidまたは画像がジェネレートされたら
     shareObj( to, from ){
 
       this.submit( to.blob, to.lat, to.lng, to.content, to.imgType );
 
     },
-    
-    
-    loadingState( to, from ){
-      
-      // console.log("to.state:" + to.state);
-      // if( to.state == 'postFacebook' ){
-      //   location.href = this.postImageUrl;
-      // }
-
-    }
 
   },
 
@@ -178,10 +172,6 @@ module.exports = {
 
     btnClickHandler : function( provider, e ){
 
-      // if( Util.ua.platform != 'pc' ){
-      //   if( new Date().getTime() - Util.downTime > Util.touchHitTime ) return;
-      // }
-
       this.provider = provider;
       var str = 'Gifアニメを生成しています。';
       var notLoginFlag = false;
@@ -191,7 +181,6 @@ module.exports = {
         e.preventDefault();
       }
       this.$store.commit( 'loadingState', { state:'show', message:str } );
-      // this.element.dispatchEvent( new CustomEvent( 'ysdCallback', { detail:{ value:{ type:'generateGif', notLoginFlag:notLoginFlag } } } ) );
       this.$store.commit( 'generateGifState', { state:'generateGif', notLoginFlag:notLoginFlag } );
 
     },
@@ -217,6 +206,12 @@ module.exports = {
         return;
       }
 
+
+
+      if( this.postImageId != -1 ){
+        this.submitStep2( this.postImageId, imgType, content );
+        return;
+      }
 
       //mapStampサーバーにPOST
       this.blob = blob;
@@ -280,16 +275,12 @@ module.exports = {
     postFacebook : function( content ){
         
 
-        content += 'スタンプでデコって現在地を共有できるwebサービス、MapStamp！ Map data openstreetmap.org'
+        // content += 'スタンプでデコって現在地を共有できるwebサービス、MapStamp！ Map data openstreetmap.org'
         this.postImageUrl = 'https://www.mapstamp.net/post_images/' + this.postImageId;
-        var url = 'http://www.facebook.com/sharer.php?src=bm&u=' + encodeURI( this.postImageUrl );
+        var url = 'http://www.facebook.com/sharer.php?src=bm&u=' + encodeURI( this.postImageUrl ) + '&t=' + encodeURI( content );
 
-        // if( Util.ua.browser == 'safari' ){
-          this.$store.commit( 'loadingState', { state:'showFacebook', message:'投稿ボタンを押して下さい。', url:url } );
-        // }else{
-        //   Util.loading.setText( 'FaceBookに投稿しています。' );
-        //   this.shareFaceBook( content );
-        // }
+        this.$store.commit( 'loadingState', { state:'showFacebook', message:'投稿ボタンを押して下さい。', url:url } );
+       
 
     },
 
