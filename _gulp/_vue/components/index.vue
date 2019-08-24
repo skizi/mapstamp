@@ -3,23 +3,23 @@
 
     <div class="container">
 
-      <map-vue :now-state="this.$store.getters.nowState" :stamp="this.$store.getters.stamp" :decoration="this.$store.getters.decoration" :filter="this.$store.getters.filter" :text="this.$store.getters.text" :animation="this.$store.getters.animation" :generate-gif-state="this.$store.getters.generateGifState"></map-vue>
+      <map-vue :page-name="this.$store.getters.pageName" :stamp="this.$store.getters.stamp" :decoration="this.$store.getters.decoration" :filter="this.$store.getters.filter" :text="this.$store.getters.text" :animation="this.$store.getters.animation" :generate-gif="this.$store.getters.generateGif"></map-vue>
       
 
       <div class="interface">
 
-        <about v-if="this.$store.getters.nowState == 'about'"></about>
-        <capture v-else-if="this.$store.getters.nowState == 'capture'"></capture>
-        <editor v-else-if="this.$store.getters.nowState == 'editor'"></editor>
-        <text-editor v-else-if="this.$store.getters.nowState == 'textEditor'" :text="this.$store.getters.text"></text-editor>
-        <animation-editor v-else-if="this.$store.getters.nowState == 'animationEditor'"></animation-editor>
-        <share v-else-if="this.$store.getters.nowState == 'share'" :share-obj="this.$store.getters.shareObj"></share>
+        <about v-if="this.$store.getters.pageName == 'about'"></about>
+        <capture v-else-if="this.$store.getters.pageName == 'capture'"></capture>
+        <editor v-else-if="this.$store.getters.pageName == 'editor'"></editor>
+        <text-editor v-else-if="this.$store.getters.pageName == 'textEditor'" :text="this.$store.getters.text"></text-editor>
+        <animation-editor v-else-if="this.$store.getters.pageName == 'animationEditor'"></animation-editor>
+        <share v-else-if="this.$store.getters.pageName == 'share'" :share="this.$store.getters.share"></share>
 
       </div>
 
     </div>
 
-    <loading :loading-state="this.$store.getters.loadingState"></loading>
+    <loading :loading="this.$store.getters.loading"></loading>
   
   </div>
 
@@ -78,8 +78,6 @@ module.exports = {
 
   mounted: function() {
 
-    // alert( this.nowState );
-
     this.states = [ 'about', 'capture', 'editor', 'textEditor', 'animationEditor', 'share' ];
 
     var header = document.body.getElementsByTagName( 'header' )[0];
@@ -93,14 +91,14 @@ module.exports = {
 
         var content = localStorage.getItem('cacheMessage');
         this.$store.commit( 'text', content );
-        this.$store.commit( 'nowState', 'share' );
+        this.$store.commit( 'pageName', 'share' );
 
     }
 
 
-    this.initHeaderBtns( this.$store.getters.nowState );
+    this.initHeaderBtns( this.$store.getters.pageName );
     this.$store.watch(
-      (state, getters) => getters.nowState,
+      (state, getters) => getters.pageName,
       (to, from) => {
         this.initHeaderBtns( to );
       }
@@ -127,7 +125,7 @@ module.exports = {
     },
 
     nextBtnClick : function(){
-        console.log(2);
+      
         this.changeState( 1 );
 
         
@@ -142,12 +140,12 @@ module.exports = {
 
     changeState : function( adjustIndex ){
 
-        let state = this.$store.getters.nowState;
+        let state = this.$store.getters.pageName;
         let nextIndex = this.states.indexOf( state ) + adjustIndex;
         let nextState = this.states[ nextIndex ];
 
         if( nextState ){
-            this.$store.commit( 'nowState', nextState );
+            this.$store.commit( 'pageName', nextState );
         }
 
     },

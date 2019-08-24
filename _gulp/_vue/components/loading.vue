@@ -156,7 +156,7 @@ module.exports = {
 
   watch: {
     
-    loadingState( to, from ){
+    loading( to, from ){
 
     	switch( to.state ){
 
@@ -189,7 +189,7 @@ module.exports = {
 
 
   props : {
-  	loadingState : Object
+  	loading : Object
   }
 
 };

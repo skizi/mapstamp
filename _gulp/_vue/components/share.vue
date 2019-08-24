@@ -135,7 +135,7 @@ module.exports = {
       var lat = localStorage.getItem('cacheLat');
       var lng = localStorage.getItem('cacheLng');
 
-      this.$store.commit( 'loadingState', { state:'changeMessage', message:'Gifアニメを生成しています。' } );
+      this.$store.commit( 'loading', { state:'changeMessage', message:'Gifアニメを生成しています。' } );
 
       this.removeStorageItem();
       this.submit( blob, lat, lng, content, imgType );
@@ -150,8 +150,8 @@ module.exports = {
 
   watch: {
     
-    //shareObjに変更が加えられたら == gidまたは画像がジェネレートされたら
-    shareObj( to, from ){
+    //shareに変更が加えられたら == gidまたは画像がジェネレートされたら
+    share( to, from ){
 
       this.submit( to.blob, to.lat, to.lng, to.content, to.imgType );
 
@@ -185,8 +185,8 @@ module.exports = {
         notLoginFlag = true;
         e.preventDefault();
       }
-      this.$store.commit( 'loadingState', { state:'show', message:str } );
-      this.$store.commit( 'generateGifState', { state:'generateGif', notLoginFlag:notLoginFlag } );
+      this.$store.commit( 'loading', { state:'show', message:str } );
+      this.$store.commit( 'generateGif', { state:'generateGif', notLoginFlag:notLoginFlag } );
 
     },
 
@@ -247,7 +247,7 @@ module.exports = {
               this.submitStep2( result.id, imgType, result.content );
           }.bind( this ),
           error:function( result ){
-              this.$store.commit( 'loadingState', { state:'hide' } );
+              this.$store.commit( 'loading', { state:'hide' } );
               alert( 'あれれ、エラーです。もう一度試してみよう！' );
           }.bind( this )
       });
@@ -264,7 +264,7 @@ module.exports = {
       if( this.provider == 'download' ){
 
         var url = 'https://www.mapstamp.net/post_images/' + this.postImageId;
-        this.$store.commit( 'loadingState', { state:'showDownloadBtn', url:url } );
+        this.$store.commit( 'loading', { state:'showDownloadBtn', url:url } );
 
       }else if( this.provider == 'facebook' ){
 
@@ -286,7 +286,7 @@ module.exports = {
         this.postImageUrl = 'https://www.mapstamp.net/post_images/' + this.postImageId;
         var url = 'http://www.facebook.com/sharer.php?src=bm&u=' + encodeURI( this.postImageUrl ) + '&t=' + encodeURI( content );
 
-        this.$store.commit( 'loadingState', { state:'showFacebook', message:'投稿ボタンを押して下さい。', url:url } );
+        this.$store.commit( 'loading', { state:'showFacebook', message:'投稿ボタンを押して下さい。', url:url } );
        
 
     },
@@ -294,7 +294,7 @@ module.exports = {
 
     postTwitter : function( blob, type, message ){
 
-      this.$store.commit( 'loadingState', { state:'changeMessage', message:'Twitterに投稿しています。' } );
+      this.$store.commit( 'loading', { state:'changeMessage', message:'Twitterに投稿しています。' } );
 
       var formData = new FormData();
       var name = 'anime.' + type;
@@ -314,11 +314,11 @@ module.exports = {
           processData: false,
           contentType: false,
           success:function( result ){
-              this.$store.commit( 'loadingState', { state:'hide' } );
+              this.$store.commit( 'loading', { state:'hide' } );
               alert( '投稿完了！' );
           }.bind( this ),
           error:function( result ){
-              this.$store.commit( 'loadingState', { state:'hide' } );
+              this.$store.commit( 'loading', { state:'hide' } );
               alert( 'あれれ、エラーです。もう一度試してみよう！' );
           }.bind( this )
       });
@@ -401,7 +401,7 @@ module.exports = {
 
 
   props : {
-    shareObj : Object
+    share : Object
   }
 
 };

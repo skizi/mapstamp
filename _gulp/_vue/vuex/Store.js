@@ -19,15 +19,15 @@ const store = new Vuex.Store({
 	 * ミューテーション以外から直接書き換えてはいけない。
 	 */
 	state : {
-		nowState : 'about',
+		pageName : 'about',
 		stamp : {},
 		decoration : {},
 		filter : {},
 		text : '',
 		animation : {},
-		generateGifState : {},
-		shareObj : {},
-		loadingState : {}
+		generateGif : {},
+		share : {},
+		loading : {}
 	},
 
 
@@ -39,9 +39,9 @@ const store = new Vuex.Store({
 	 */
 	mutations: {
 
-		nowState( state, nowState ){
+		pageName( state, pageName ){
 			
-	      state.nowState = nowState;
+	      state.pageName = pageName;
 
 		},
 
@@ -77,22 +77,22 @@ const store = new Vuex.Store({
 	    },
 
 
-	    generateGifState( state, generateGifState ){
+	    generateGif( state, generateGif ){
 
-	      state.generateGifState = generateGifState;
+	      state.generateGif = generateGif;
 	    
 	    },
 
 
-	    shareObj( state, shareObj ){
+	    share( state, share ){
 
-	      state.shareObj = shareObj;
+	      state.share = share;
 
 	    },
 
-	    loadingState( state, loadingState ){
+	    loading( state, loading ){
 
-	      state.loadingState = loadingState;
+	      state.loading = loading;
 
 	    },
 
@@ -145,8 +145,8 @@ const store = new Vuex.Store({
 
 	getters: {
 
-		nowState: ( state ) =>{
-			return state.nowState;
+		pageName: ( state ) =>{
+			return state.pageName;
 		},
 	
 		stamp: ( state ) => {
@@ -169,16 +169,16 @@ const store = new Vuex.Store({
 			return state.animation;
 		},
 
-		generateGifState: ( state ) => {
-			return state.generateGifState;
+		generateGif: ( state ) => {
+			return state.generateGif;
 		},
 
-		shareObj: ( state ) => {
-			return state.shareObj;
+		share: ( state ) => {
+			return state.share;
 		},
 
-		loadingState: ( state ) => {
-			return state.loadingState;
+		loading: ( state ) => {
+			return state.loading;
 		},
 
 	}

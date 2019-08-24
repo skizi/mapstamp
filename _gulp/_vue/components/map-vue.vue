@@ -76,7 +76,7 @@ module.exports = {
 
   mounted: function() {
 
-  	this.map = new Map( this.nowState );
+  	this.map = new Map( this.pageName );
     this.map.element.addEventListener( 'ysdCallback', this.mapCallBackHandler.bind( this ) );
 
 
@@ -103,22 +103,14 @@ module.exports = {
       var obj = e.detail.value;
       switch( obj.type ){
 
-        // case 'popupClick':
-        //   this.showPostModal.refresh();
-        //   this.showPostModal.setText( obj.data );
-        //   this.showPostModal.show();
-        //   break;
-
         case 'generateBlob':
           obj.content = obj.content;
-          // this.share.submit( obj.blob, obj.lat, obj.lng, obj.content, obj.imgType );
-          //↑ comitに差し替える
 
-          this.$store.commit( 'shareObj', { blob:obj.blob, lat:obj.lat, lng:obj.lng, content:obj.content, imgType:obj.imgType } );
+          this.$store.commit( 'share', { blob:obj.blob, lat:obj.lat, lng:obj.lng, content:obj.content, imgType:obj.imgType } );
           break;
 
         case 'changeLoadingText':
-          this.$store.commit( 'loadingState', { state:'changeMessage', message:obj.message } );
+          this.$store.commit( 'loading', { state:'changeMessage', message:obj.message } );
           break;
 
       }
@@ -130,9 +122,9 @@ module.exports = {
 
   watch: {
     
-    nowState : function( to, from ){
-
-      this.map.changeState( this.nowState );
+    pageName : function( to, from ){
+console.log(to);
+      this.map.changeState( to );
 
     },
 
@@ -172,7 +164,7 @@ module.exports = {
     },
 
 
-    generateGifState : function( to, from ){
+    generateGif : function( to, from ){
 
       if( to.state == 'generateGif' ){
         this.map.generateGif();
@@ -187,13 +179,13 @@ module.exports = {
 
 
   props : {
-    nowState : String,
+    pageName : String,
     stamp : Object,
     decoration : Object,
     filter : Object,
     text : String,
     animation : Object,
-    generateGifState : Object
+    generateGif : Object
   }
 
 };

@@ -43,7 +43,7 @@ module.exports = {
 
   	clickSubmitBtn : function(){
 
-  		this.$store.commit( 'nowState', 'animationEditor' );
+  		this.$store.commit( 'pageName', 'animationEditor' );
 
   	}
 

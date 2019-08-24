@@ -71,7 +71,7 @@ module.exports = {
 
   	clickSubmitBtn : function(){
 
-  		this.$store.commit( 'nowState', 'textEditor' );
+  		this.$store.commit( 'pageName', 'textEditor' );
 
   	},
 
@@ -178,8 +178,7 @@ module.exports = {
 	  stampBtnClickHandler : function( i ){
 
 	    var img = this.stampBtns[i].getElementsByTagName( 'img' )[0];
-	    // this.element.dispatchEvent( new CustomEvent( 'ysdCallback', { detail:{ value:{ type:'selectStamp', img:img, index:i } } } ) );
-
+	   
   		this.$store.commit( 'stamp', { img:img, index:i } );
 
 	  },
@@ -188,8 +187,7 @@ module.exports = {
 	  decorationBtnClickHandler : function( i ){
 
 	    var img = this.decorationBtns[i].getElementsByTagName( 'img' )[0];
-	    // this.element.dispatchEvent( new CustomEvent( 'ysdCallback', { detail:{ value:{ type:'selectDecoration', img:img, index:i } } } ) );
-
+	    
   		this.$store.commit( 'decoration', { img:img, index:i } );
 
 	  },
@@ -198,8 +196,7 @@ module.exports = {
 	  filterBtnClickHandler : function( i ){
 
 	    var img = this.filterBtns[i].getElementsByTagName( 'img' )[0];
-	    // this.element.dispatchEvent( new CustomEvent( 'ysdCallback', { detail:{ value:{ type:'selectFilter', img:img, index:i } } } ) );
-
+	    
   		this.$store.commit( 'filter', { img:img, index:i } );
 
 	  },
@@ -223,16 +220,6 @@ module.exports = {
 	  }
 
   },
-
-
-  watch: {
-    
-
-  },
-
-
-  props : {
-  }
 
 };
 

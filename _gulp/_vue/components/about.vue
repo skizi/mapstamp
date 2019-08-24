@@ -137,21 +137,11 @@ module.exports = {
 
   	clickStartBtn : function(){
 
-  		this.$store.commit( 'nowState', 'capture' );
+  		this.$store.commit( 'pageName', 'capture' );
 
   	}
 
   },
-
-
-  watch: {
-    
-
-  },
-
-
-  props : {
-  }
 
 };
 

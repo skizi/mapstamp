@@ -23,31 +23,16 @@ module.exports = {
 
   name: 'Capture',
 
-  mounted: function() {
-
-
-  },
-
 
   methods: {
 
   	clickSubmitBtn : function(){
 
-  		this.$store.commit( 'nowState', 'editor' );
+  		this.$store.commit( 'pageName', 'editor' );
 
   	}
 
   },
-
-
-  watch: {
-    
-
-  },
-
-
-  props : {
-  }
 
 };
 

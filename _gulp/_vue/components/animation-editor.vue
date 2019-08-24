@@ -88,7 +88,7 @@ module.exports = {
 
   	clickSubmitBtn : function(){
 
-  		this.$store.commit( 'nowState', 'share' );
+  		this.$store.commit( 'pageName', 'share' );
       this.$store.commit( 'animation', this.data[this.active] );
 
   	},
@@ -102,16 +102,6 @@ module.exports = {
     }
 
   },
-
-
-  watch: {
-    
-
-  },
-
-
-  props : {
-  }
 
 };
 
