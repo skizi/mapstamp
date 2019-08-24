@@ -1,5 +1,6 @@
-@charset "UTF-8";
+
 /** Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/) http://cssreset.com */
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
 
 /* HTML5 display-role reset for older browsers */
@@ -1295,10 +1296,21 @@ body.home_index .interface .editor .select_menu { overflow: hidden; *zoom: 1; wi
 body.home_index .interface .editor .select_menu li { width: 33%; height: 50px; line-height: 50px; float: left; text-align: center; cursor: pointer; border-radius: 80px; user-select: none; }
 body.home_index .interface .editor .select_menu li:first-child { background-color: #f2f2f2; }
 body.home_index .interface .text_editor textarea { width: 300px; max-width: 290px; height: 40px; line-height: 40px; margin: 0 auto 10px; display: block; float: none; text-align: center; }
+body.home_index .interface .share textarea { width: 300px; max-width: 290px; height: 60px; line-height: 30px; margin: 0 auto 10px; display: block; float: none; text-align: left; }
+body.home_index .interface .share .btn0 { margin-bottom: 20px; }
+body.home_index .interface .share img.gif { width: 200px; margin: 0 auto 50px; display: block; }
 body.home_index .howto { text-align: left; width: 300px; margin: 0 auto; }
 body.home_index .howto .example { text-align: center; }
 body.home_index .howto .example img { margin-bottom: 10px; border-radius: 10px; box-shadow: 0 2px 8px #b7b7b7; }
 body.home_index .howto .example p { font-size: 12px; border-bottom: 2px solid #edbc2f; border-style: dotted; display: inline-block; }
+
+.btn0.twitter, .btn0.facebook, .btn0.download { width: 270px; height: 40px; line-height: 40px; margin: 0 auto; padding-left: 30px; display: block; border-radius: 5px; background-color: #55acee; background-image: url(./twitter_icon.png); background-size: auto 18px; background-repeat: no-repeat; background-position: 15px 50%; text-align: center; color: #fff; font-size: 15px; text-decoration: none; letter-spacing: 0px; transition-duration: 0.3s; transition-property: opacity; box-shadow: 1px 1px 0px #3d8ac5, 2px 2px 0px #3d8ac5, 3px 3px 0px #3d8ac5, 4px 4px 0px #3d8ac5; }
+.btn0.twitter:link, .btn0.twitter:visited, .btn0.facebook:link, .btn0.facebook:visited, .btn0.download:link, .btn0.download:visited { color: #fff; }
+.btn0.twitter:hover, .btn0.facebook:hover, .btn0.download:hover { opacity: 0.8; }
+
+.btn0.facebook { background-color: #44598e; box-shadow: 1px 1px 0px #374771, 2px 2px 0px #374771, 3px 3px 0px #374771, 4px 4px 0px #374771; background-image: url(./facebook_icon.png); background-position: 19px 50%; }
+
+.btn0.download { background-color: #ebb314; box-shadow: 1px 1px 0px #bc8e10, 2px 2px 0px #bc8e10, 3px 3px 0px #bc8e10, 4px 4px 0px #bc8e10; padding-left: 0; width: 300px; background-image: none; letter-spacing: 2px; }
 
 @media screen and (min-width: 375px) { body.home_index .container { padding-top: 20px; }
   body.home_index .slider { max-width: 500px; height: 120px; }

@@ -225,30 +225,6 @@ body.home_index{
 		}
 
 
-		.share{
-			//display:none;
-
-			textarea{
-				width: 300px;
-				max-width: 290px;
-				height: 60px;
-				line-height: 30px;
-				margin: 0 auto 10px;
-			    display: block;
-				float:none;
-			    text-align: left;
-			}
-
-			.btn0{
-				margin-bottom: 20px;
-			}
-
-			img.gif{
-				width: 200px;
-				margin: 0 auto 50px;
-				display: block;
-			}
-		}
 	}
 
 	.howto{
@@ -275,66 +251,6 @@ body.home_index{
 	}
 }
 
-.btn0.twitter,
-.btn0.facebook,
-.btn0.download{
-    width: 270px;
-    height: 40px;
-    line-height: 40px;
-    margin: 0 auto;
-    padding-left: 30px;
-    display: block;
-    border-radius: 5px;
-    background-color: #55acee;
-    background-image: url(./twitter_icon.png);
-    background-size: auto 18px;
-    background-repeat: no-repeat;
-    background-position: 15px 50%;
-    text-align: center;
-    color: #fff;
-    font-size: 15px;
-    text-decoration: none;
-    letter-spacing: 0px;
-    transition-duration: 0.3s;
-    transition-property: opacity;
-
-    box-shadow: 1px 1px 0px #3d8ac5,
-                2px 2px 0px #3d8ac5,
-                3px 3px 0px #3d8ac5,
-                4px 4px 0px #3d8ac5;
-
-    &:link,
-    &:visited{
-        color:#fff;
-    }
-
-    &:hover{
-        opacity: 0.8;
-    }
-}
-
-
-
-.btn0.facebook{
-	background-color:#44598e;
-    box-shadow: 1px 1px 0px #374771,
-                2px 2px 0px #374771,
-                3px 3px 0px #374771,
-                4px 4px 0px #374771;
-    background-image: url(./facebook_icon.png);
-    background-position: 19px 50%;
-}
-.btn0.download{
-	background-color:#ebb314;
-    box-shadow: 1px 1px 0px #bc8e10,
-                2px 2px 0px #bc8e10,
-                3px 3px 0px #bc8e10,
-                4px 4px 0px #bc8e10;
-    padding-left: 0;
-    width: 300px;
-    background-image:none;
-    letter-spacing: 2px;
-}
 
 
 @media screen and (min-width: 375px) {

@@ -1,5 +1,6 @@
-@charset "UTF-8";
+
 /** Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/) http://cssreset.com */
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
 
 /* HTML5 display-role reset for older browsers */
@@ -684,42 +685,6 @@ label { height: 46px; line-height: 46px; display: inline-block; color: #848484; 
 
 @media screen and (min-width: 375px) { .modal .inner .close_btn { transition-duration: 0.3s; transition-property: transform; }
   .modal .inner .close_btn:hover { transform: rotate(90deg); } }
-/*-----------------header--------------------*/
-header { width: 100%; height: 60px; background-color: #fff; border-bottom: 3px solid #ebb314; box-sizing: border-box; box-shadow: 0px 0px 3px 3px rgba(1, 1, 1, 0.1); }
-header .inner { margin: 0 auto; position: relative; }
-header h2 { width: 118px; margin: 0 auto; padding: 9px 0 6px; }
-header h2 img { width: 100%; }
-header h1 { width: 100%; font-size: 10px; text-align: center; color: #ebb314; }
-header a.prev, header a.next { position: absolute; right: 20px; top: 23px; text-decoration: none; color: #ff8e73; font-size: 14px; }
-header a.prev:visited, header a.prev:link, header a.next:visited, header a.next:link { color: #ff8e73; }
-header a.prev.prev, header a.next.prev { left: 20px; right: auto; }
-header a.login_btn { width: 100px; height: 36px; line-height: 36px; background-color: #ebb313; display: block; position: absolute; top: 13px; right: 13px; border-radius: 5px; color: #fff; text-align: center; text-decoration: none; font-size: 13px; display: none; }
-header a.main_menu_btn { width: 24px; height: 13px; display: block; position: absolute; top: 24px; left: 25px; }
-header a.main_menu_btn img { width: 100%; }
-
-@media screen and (min-width: 375px) { header { width: 100%; }
-  header .inner { width: 380px; }
-  header a.login_btn { transition-duration: 0.3s; transition-property: opacity; }
-  header a.login_btn:hover { opacity: 0.7; } }
-/*-----------------footer--------------------*/
-footer { width: 100%; padding-bottom: 10px; border-top: 2px solid #ebb314; }
-footer div.inner { overflow: hidden; *zoom: 1; min-height: 120px; }
-footer div.inner div.left { width: 50%; margin-left: 25px; padding-top: 29px; float: left; }
-footer div.inner div.left img { width: 118px; }
-footer div.inner div.right { padding-top: 29px; margin-left: 21px; float: left; }
-footer div.inner div.right nav ul li { margin-bottom: 0px; list-style: none; position: relative; height: 16px; line-height: 16px; }
-footer div.inner div.right nav ul li:after { content: ''; width: 2px; height: 2px; display: block; background-color: #a7a7a7; position: absolute; left: -10px; top: 8px; }
-footer div.inner div.right nav ul li a { color: #a7a7a7; font-size: 10px; text-decoration: none; }
-footer p.copy { color: #a7a7a7; text-align: center; }
-footer p.copy a { text-decoration: none; font-size: 10px; }
-
-@media screen and (min-width: 375px) { footer { width: 100%; }
-  footer div.inner div.left { width: 40%; margin-left: 16%; }
-  footer div.inner div.left a, footer div.inner div.right a, footer p.copy a { transition-duration: 0.3s; transition-property: opacity; }
-  footer div.inner div.left a:hover, footer div.inner div.right a:hover, footer p.copy a:hover { opacity: 0.7; }
-  footer div.inner { width: 400px; margin: 0 auto; min-height: 140px; }
-  footer div.inner div.left { width: auto; margin-left: 30px; }
-  footer div.inner div.right { min-width: auto; margin-right: 30px; float: right; } }
 /* required styles */
 .leaflet-pane, .leaflet-tile, .leaflet-marker-icon, .leaflet-marker-shadow, .leaflet-tile-container, .leaflet-pane > svg, .leaflet-pane > canvas, .leaflet-zoom-box, .leaflet-image-layer, .leaflet-layer { position: absolute; left: 0; top: 0; }
 
@@ -1295,10 +1260,21 @@ body.home_index .interface .editor .select_menu { overflow: hidden; *zoom: 1; wi
 body.home_index .interface .editor .select_menu li { width: 33%; height: 50px; line-height: 50px; float: left; text-align: center; cursor: pointer; border-radius: 80px; user-select: none; }
 body.home_index .interface .editor .select_menu li:first-child { background-color: #f2f2f2; }
 body.home_index .interface .text_editor textarea { width: 300px; max-width: 290px; height: 40px; line-height: 40px; margin: 0 auto 10px; display: block; float: none; text-align: center; }
+body.home_index .interface .share textarea { width: 300px; max-width: 290px; height: 60px; line-height: 30px; margin: 0 auto 10px; display: block; float: none; text-align: left; }
+body.home_index .interface .share .btn0 { margin-bottom: 20px; }
+body.home_index .interface .share img.gif { width: 200px; margin: 0 auto 50px; display: block; }
 body.home_index .howto { text-align: left; width: 300px; margin: 0 auto; }
 body.home_index .howto .example { text-align: center; }
 body.home_index .howto .example img { margin-bottom: 10px; border-radius: 10px; box-shadow: 0 2px 8px #b7b7b7; }
 body.home_index .howto .example p { font-size: 12px; border-bottom: 2px solid #edbc2f; border-style: dotted; display: inline-block; }
+
+.btn0.twitter, .btn0.facebook, .btn0.download { width: 270px; height: 40px; line-height: 40px; margin: 0 auto; padding-left: 30px; display: block; border-radius: 5px; background-color: #55acee; background-image: url(./twitter_icon.png); background-size: auto 18px; background-repeat: no-repeat; background-position: 15px 50%; text-align: center; color: #fff; font-size: 15px; text-decoration: none; letter-spacing: 0px; transition-duration: 0.3s; transition-property: opacity; box-shadow: 1px 1px 0px #3d8ac5, 2px 2px 0px #3d8ac5, 3px 3px 0px #3d8ac5, 4px 4px 0px #3d8ac5; }
+.btn0.twitter:link, .btn0.twitter:visited, .btn0.facebook:link, .btn0.facebook:visited, .btn0.download:link, .btn0.download:visited { color: #fff; }
+.btn0.twitter:hover, .btn0.facebook:hover, .btn0.download:hover { opacity: 0.8; }
+
+.btn0.facebook { background-color: #44598e; box-shadow: 1px 1px 0px #374771, 2px 2px 0px #374771, 3px 3px 0px #374771, 4px 4px 0px #374771; background-image: url(./facebook_icon.png); background-position: 19px 50%; }
+
+.btn0.download { background-color: #ebb314; box-shadow: 1px 1px 0px #bc8e10, 2px 2px 0px #bc8e10, 3px 3px 0px #bc8e10, 4px 4px 0px #bc8e10; padding-left: 0; width: 300px; background-image: none; letter-spacing: 2px; }
 
 @media screen and (min-width: 375px) { body.home_index .container { padding-top: 20px; }
   body.home_index .slider { max-width: 500px; height: 120px; }
@@ -1327,3 +1303,19 @@ body.home_privacypolicy .container ul, body.home_rule .container ul, body.home_h
 @media screen and (min-width: 375px) { body.home_privacypolicy .container, body.home_rule .container, body.home_help .container { width: 600px; margin: 0 auto; padding: 50px 0; }
   body.home_privacypolicy .container p, body.home_rule .container p, body.home_help .container p { margin-bottom: 40px; } }
 body.post_images_show img.post_image { width: 280px; margin: 0 auto; display: block; padding: 20px 0 20px; }
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */
+

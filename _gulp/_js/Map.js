@@ -20,7 +20,7 @@ export default class Map{
     //ドラッグ後に、この半径内に存在する質問をサーバーから取得する
     this.searchRadius = 500;
 
-    L.Icon.Default.imagePath = '/assets/leaflet/';
+    L.Icon.Default.imagePath = '/images/leaflet/';
     var latlng = [ 35.67848924554223, 139.76272863769532];
     this.map = L.map( 'leafletMap' ).setView( latlng, this.zoom );
   	L.tileLayer(

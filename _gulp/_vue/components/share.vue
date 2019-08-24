@@ -13,6 +13,92 @@
 <style lang="sass">
 @import "../../_scss/_vars.scss";
 
+.share{
+  //display:none;
+
+  textarea{
+    width: 300px;
+    max-width: 290px;
+    height: 60px;
+    line-height: 30px;
+    margin: 0 auto 10px;
+      display: block;
+    float:none;
+      text-align: left;
+  }
+
+  .btn0{
+    margin-bottom: 20px;
+  }
+
+  img.gif{
+    width: 200px;
+    margin: 0 auto 50px;
+    display: block;
+  }
+}
+
+
+.btn0.twitter,
+.btn0.facebook,
+.btn0.download{
+    width: 270px;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 auto;
+    padding-left: 30px;
+    display: block;
+    border-radius: 5px;
+    background-color: #55acee;
+    background-image: url(/images/twitter_icon.png);
+    background-size: auto 18px;
+    background-repeat: no-repeat;
+    background-position: 15px 50%;
+    text-align: center;
+    color: #fff;
+    font-size: 15px;
+    text-decoration: none;
+    letter-spacing: 0px;
+    transition-duration: 0.3s;
+    transition-property: opacity;
+
+    box-shadow: 1px 1px 0px #3d8ac5,
+                2px 2px 0px #3d8ac5,
+                3px 3px 0px #3d8ac5,
+                4px 4px 0px #3d8ac5;
+
+    &:link,
+    &:visited{
+        color:#fff;
+    }
+
+    &:hover{
+        opacity: 0.8;
+    }
+}
+
+
+
+.btn0.facebook{
+  background-color:#44598e;
+    box-shadow: 1px 1px 0px #374771,
+                2px 2px 0px #374771,
+                3px 3px 0px #374771,
+                4px 4px 0px #374771;
+    background-image: url(/images/facebook_icon.png);
+    background-position: 19px 50%;
+}
+.btn0.download{
+  background-color:#ebb314;
+    box-shadow: 1px 1px 0px #bc8e10,
+                2px 2px 0px #bc8e10,
+                3px 3px 0px #bc8e10,
+                4px 4px 0px #bc8e10;
+    padding-left: 0;
+    width: 300px;
+    background-image:none;
+    letter-spacing: 2px;
+}
 </style>
 
 
@@ -62,7 +148,7 @@ module.exports = {
     //   var lat = localStorage.getItem('cacheLat');
     //   var lng = localStorage.getItem('cacheLng');
 
-    //   Util.loading.showLoading( 'Gifアニメを生成しています。' );
+    //this.$store.commit( 'loadingState', { state:'changeMessage', message:'Gifアニメを生成しています。' } );
     //   this.submit( blob, lat, lng, content, imgType );
 
     // }
@@ -109,7 +195,7 @@ module.exports = {
         notLoginFlag = true;
         e.preventDefault();
       }
-      Util.loading.showLoading( str );
+      this.$store.commit( 'loadingState', { state:'show', message:str } );
       // this.element.dispatchEvent( new CustomEvent( 'ysdCallback', { detail:{ value:{ type:'generateGif', notLoginFlag:notLoginFlag } } } ) );
       this.$store.commit( 'generateGifState', { state:'generateGif', notLoginFlag:notLoginFlag } );
 
@@ -164,7 +250,7 @@ module.exports = {
               this.submitStep2( result.id, imgType, result.content );
           }.bind( this ),
           error:function( result ){
-              Util.loading.hideLoading();
+              this.$store.commit( 'loadingState', { state:'hide' } );
               alert( 'あれれ、エラーです。もう一度試してみよう！' );
           }.bind( this )
       });
@@ -190,7 +276,7 @@ module.exports = {
         // URL.revokeObjectURL(url); //ios safariでバグ
         // window.open( url, '_blank'); //safariで動作しない
 
-        Util.loading.hideLoading();
+        this.$store.commit( 'loadingState', { state:'hide' } );
 
       }else if( this.provider == 'facebook' ){
 
@@ -213,8 +299,7 @@ module.exports = {
         var url = 'http://www.facebook.com/sharer.php?src=bm&u=' + encodeURI( postImageUrl );
 
         // if( Util.ua.browser == 'safari' ){
-          Util.loading.setText( '投稿ボタンを押して下さい。' );
-          Util.loading.showFaceBookShareBtn( url );
+          this.$store.commit( 'loadingState', { state:'showFacebook', message:'投稿ボタンを押して下さい。', url:url } );
         // }else{
         //   Util.loading.setText( 'FaceBookに投稿しています。' );
         //   this.shareFaceBook( content );
@@ -225,7 +310,7 @@ module.exports = {
 
     postTwitter : function( blob, type, message ){
 
-      Util.loading.setText( 'Twitterに投稿しています。' );
+      this.$store.commit( 'loadingState', { state:'changeMessage', message:'Twitterに投稿しています。' } );
 
       var formData = new FormData();
       var name = 'anime.' + type;
@@ -242,11 +327,11 @@ module.exports = {
           processData: false,
           contentType: false,
           success:function( result ){
-              Util.loading.hideLoading();
+              this.$store.commit( 'loadingState', { state:'hide' } );
               alert( '投稿完了！' );
           }.bind( this ),
           error:function( result ){
-              Util.loading.hideLoading();
+              this.$store.commit( 'loadingState', { state:'hide' } );
               alert( 'あれれ、エラーです。もう一度試してみよう！' );
           }.bind( this )
       });
@@ -269,7 +354,7 @@ module.exports = {
           // mobile_iframe: mobileFlag
         }, function(response){
           if( response ) alert( '投稿完了！' );
-          Util.loading.hideLoading();
+          this.$store.commit( 'loadingState', { state:'hide' } );
         }.bind( this ));
 
     },

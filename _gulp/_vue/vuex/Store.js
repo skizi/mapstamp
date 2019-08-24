@@ -26,7 +26,8 @@ const store = new Vuex.Store({
 		text : '',
 		animation : {},
 		generateGifState : {},
-		shareObj : {}
+		shareObj : {},
+		loadingState : {}
 	},
 
 
@@ -84,11 +85,16 @@ const store = new Vuex.Store({
 
 
 	    shareObj( state, shareObj ){
-console.log( "shareObj!!!!!!" );
 
 	      state.shareObj = shareObj;
 
-	    }
+	    },
+
+	    loadingState( state, loadingState ){
+
+	      state.loadingState = loadingState;
+
+	    },
 
 	},
 
@@ -169,6 +175,10 @@ console.log( "shareObj!!!!!!" );
 
 		shareObj: ( state ) => {
 			return state.shareObj;
+		},
+
+		loadingState: ( state ) => {
+			return state.loadingState;
 		},
 
 	}
