@@ -105,14 +105,15 @@
 <script>
 import Vue from 'vue';
 // import Util from 'Util';
-import { Util } from '@/assets/js/Util'
+import Util from '@/assets/js/Util'
 
 
 export default {
 
-  name: 'TextEditor',
+  name: 'Share',
 
   mounted: function() {
+    console.log("Share");
 
     this.element = document.querySelector( '.share' );
 

@@ -8,10 +8,12 @@ import UserAgent from '@/assets/js/UserAgent'
 import PixiView from '@/assets/js/PixiView'
 
 
+
 export default class Map{
 
   constructor( state ){
-    console.log("Map : constructor!!");
+
+    this.L = require('leaflet');
 
     Util.ua = new UserAgent();
 
@@ -24,13 +26,11 @@ export default class Map{
 
     //ドラッグ後に、この半径内に存在する質問をサーバーから取得する
     this.searchRadius = 500;
-console.log(window.L);
-console.log(window.document.body);
-console.log(document.body);
-    window.L.Icon.Default.imagePath = '/images/leaflet/';
+    
+    this.L.Icon.Default.imagePath = '/images/leaflet/';
     var latlng = [ 35.67848924554223, 139.76272863769532];
-    this.map = window.L.map( 'leafletMap' ).setView( latlng, this.zoom );
-  	window.L.tileLayer(
+    this.map = this.L.map( 'leafletMap' ).setView( latlng, this.zoom );
+  	this.L.tileLayer(
   		'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 
   		//なぜかRetina対応タイルが存在しない
@@ -43,10 +43,10 @@ console.log(document.body);
   		}
   	).addTo( this.map );
 
-    this.leafletControlZoom = document.getElementsByClassName( 'leaflet-control-zoom' )[0];
+    this.LeafletControlZoom = document.getElementsByClassName( 'leaflet-control-zoom' )[0];
 
     //移動範囲を限定させる
-    this.map.setMaxBounds( new L.LatLngBounds([ -90, -180 ], [ 90, 180]) );
+    this.map.setMaxBounds( new this.L.LatLngBounds([ -90, -180 ], [ 90, 180]) );
 
     this.map.on( 'moveend', this.mapMoved.bind( this ) );
     this.map.on( 'zoomstart', this.mapZoomStart.bind( this ) );
@@ -148,18 +148,18 @@ console.log(document.body);
     switch( type ){
 
       case 'about':
-        this.leafletControlZoom.style.display = 'none';
+        this.LeafletControlZoom.style.display = 'none';
         this.cover.style.display = 'block';
         break;
 
       case 'capture':
-        this.leafletControlZoom.style.display = 'block';
+        this.LeafletControlZoom.style.display = 'block';
         this.cover.style.display = 'none';
         this.pixiView.hide();
         break;
 
       case 'editor':
-        this.leafletControlZoom.style.display = 'none';
+        this.LeafletControlZoom.style.display = 'none';
         this.pixiView.show();
         this.cover.style.display = 'none';
         break;
@@ -229,10 +229,10 @@ console.log(document.body);
   //ポップアップを作成
   createPopup( data ){
 
-    var content = L.DomUtil.create( 'div', 'popup' );
+    var content = this.L.DomUtil.create( 'div', 'popup' );
     //content.innerHTML = data.title;
 
-    var popup = L.popup({ autoPan:false, keepInView:true, autoClose:false, closeOnEscapeKey:false, closeOnClick:false })
+    var popup = this.L.popup({ autoPan:false, keepInView:true, autoClose:false, closeOnEscapeKey:false, closeOnClick:false })
         .setLatLng([ Number( data.lat ), Number( data.lng ) ])
         .setContent( content )
         .openOn( this.map );
@@ -260,10 +260,10 @@ console.log(document.body);
 
     }
 
-// var draggable = new L.Draggable(popup._container, popup._wrapper);
+// var draggable = new this.L.Draggable(popup._container, popup._wrapper);
 // draggable.enable();
     
-    L.DomEvent.on( element, 'click', this.popupClickHandler.bind( this, data ) );
+    this.L.DomEvent.on( element, 'click', this.popupClickHandler.bind( this, data ) );
 
     return popup;
 
@@ -277,7 +277,7 @@ console.log(document.body);
     for( var i = 0; i < length; i++ ){
       //var content = this.popups[ key ][i].getContent();
       var element = this.popups[ key ][i].getElement();
-      L.DomEvent.off( element, 'click', this.popupClickHandler.bind( this ) );
+      this.L.DomEvent.off( element, 'click', this.popupClickHandler.bind( this ) );
       this.popups[ key ][i].remove();
       this.allPopupLength--;
     }
@@ -301,7 +301,7 @@ console.log(document.body);
     navigator.geolocation.getCurrentPosition(
       function( pos ){
 
-        var latLng = L.latLng( pos.coords.latitude, pos.coords.longitude );
+        var latLng = this.L.latLng( pos.coords.latitude, pos.coords.longitude );
 
         if( this.userMaker ){
         
@@ -311,7 +311,7 @@ console.log(document.body);
 
           if( !localStorage.getItem('cacheImgBase64') ){
             this.map.setView( latLng, 16 );
-            this.userMaker = L.marker([ latLng.lat, latLng.lng ]).addTo(this.map);
+            this.userMaker = this.L.marker([ latLng.lat, latLng.lng ]).addTo(this.map);
           }
         }
       }.bind( this ),
@@ -343,9 +343,9 @@ console.log(document.body);
 
   setLatLng( lat, lng ){
 
-    var latLng = L.latLng( lat, lng );
+    var latLng = this.L.latLng( lat, lng );
     this.map.setView( latLng, 16 );
-    this.userMaker = L.marker([ latLng.lat, latLng.lng ]).addTo(this.map);
+    this.userMaker = this.L.marker([ latLng.lat, latLng.lng ]).addTo(this.map);
 
   }
 

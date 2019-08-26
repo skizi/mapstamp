@@ -64,7 +64,7 @@
 <script>
 import Vue from 'vue';
 // import Util from 'Util';
-import { Util } from '@/assets/js/Util'
+import Util from '@/assets/js/Util'
 
   
 export default {
@@ -72,6 +72,7 @@ export default {
   name: 'Loading',
 
   mounted: function() {
+    console.log("Loading");
 
 	this.element = document.getElementsByClassName( 'loading_cover' )[0];
 	this.text = this.element.getElementsByTagName( 'p' )[0];

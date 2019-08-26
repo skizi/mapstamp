@@ -25,6 +25,7 @@ export default {
   name: 'TextEditor',
 
   mounted: function() {
+    console.log("TextEditor");
 
     this.textEditor = document.getElementsByClassName( 'text_editor' )[0];
     this.textarea = this.textEditor.getElementsByTagName( 'textarea' )[0];

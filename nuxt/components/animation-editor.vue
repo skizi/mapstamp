@@ -22,7 +22,7 @@
 <script>
 import Vue from 'vue';
 // import Util from 'Util';
-import { Util } from '@/assets/js/Util'
+import Util from '@/assets/js/Util'
 
 
 export default {
@@ -30,6 +30,7 @@ export default {
   name: 'AnimationEditor',
 
   mounted: function() {
+    console.log("animation_editor");
 
     this.element = document.getElementsByClassName( 'animation_editor' )[0];
 

@@ -32,7 +32,7 @@
 
 <script>
 import Vue from 'vue';
-import { Util } from '@/assets/js/Util'
+import Util from '@/assets/js/Util'
 
 
 export default {
@@ -40,6 +40,7 @@ export default {
   name: 'Editor',
 
   mounted: function() {
+    console.log("Editor");
 
   	this.element = document.querySelector( '.editor' );
 
@@ -95,7 +96,7 @@ export default {
 	    for( var i = 0; i < length; i++ ){
 	      if( i != 0 ){
 	        btns[i] = document.createElement( 'li' );
-	        btns[i].innerHTML = '<img src="/images/' + type + '/' + ( i - 1 ) + '.png">';
+	        btns[i].innerHTML = '<img src="/img/' + type + '/' + ( i - 1 ) + '.png">';
 	      }
 	      btns[i].addEventListener( Util.clickEventName, func.bind( this, i ) )
 	      ul.appendChild( btns[i] );

@@ -3,32 +3,37 @@ import Util from '@/assets/js/Util';
 // import PIXI from '@/assets/js/libs/pixi'
 
 
+
+
 export default class PixiView{
 
   constructor( state ){
 
+  		var PIXI = this.PIXI = require('pixi.js');
+  		var filters = require('pixi-filters');
+  		this.GIFEncoder = require( 'gifencoder' );
+
+
 		this.element = document.querySelector( '.map .pixi' );  	
-
-
-		this.stage = new PIXI.Stage();
-		this.renderer = PIXI.autoDetectRenderer( 320, 320, {  transparent: true, antialias : true, resolution:2, backgroundColor:0x00000000, preserveDrawingBuffer: true } );
+		this.stage = new this.PIXI.Stage();
+		this.renderer = this.PIXI.autoDetectRenderer({ width:320, height:320, transparent: true, antialias : true, resolution:2, backgroundColor:0x00000000, preserveDrawingBuffer: true } );
 		this.element.appendChild( this.renderer.view );
 		this.renderer.view.style.cssText = 'touchAction:auto;';
 		this.renderer.plugins.interaction.autoPreventDefault = false;
-
+	
 		this.renderer.view.ontouchmove = function(e) {
 			if( this.dragFlag ) e.preventDefault();
 		}.bind( this );
 
 		setInterval( this.animate.bind( this ), 1000 / 30 );
 
-
-		this.container = new PIXI.Container();
+	
+		this.container = new this.PIXI.Container();
 		this.container.x = 160;
 		this.container.y = 160;
 		this.stage.addChild( this.container );
 
-		this.bg = new PIXI.Sprite();
+		this.bg = new this.PIXI.Sprite();
 		this.bg.anchor.x = 0.5;
 		this.bg.anchor.y = 0.5;
 		this.container.addChild( this.bg );
@@ -37,17 +42,17 @@ export default class PixiView{
 		this.decorations = [];
 		this.filters =[
 			null,
-			new PIXI.filters.OldFilmFilter(),
-			new PIXI.filters.ZoomBlurFilter(),
-			//new PIXI.filters.AsciiFilter(),
-			new PIXI.filters.DotFilter(),
-			new PIXI.filters.PixelateFilter(),
-			//new PIXI.filters.AdvancedBloomFilter({ threshold:0.5, brightness:0.3 }),
-			new PIXI.filters.ColorMatrixFilter()
+			new filters.OldFilmFilter(),
+			new filters.ZoomBlurFilter(),
+			//new filters.AsciiFilter(),
+			new filters.DotFilter(),
+			new filters.PixelateFilter(),
+			//new filters.AdvancedBloomFilter({ threshold:0.5, brightness:0.3 }),
+			new this.PIXI.filters.ColorMatrixFilter()
 		];
 		this.filters[2].center = [160, 160];
 		//this.filters[3].size = 10; //ascii
-
+	
 
 		this.filterNames = [ '全削除', 'フィルム', 'ズーム', /*'Ascii',*/ 'ドット', 'モザイク', /*'Bloom',*/ 'グレー' ];
 
@@ -65,7 +70,7 @@ export default class PixiView{
 
 
 
-		this.text = new PIXI.Text( '',{fontFamily : 'Arial', fontSize: 24, fill:0xff6744, align : 'center'});
+		this.text = new this.PIXI.Text( '',{fontFamily : 'Arial', fontSize: 24, fill:0xff6744, align : 'center'});
 		this.text.y = 320 - 50;
 		this.text.style.stroke = 0xffffff;
 		this.text.style.strokeThickness	= 10;
@@ -73,22 +78,22 @@ export default class PixiView{
 
 
 		//osm copy
-		this.copy = new PIXI.Container();
+		this.copy = new this.PIXI.Container();
 		this.copy.x = 172;
 		this.copy.y = 304;
 		this.stage.addChild( this.copy );
 
-		var graphics = new PIXI.Graphics();
+		var graphics = new this.PIXI.Graphics();
 		graphics.beginFill( 0xffffff, 0.7 );
 		graphics.drawRect( 0, 0, 150, 16 );
 		graphics.endFill();
 		this.copy.addChild( graphics );
 		
-		var text = new PIXI.Text('Map data © OpenStreetMap',{ fontSize: 11, fill : 0x0078A8 });
+		var text = new this.PIXI.Text('Map data © OpenStreetMap',{ fontSize: 11, fill : 0x0078A8 });
 		text.x = 5;
 		text.y = 1;
 		this.copy.addChild( text );
-
+	
 
 		//gif animation -----------------
 		//インスタンスの生成
@@ -118,7 +123,7 @@ export default class PixiView{
 	    //   var str = JSON.stringify( this.cacheData );
 	    //   localStorage.setItem( 'pixiCacheData', str );
 	    // }.bind( this ), false);
-
+	
 	}
 
 
@@ -165,7 +170,7 @@ export default class PixiView{
 
 	refreshGifanimation(){
 
-		this.gifAnimation = new GIFEncoder(320,320);
+		this.gifAnimation = new this.GIFEncoder(320,320);
 		this.gifAnimation.setRepeat(0);
 		this.gifAnimation.setDelay(100);
 		this.gifAnimation.start();
@@ -175,7 +180,7 @@ export default class PixiView{
 
 	addMap( img ){
 
-		let texture = new PIXI.Texture( new PIXI.BaseTexture(img) );
+		let texture = new this.PIXI.Texture( new this.PIXI.BaseTexture(img) );
 		this.bg.texture = texture;
 		if( Util.ua.platform != "pc" ){
 			this.bg.scale.set( 0.5, 0.5 );
@@ -205,8 +210,8 @@ export default class PixiView{
 		}
 
 
-		let texture = new PIXI.Texture( new PIXI.BaseTexture(img) );
-		var stamp = new PIXI.Sprite( texture );
+		let texture = new this.PIXI.Texture( new this.PIXI.BaseTexture(img) );
+		var stamp = new this.PIXI.Sprite( texture );
 		stamp.anchor.x = 0.5;
 		stamp.anchor.y = 0.5;
 		stamp.x = 0;
@@ -244,8 +249,8 @@ export default class PixiView{
 			return;
 		}
 
-		let texture = new PIXI.Texture( new PIXI.BaseTexture(img) );
-		this.decoration = new PIXI.Sprite( texture );
+		let texture = new this.PIXI.Texture( new this.PIXI.BaseTexture(img) );
+		this.decoration = new this.PIXI.Sprite( texture );
 		this.decoration.y = 320 - this.decoration.height;
 		// this.decoration.anchor.x = 0.5;
 		// this.decoration.anchor.y = 0.5;

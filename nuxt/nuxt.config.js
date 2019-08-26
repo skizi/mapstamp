@@ -17,10 +17,10 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
     script: [
-      { src:'~/assets/js/libs/pixi.js', type: 'text/javascript', body:true },
-      { src:'~/assets/js/libs/leaflet.js', type: 'text/javascript', body:true },
-      { src:'~/assets/js/libs/GIFEncoder.js', type: 'text/javascript', body:true },
-      { src:'~/assets/js/libs/html2canvas.min.js', type: 'text/javascript', body:true },
+      // { src:'~/assets/js/libs/pixi.js', body:false, mode: 'client' },
+      // { src:'~/assets/js/libs/leaflet.js', body:false, mode: 'client' },
+      // { src:'~/assets/js/libs/GIFEncoder.js', type: 'text/javascript', body:false },
+      // { src:'~/assets/js/libs/html2canvas.min.js', type: 'text/javascript', body:false },
     ]
   },
   /*
