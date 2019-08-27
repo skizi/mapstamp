@@ -13,28 +13,30 @@
 <style lang="scss">
 /*@import "../../_scss/_vars.scss";*/
 
-.share{
-  //display:none;
+.home_index .interface{
+  .share{
+    //display:none;
 
-  textarea{
-    width: 300px;
-    max-width: 290px;
-    height: 60px;
-    line-height: 30px;
-    margin: 0 auto 10px;
+    textarea{
+      width: 300px;
+      max-width: 290px;
+      height: 60px;
+      line-height: 30px;
+      margin: 0 auto 10px;
+        display: block;
+      float:none;
+        text-align: left;
+    }
+
+    .btn0{
+      margin-bottom: 20px;
+    }
+
+    img.gif{
+      width: 200px;
+      margin: 0 auto 50px;
       display: block;
-    float:none;
-      text-align: left;
-  }
-
-  .btn0{
-    margin-bottom: 20px;
-  }
-
-  img.gif{
-    width: 200px;
-    margin: 0 auto 50px;
-    display: block;
+    }
   }
 }
 
@@ -48,9 +50,10 @@
     margin: 0 auto;
     padding-left: 30px;
     display: block;
+    box-sizing:initial;
     border-radius: 5px;
     background-color: #55acee;
-    background-image: url(/images/twitter_icon.png);
+    background-image: url(/img/twitter_icon.png);
     background-size: auto 18px;
     background-repeat: no-repeat;
     background-position: 15px 50%;
@@ -85,7 +88,7 @@
                 2px 2px 0px #374771,
                 3px 3px 0px #374771,
                 4px 4px 0px #374771;
-    background-image: url(/images/facebook_icon.png);
+    background-image: url(/img/facebook_icon.png);
     background-position: 19px 50%;
 }
 .btn0.download{
@@ -115,36 +118,39 @@ export default {
   mounted: function() {
     console.log("Share");
 
-    this.element = document.querySelector( '.share' );
+    if (process.browser) {
+      this.element = document.querySelector( '.share' );
 
-    let btns = this.element.getElementsByClassName( 'btn0' );
-    btns[0].addEventListener( Util.clickEventName, this.btnClickHandler.bind( this, 'twitter' ) );
-    btns[1].addEventListener( Util.clickEventName, this.btnClickHandler.bind( this, 'facebook' ) );
-    btns[2].addEventListener( Util.clickEventName, this.btnClickHandler.bind( this, 'download' ) );
-
-    this.authenticity_token = document.getElementById( 'authenticity_token' ).value;
-
-    this.postImageId = -1;
+      let btns = this.element.getElementsByClassName( 'btn0' );
+      btns[0].addEventListener( Util.clickEventName, this.btnClickHandler.bind( this, 'twitter' ) );
+      btns[1].addEventListener( Util.clickEventName, this.btnClickHandler.bind( this, 'facebook' ) );
+      btns[2].addEventListener( Util.clickEventName, this.btnClickHandler.bind( this, 'download' ) );
 
 
-    if( localStorage.getItem('cacheImgBase64') ){
-      var base64 = localStorage.getItem('cacheImgBase64');
-      var imgType = localStorage.getItem('cacheImgType');
-      var blob = this.dataURLtoBlob( base64, imgType );
-      var content = localStorage.getItem('cacheMessage');
-      var pluseMessage = localStorage.getItem('cachePluseMessage');
-      this.provider = localStorage.getItem('cacheProvider');
-      var lat = localStorage.getItem('cacheLat');
-      var lng = localStorage.getItem('cacheLng');
-
-      this.$store.commit( 'loading', { state:'changeMessage', message:'Gifアニメを生成しています。' } );
-
-      this.removeStorageItem();
-      this.submit( blob, lat, lng, content, imgType );
+      this.postImageId = -1;
 
 
-      document.getElementsByClassName( 'pluse_message' )[0].value = pluseMessage;
+      if( localStorage.getItem('cacheImgBase64') ){
+        var base64 = localStorage.getItem('cacheImgBase64');
+        var imgType = localStorage.getItem('cacheImgType');
+        var blob = this.dataURLtoBlob( base64, imgType );
+        var content = localStorage.getItem('cacheMessage');
+        var pluseMessage = localStorage.getItem('cachePluseMessage');
+        this.provider = localStorage.getItem('cacheProvider');
+        var lat = localStorage.getItem('cacheLat');
+        var lng = localStorage.getItem('cacheLng');
 
+        this.$store.commit( 'loading', { state:'changeMessage', message:'Gifアニメを生成しています。' } );
+
+        this.removeStorageItem();
+        this.submit( blob, lat, lng, content, imgType );
+
+
+        document.getElementsByClassName( 'pluse_message' )[0].value = pluseMessage;
+
+      }
+      
+      this.authenticity_token = document.getElementById( 'authenticity_token' ).value;
     }
 
   },

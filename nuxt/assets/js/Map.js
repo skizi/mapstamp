@@ -14,6 +14,7 @@ export default class Map{
   constructor( state ){
 
     this.L = require('leaflet');
+    this.html2canvas = require( 'html2canvas' );
 
     Util.ua = new UserAgent();
 
@@ -27,7 +28,7 @@ export default class Map{
     //ドラッグ後に、この半径内に存在する質問をサーバーから取得する
     this.searchRadius = 500;
     
-    this.L.Icon.Default.imagePath = '/images/leaflet/';
+    this.L.Icon.Default.imagePath = '/img/leaflet/';
     var latlng = [ 35.67848924554223, 139.76272863769532];
     this.map = this.L.map( 'leafletMap' ).setView( latlng, this.zoom );
   	this.L.tileLayer(
@@ -177,7 +178,7 @@ export default class Map{
 
     this.copy.style.display = 'none';
 
-    html2canvas( this.container, { useCORS: true } ).then(function( canvas ) {
+    this.html2canvas( this.container, { useCORS: true } ).then(function( canvas ) {
         var img = new Image();
         img.src = canvas.toDataURL();
         img.onload = function( img ){

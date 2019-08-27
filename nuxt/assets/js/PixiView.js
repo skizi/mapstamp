@@ -13,7 +13,6 @@ export default class PixiView{
   		var filters = require('pixi-filters');
   		this.GIFEncoder = require( 'gifencoder' );
 
-
 		this.element = document.querySelector( '.map .pixi' );  	
 		this.stage = new this.PIXI.Stage();
 		this.renderer = this.PIXI.autoDetectRenderer({ width:320, height:320, transparent: true, antialias : true, resolution:2, backgroundColor:0x00000000, preserveDrawingBuffer: true } );
@@ -419,7 +418,7 @@ export default class PixiView{
 
 			//GIFアニメーションの生成終了
 			this.gifAnimation.finish();
-
+			
 	        var bin = new Uint8Array( this.gifAnimation.stream().bin);
 	        var blob = new Blob([bin.buffer], {type:'image/gif'});
 	        // var url = URL.createObjectURL(blob);

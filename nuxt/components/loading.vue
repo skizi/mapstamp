@@ -20,7 +20,7 @@
     position:fixed;
     top:0px;
     left:0px;
-    background-image:url("/images/loading.gif");
+    background-image:url("/img/loading.gif");
     background-repeat:no-repeat;
     background-position:center center;
     transition-duration: 0.3s;
@@ -74,16 +74,18 @@ export default {
   mounted: function() {
     console.log("Loading");
 
-	this.element = document.getElementsByClassName( 'loading_cover' )[0];
-	this.text = this.element.getElementsByTagName( 'p' )[0];
-	this.faceBookShareBtn = this.element.getElementsByClassName( 'facebook_share_btn' )[0];
-	this.faceBookShareBtn.addEventListener( Util.clickEventName, this.clickBtn.bind( this ) );
+    if (process.browser) {
+    	this.element = document.getElementsByClassName( 'loading_cover' )[0];
+    	this.text = this.element.getElementsByTagName( 'p' )[0];
+    	this.faceBookShareBtn = this.element.getElementsByClassName( 'facebook_share_btn' )[0];
+    	this.faceBookShareBtn.addEventListener( Util.clickEventName, this.clickBtn.bind( this ) );
 
-	this.downloadBtn = this.element.getElementsByClassName( 'download_btn' )[0];
-	this.downloadBtn.addEventListener( Util.clickEventName, this.clickBtn.bind( this ) );
+    	this.downloadBtn = this.element.getElementsByClassName( 'download_btn' )[0];
+    	this.downloadBtn.addEventListener( Util.clickEventName, this.clickBtn.bind( this ) );
 
-	this.timeoutId;
-
+    	this.timeoutId;
+    }
+    
   },
 
 

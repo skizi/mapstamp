@@ -71,26 +71,29 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    // vendor: ["pixi", "leaflet"],
-    // plugins: [
-    //   new webpack.ProvidePlugin({
-    //     PIXI: '~/assets/js/libs/pixi.js',
-    //     L : '~/assets/js/libs/leaflet.js',
-    //   })
-    // ],
-    // /*
-    // ** Run ESLint on save
-    // */
-    // extend(config, { isDev, isClient }) {
-    //   if (isDev && isClient) {
-    //     config.module.rules.push({
-    //       enforce: "pre",
-    //       test: /\.(js|vue)$/,
-    //       loader: "eslint-loader",
-    //       exclude: /(node_modules)/
-    //     });
-    //   }
-    // },
+    vendor: ["jquery", /*'leaflet', 'pixi.js', 'html2canvas', 'gifencoder'*/],
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        // L: 'leaflet',
+        // PIXI: 'pixi.js',
+        // html2canvas : 'html2canvas',
+        // GIFEncoder : 'gifencoder'
+      })
+    ],
+    /*
+    ** Run ESLint on save
+    */
+    extend(config, { isDev, isClient }) {
+      if (isDev && isClient) {
+        config.module.rules.push({
+          enforce: "pre",
+          test: /\.(js|vue)$/,
+          loader: "eslint-loader",
+          exclude: /(node_modules)/
+        });
+      }
+    },
 
   }
 }

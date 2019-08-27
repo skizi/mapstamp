@@ -42,28 +42,32 @@ export default {
   mounted: function() {
     console.log("Editor");
 
-  	this.element = document.querySelector( '.editor' );
+    if (process.browser) {
+    console.log("Editor browser");
+console.log(Util.clickEventName);
+	  	this.element = document.querySelector( '.editor' );
 
-    this.selectBtns = document.getElementsByClassName( 'select_menu' )[0].getElementsByTagName( 'li' );
-    this.selectBtns[0].addEventListener( Util.clickEventName, this.selectBtnClickHandler.bind( this, 'stamp' ) );
-    this.selectBtns[1].addEventListener( Util.clickEventName, this.selectBtnClickHandler.bind( this, 'decoration' ) );
-    this.selectBtns[2].addEventListener( Util.clickEventName, this.selectBtnClickHandler.bind( this, 'filter' ) );
+	    this.selectBtns = document.getElementsByClassName( 'select_menu' )[0].getElementsByTagName( 'li' );
+	    this.selectBtns[0].addEventListener( Util.clickEventName, this.selectBtnClickHandler.bind( this, 'stamp' ) );
+	    this.selectBtns[1].addEventListener( Util.clickEventName, this.selectBtnClickHandler.bind( this, 'decoration' ) );
+	    this.selectBtns[2].addEventListener( Util.clickEventName, this.selectBtnClickHandler.bind( this, 'filter' ) );
 
-    this.stamps = this.element.getElementsByClassName( 'stamps' )[0];
-    this.decorations = this.element.getElementsByClassName( 'decorations' )[0];
-    this.filters = this.element.getElementsByClassName( 'filters' )[0];
+	    this.stamps = this.element.getElementsByClassName( 'stamps' )[0];
+	    this.decorations = this.element.getElementsByClassName( 'decorations' )[0];
+	    this.filters = this.element.getElementsByClassName( 'filters' )[0];
 
-    this.addBtns( 'stamp' );
-    this.addBtns( 'decoration' );
-    
-
-
-    this.submitBtn = this.element.getElementsByClassName( 'btn0' )[0];
-    this.submitBtn.addEventListener( 'click', this.submitBtnClickHandler.bind( this ) );
+	    this.addBtns( 'stamp' );
+	    this.addBtns( 'decoration' );
+	    
 
 
-    this.initFilters();
-    this.initFilterBtns();
+	    this.submitBtn = this.element.getElementsByClassName( 'btn0' )[0];
+	    this.submitBtn.addEventListener( 'click', this.submitBtnClickHandler.bind( this ) );
+
+
+	    this.initFilters();
+	    this.initFilterBtns();
+	}
 
   },
 
