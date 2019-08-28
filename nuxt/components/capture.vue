@@ -12,6 +12,20 @@
 <style lang="scss">
 /*@import "../../_scss/_vars.scss";*/
 
+
+.capture_btn_container{
+    //display:none;
+    text-align: center;
+
+    p{
+		margin-bottom: 10px;
+    }
+
+    .btn0{
+	    position: relative;
+		top: 10px;
+    }
+}
 </style>
 
 

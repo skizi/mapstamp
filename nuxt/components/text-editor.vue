@@ -27,16 +27,18 @@ export default {
   mounted: function() {
     console.log("TextEditor");
 
-    this.textEditor = document.getElementsByClassName( 'text_editor' )[0];
-    this.textarea = this.textEditor.getElementsByTagName( 'textarea' )[0];
-    var oldText = this.textarea.value;
-    setInterval( function(){
-      if( oldText != this.textarea.value ){
-        this.$store.commit( 'text', this.textarea.value );
-        oldText = this.textarea.value;
-      }
-    }.bind( this ), 1000 );
-
+    if (process.browser) {
+      this.textEditor = document.getElementsByClassName( 'text_editor' )[0];
+      this.textarea = this.textEditor.getElementsByTagName( 'textarea' )[0];
+      var oldText = this.textarea.value;
+      setInterval( function(){
+        if( oldText != this.textarea.value ){
+          this.$store.commit( 'text', this.textarea.value );
+          oldText = this.textarea.value;
+        }
+      }.bind( this ), 1000 );
+    }
+    
   },
 
 

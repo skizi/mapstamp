@@ -3,8 +3,8 @@
 		<h3>自分が今いる場所を共有しよう！</h3>
 
 		<ul class="examples">
-			<li><img alt="MapPop 例1" src="/images/top/0.gif"></li>
-			<li><img alt="MapPop 例2" src="/images/top/2.gif"></li>
+			<li><img alt="MapPop 例1" src="/img/top/0.gif"></li>
+			<li><img alt="MapPop 例2" src="/img/top/2.gif"></li>
 		</ul>
 
 		<p class="border_text">
@@ -22,7 +22,7 @@
 			</p>
 
 			<div class="example">
-				<img alt="MapPop 例3" src="/images/top/1.gif">
+				<img alt="MapPop 例3" src="/img/top/1.gif">
 				<p>こんなＧｉｆアニメが作れるよ！</p>
 			</div>
 

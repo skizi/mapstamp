@@ -60,6 +60,9 @@ import Loading from './loading';
 
 import { mapMutations, mapGetters } from 'vuex'
 
+import Util from '@/assets/js/Util'
+
+
 export default {
 
   name: 'App',
@@ -83,6 +86,10 @@ export default {
     this.states = [ 'about', 'capture', 'editor', 'textEditor', 'animationEditor', 'share' ];
 
     if (process.client) {
+      
+      Util.clickEventName = 'click';
+      if( window.app.loginFlag ) Util.loginProvider = window.app.provider;
+
       var header = document.body.getElementsByTagName( 'header' )[0];
       this.nextBtn = header.getElementsByClassName( 'next' )[0];
       this.prevBtn = header.getElementsByClassName( 'prev' )[0];
