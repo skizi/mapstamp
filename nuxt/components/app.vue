@@ -61,6 +61,7 @@ import Loading from './loading';
 import { mapMutations, mapGetters } from 'vuex'
 
 import Util from '@/assets/js/Util'
+import axios from 'axios';
 
 
 export default {
@@ -86,6 +87,19 @@ export default {
     this.states = [ 'about', 'capture', 'editor', 'textEditor', 'animationEditor', 'share' ];
 
     if (process.client) {
+
+      var http = axios.create();
+      http.interceptors.response.use(function (response) {
+          var token = response.headers['x-csrf-token'];
+          if (token) {
+              // save token in localStorage for later use
+              app.csrfToken = token;
+              window.localStorage.setItem('csrf-token', token);
+              console.log(token);
+          }
+          return response;
+      }, function (error) {});
+
       
       Util.clickEventName = 'click';
       if( window.app.loginFlag ) Util.loginProvider = window.app.provider;

@@ -15,9 +15,15 @@ module Mappop
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.action_dispatch.default_headers = {
-	  'Access-Control-Allow-Credentials' => 'true',
-	  'Access-Control-Allow-Origin' => 'http://localhost:3000',
-	  'Access-Control-Request-Method' => '*'
-	}
+  	  'Access-Control-Allow-Credentials' => 'true',
+  	  'Access-Control-Allow-Origin' => 'http://localhost:3000',
+  	  'Access-Control-Request-Method' => '*'
+  	}
+
+    #SPA対応
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore, {:key=>"_csrf_protection_example_session"}
+
+    config.navigational_formats = [:json]
   end
 end
