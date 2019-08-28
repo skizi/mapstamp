@@ -2053,7 +2053,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-a782b290", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-a782b290", __vue__options__)
+    hotAPI.reload("data-v-a782b290", __vue__options__)
   }
 })()}
 
