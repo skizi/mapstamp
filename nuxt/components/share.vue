@@ -109,6 +109,7 @@
 import Vue from 'vue';
 // import Util from 'Util';
 import Util from '@/assets/js/Util'
+import axios from 'axios';
 
 
 export default {
@@ -150,7 +151,7 @@ export default {
 
       }
       
-      this.authenticity_token = document.getElementById( 'authenticity_token' ).value;
+      // this.authenticity_token = document.getElementById( 'authenticity_token' ).value;
     }
 
   },
@@ -242,23 +243,16 @@ export default {
       formData.append( 'user_id', Util.userId );
       formData.append( 'image_type', imgType );
       formData.append( 'provider', this.provider );
-      formData.append( 'authenticity_token', this.authenticity_token );
+      // formData.append( 'authenticity_token', this.authenticity_token );
 
       var url = Util.apiHeadUrl + '/post_images/create.json';
-      $.ajax({
-          url:url,
-          type:'POST',
-          data:formData,
-          processData: false,
-          contentType: false,
-          success:function( result ){
-              this.submitStep2( result.id, imgType, result.content );
-          }.bind( this ),
-          error:function( result ){
-              this.$store.commit( 'loading', { state:'hide' } );
-              alert( 'あれれ、エラーです。もう一度試してみよう！' );
-          }.bind( this )
-      });
+      this.postAxios( url, formData, function( response ){
+        this.submitStep2( response.id, imgType, response.content );
+      }.bind( this ),
+      function(){
+        this.$store.commit( 'loading', { state:'hide' } );
+        alert( 'あれれ、エラーです。もう一度試してみよう！' );
+      }.bind( this ) );
 
     },
 
@@ -315,20 +309,55 @@ export default {
       formData.append( 'message', message );
 
       var url = Util.apiHeadUrl + '/home/post_sns';
-      $.ajax({
-          url:url,
-          type:'POST',
-          data:formData,
-          processData: false,
-          contentType: false,
-          success:function( result ){
-              this.$store.commit( 'loading', { state:'hide' } );
-              alert( '投稿完了！' );
-          }.bind( this ),
-          error:function( result ){
-              this.$store.commit( 'loading', { state:'hide' } );
-              alert( 'あれれ、エラーです。もう一度試してみよう！' );
-          }.bind( this )
+      this.postAxios( url, formData, function(){
+        this.$store.commit( 'loading', { state:'hide' } );
+        alert( '投稿完了！' );
+      }.bind( this ),
+      function(){
+        this.$store.commit( 'loading', { state:'hide' } );
+        alert( 'あれれ、エラーです。もう一度試してみよう！' );
+      }.bind( this ) );
+
+    },
+
+
+
+    postAxios : function( url, formData, successCallback, errorCallback ){
+
+      var http = axios.create();
+      http.interceptors.response.use(function (response) {
+          var token = response.headers['x-csrf-token'];
+          if (token) {
+              // save token in localStorage for later use
+              // this.authenticity_token = token;
+              formData.append( 'authenticity_token', token );
+              window.localStorage.setItem('csrf-token', token);
+          }
+          return response;
+      }.bind( this ), function (error) {});
+      http.interceptors.request.use(function (config) {
+          var token = window.localStorage.getItem('csrf-token');
+          config.headers['X-CSRF-Token'] = token;
+          return config;
+      }, function (error) {});
+
+      http.post( url, formData, 
+        {
+          headers: {
+            'content-type': 'multipart/form-data',
+          },
+          validateStatus: function (status) {
+            return status < 300;
+          },
+        }
+      ).then(function(response){
+
+        if( response.status < 300 ){
+          successCallback(response.data);
+        }else{
+          errorCallback();
+        }
+
       });
 
     },
