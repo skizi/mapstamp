@@ -18,9 +18,6 @@ module.exports = {
     ],
     script: [
       // { src:'~/assets/js/libs/pixi.js', body:false, mode: 'client' },
-      // { src:'~/assets/js/libs/leaflet.js', body:false, mode: 'client' },
-      // { src:'~/assets/js/libs/GIFEncoder.js', type: 'text/javascript', body:false },
-      // { src:'~/assets/js/libs/html2canvas.min.js', type: 'text/javascript', body:false },
     ]
   },
   /*
@@ -37,19 +34,6 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-      // { src: '~/plugins/Util', mode: 'client' },
-      // { src: '~/plugins/UserAgent', mode: 'client' },
-      // { src: '~/plugins/PixiView', mode: 'client' },
-      // { src: '~/plugins/Map', mode: 'client' },
-      // { src:'@/plugins/Util.js', ssr: false },
-      // { src:'@/plugins/UserAgent.js', ssr: false },
-      // { src:'@/plugins/PixiView.js', ssr: false },
-      // { src:'@/plugins/Map.js', ssr: false },
-
-    // { src: '~/plugins/libs/pixi.js', mode: 'client' },
-    // { src: '~/plugins/libs/leaflet.js', mode: 'client' },
-    // { src: '~/plugins/libs/GIFEncoder.js', mode: 'client' },
-    // { src: '~/plugins/libs/html2canvas.min.js', mode: 'client' },
   ],
   /*
   ** Nuxt.js dev-modules
@@ -95,5 +79,10 @@ module.exports = {
       }
     },
 
+  },
+
+  server: {
+    port: 3000,
+    host: '160.16.62.37'
   }
 }

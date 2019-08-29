@@ -25,5 +25,8 @@ module Mappop
     config.middleware.use ActionDispatch::Session::CookieStore, {:key=>"_csrf_protection_example_session"}
 
     config.navigational_formats = [:json]
+
+
+    config.api_only = true
   end
 end
