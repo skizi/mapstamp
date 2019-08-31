@@ -372,7 +372,7 @@ module.exports = {
 
     getFormData2 : function( dataURI ){
 
-      let byteString = atob(dataURI.split(',')[1]);
+      let byteString = window.atob(dataURI.split(',')[1]);
       let ab = new ArrayBuffer(byteString.length);
       let ia = new Uint8Array(ab);
       for (let i = 0; i < byteString.length; i++) {
@@ -386,7 +386,7 @@ module.exports = {
 
 
     dataURLtoBlob : function( dataurl, type ) {
-        var bin = atob(dataurl.split("base64,")[1]);
+        var bin = window.atob(dataurl.split("base64,")[1]);
         var len = bin.length;
         var barr = new Uint8Array(len);
         for (var i = 0; i < len; i++) {
