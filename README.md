@@ -1,5 +1,6 @@
 # mapstamp
 Railsで作られたスタンプを地図上にデコることができる、位置情報共有アプリです。
+https://www.mapstamp.net/
 
 ## 技術構成
 ・サーバーサイドAPI : Rails  
