@@ -17,7 +17,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
     script: [
-      // { src:'~/assets/js/libs/pixi.js', body:false, mode: 'client' },
+      { src:'js/libs/pixi.js', body:false, mode: 'client' },
     ]
   },
   /*
