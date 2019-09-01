@@ -21,6 +21,7 @@
 
     <loading :loading="this.$store.getters.loading"></loading>
   
+    <a href="http://127.0.0.1:3000/server/auth/twitter" class="button--grey">Twitter Login</a>
   </div>
 
 </template>
@@ -102,8 +103,9 @@ export default {
 
       
       Util.clickEventName = 'click';
-      if( window.app.loginFlag ) Util.loginProvider = window.app.provider;
+      // if( window.app.loginFlag ) Util.loginProvider = window.app.provider;
 
+      /*
       var header = document.body.getElementsByTagName( 'header' )[0];
       this.nextBtn = header.getElementsByClassName( 'next' )[0];
       this.prevBtn = header.getElementsByClassName( 'prev' )[0];
@@ -127,6 +129,23 @@ export default {
           this.initHeaderBtns( to );
         }
       )
+      */
+    }
+
+  },
+
+
+  computed : {
+
+    isLoggedin : function(){
+
+      return function( str ){
+        var str = '未ログイン';
+        if (this.$auth.loggedIn) str = 'ログイン';
+
+        return str;
+      }
+
     }
 
   },
@@ -173,6 +192,11 @@ export default {
             this.$store.commit( 'pageName', nextState );
         }
 
+    },
+
+
+    authenticate() {
+      this.$auth.loginWith('github');
     },
 
   }

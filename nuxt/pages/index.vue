@@ -1,11 +1,11 @@
 <template>
   <div>
-    <app />
+    <app/>
   </div>
 </template>
 
 <script>
-import App from '~/components/app'
+import App from '~/components/app.vue'
 
 export default {
   components: {

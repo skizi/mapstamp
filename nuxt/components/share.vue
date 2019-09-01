@@ -217,7 +217,8 @@ export default {
           localStorage.setItem( 'cacheProvider', this.provider );
           localStorage.setItem( 'cacheLat', lat );
           localStorage.setItem( 'cacheLng', lng );
-          location.href = '/auth/' + this.provider;
+          console.log(location.protocol );
+          location.href = Util.apiHeadUrl + '/auth/' + this.provider;
         }.bind( this );
         return;
       }
@@ -265,7 +266,7 @@ export default {
       //ダウンロード
       if( this.provider == 'download' ){
 
-        var url = 'https://www.mapstamp.net/post_images/' + this.postImageId;
+        var url = 'https://www.mapstamp.net/post_images/' + this.postImageId + ':444';
         this.$store.commit( 'loading', { state:'showDownloadBtn', url:url } );
 
       }else if( this.provider == 'facebook' ){

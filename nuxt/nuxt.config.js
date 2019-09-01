@@ -68,21 +68,24 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
-    extend(config, { isDev, isClient }) {
-      if (isDev && isClient) {
+    extend(config) {
+      if (process.server && process.browser) {
         config.module.rules.push({
-          enforce: "pre",
+          enforce: 'pre',
           test: /\.(js|vue)$/,
-          loader: "eslint-loader",
+          loader: 'eslint-loader',
           exclude: /(node_modules)/
-        });
+        })
       }
-    },
+    }
 
   },
 
-  server: {
-    port: 3000,
-    host: '160.16.62.37'
-  }
+  // server: {
+  //   port: 3005,
+  //   host: '160.16.62.37'
+  // },
+
+  serverMiddleware: ['~/server']
+
 }

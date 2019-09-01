@@ -17,6 +17,6 @@ module.exports = {
 	faceBookToken:'',
 
 	// apiHeadUrl : 'http://localhost:3000',
-	apiHeadUrl : 'https://api.mapstamp.net',
+	apiHeadUrl : 'https://www.mapstamp.net',
 
 }
