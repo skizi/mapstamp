@@ -11,7 +11,6 @@
 
 
 <style lang="scss">
-/*@import "../../_scss/_vars.scss";*/
 
 .home_index .interface{
   .share{
@@ -106,8 +105,6 @@
 
 
 <script>
-import Vue from 'vue';
-// import Util from 'Util';
 import Util from '@/assets/js/Util'
 import axios from 'axios';
 
@@ -116,7 +113,7 @@ export default {
 
   name: 'Share',
 
-  mounted: function() {
+  mounted() {
 
     if (process.browser) {
       this.element = document.querySelector( '.share' );
@@ -152,6 +149,7 @@ export default {
       }
       
       // this.authenticity_token = document.getElementById( 'authenticity_token' ).value;
+      
     }
 
   },
@@ -171,7 +169,7 @@ export default {
 
   methods : {
 
-    removeStorageItem : function(){
+    removeStorageItem(){
 
         localStorage.removeItem('cacheImgBase64');
         localStorage.removeItem('cacheImgType');
@@ -184,7 +182,7 @@ export default {
     },
 
 
-    btnClickHandler : function( provider, e ){
+    btnClickHandler( provider, e ){
 
       this.provider = provider;
       var str = 'Gifアニメを生成しています。';
@@ -194,13 +192,14 @@ export default {
         notLoginFlag = true;
         e.preventDefault();
       }
+
       this.$store.commit( 'loading', { state:'show', message:str } );
       this.$store.commit( 'generateGif', { state:'generateGif', notLoginFlag:notLoginFlag } );
 
     },
 
 
-    submit : function( blob, lat, lng, content, imgType ){
+    submit( blob, lat, lng, content, imgType ){
 
       //まだログインしていない場合はログインさせる
       //画像データを一時保存
@@ -258,7 +257,7 @@ export default {
     },
 
 
-    submitStep2 : function( postImageId, imgType, content ){
+    submitStep2( postImageId, imgType, content ){
 
       this.postImageId = postImageId;
 
@@ -269,7 +268,7 @@ export default {
       if( this.provider == 'download' ){
 
         var url = Util.apiHeadUrl + '/post_images/' + this.postImageId;
-        this.$store.commit( 'loading', { state:'showDownloadBtn', url:url } );
+        this.$store.commit( 'loading', { state:'showDownloadBtn', url:url, message:'ダウンロードボタンを押してください。' } );
 
       }else if( this.provider == 'facebook' ){
 
@@ -284,7 +283,7 @@ export default {
     },
 
 
-    postFacebook : function( content ){
+    postFacebook( content ){
         
 
         // content += 'スタンプでデコって現在地を共有できるwebサービス、MapStamp！ Map data openstreetmap.org'
@@ -297,7 +296,7 @@ export default {
     },
 
 
-    postTwitter : function( blob, type, message ){
+    postTwitter( blob, type, message ){
 
       this.$store.commit( 'loading', { state:'changeMessage', message:'Twitterに投稿しています。' } );
 
@@ -325,7 +324,7 @@ export default {
 
 
 
-    postAxios : function( url, formData, successCallback, errorCallback ){
+    postAxios( url, formData, successCallback, errorCallback ){
 
       var http = axios.create();
       http.interceptors.response.use(function (response) {
@@ -367,7 +366,7 @@ export default {
     },
 
 
-    // refreshFacebookDebugger : function( postImageId ){
+    // refreshFacebookDebugger( postImageId ){
       
     //   var url = Util.apiHeadUrl + '/home/refresh_facebook_debugger';
     //   $.ajax({
@@ -387,7 +386,7 @@ export default {
     // },
 
 
-    getFormData : function( filename, mimeType, imageData, message ){
+    getFormData( filename, mimeType, imageData, message ){
 
       // this is the multipart/form-data boundary we'll use
       var boundary = '----ThisIsTheBoundary1234567890';
@@ -411,7 +410,7 @@ export default {
     },
 
 
-    getFormData2 : function( dataURI ){
+    getFormData2( dataURI ){
 
       let byteString = atob(dataURI.split(',')[1]);
       let ab = new ArrayBuffer(byteString.length);
@@ -426,7 +425,7 @@ export default {
     },
 
 
-    dataURLtoBlob : function( dataurl, type ) {
+    dataURLtoBlob( dataurl, type ) {
         var bin = atob(dataurl.split("base64,")[1]);
         var len = bin.length;
         var barr = new Uint8Array(len);

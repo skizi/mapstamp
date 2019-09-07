@@ -61,21 +61,14 @@
 
 
 <script>
-import Vue from 'vue';
 import Map from '@/assets/js/Map'
 
 
-// module.exports = {
 export default {
 
   name: 'MapVue',
 
-  data: function(){
-    return {
-    }
-  },
-
-  created: function() {
+  created(){
 
     if (process.browser) {
 
@@ -102,7 +95,7 @@ export default {
   methods : {
 
     
-    mapCallBackHandler : function( e ){
+    mapCallBackHandler( e ){
       
       var obj = e.detail.value;
       switch( obj.type ){
@@ -126,49 +119,49 @@ export default {
 
   watch: {
     
-    pageName : function( to, from ){
+    pageName( to, from ){
       
       this.map.changeState( to );
 
     },
 
 
-    stamp : function( to, from ){
+    stamp( to, from ){
 
       this.map.addStamp( to.img, to.index );
 
     },
 
 
-    decoration : function( to, from ){
+    decoration( to, from ){
 
       this.map.addDecoration( to.img, to.index );        
 
     },
 
      
-    filter : function( to, from ){
+    filter( to, from ){
 
       this.map.addFilter( to.img, to.index );        
       
     },
 
 
-    text : function( to, from ){
+    text( to, from ){
 
         this.map.addText( to );
 
     },
 
 
-    animation : function( to, from ){
+    animation( to, from ){
 
         this.map.addAnimation( to );
 
     },
 
 
-    generateGif : function( to, from ){
+    generateGif( to, from ){
 
       if( to.state == 'generateGif' ){
         this.map.generateGif();

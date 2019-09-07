@@ -8,7 +8,6 @@
 
 
 <style lang="scss">
-  /*@import "../../sass/import/_vars.scss";*/
 
 
 .loading_cover{
@@ -62,8 +61,6 @@
 
 
 <script>
-import Vue from 'vue';
-// import Util from 'Util';
 import Util from '@/assets/js/Util'
 
   
@@ -71,7 +68,7 @@ export default {
 
   name: 'Loading',
 
-  mounted: function() {
+  mounted() {
 
     if (process.browser) {
     	this.element = document.getElementsByClassName( 'loading_cover' )[0];
@@ -92,8 +89,9 @@ export default {
 
 	showLoading( message ){
 
-		this.text.innerHTML = message;
-		this.element.style.display = 'block';
+		if( !message ) message = '';
+        this.text.innerHTML = message;
+        this.element.style.display = 'block';
 		clearTimeout( this.timeoutId );
 		this.timeoutId = setTimeout(function(){
 			this.element.style.opacity = 1;
@@ -181,6 +179,7 @@ export default {
     			break;
 
     		case 'showDownloadBtn':
+                this.showLoading( to.message );
     			this.showDownloadBtn( to.url );
     			break;
 

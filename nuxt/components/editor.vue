@@ -23,15 +23,7 @@
 	</div>
 </template>
 
-
-<style lang="scss">
-/*@import "../../_scss/_vars.scss";*/
-
-</style>
-
-
 <script>
-import Vue from 'vue';
 import Util from '@/assets/js/Util'
 
 
@@ -39,7 +31,7 @@ export default {
 
   name: 'Editor',
 
-  mounted: function() {
+  mounted() {
 
     if (process.browser) {
     	
@@ -72,14 +64,14 @@ export default {
 
   methods: {
 
-  	clickSubmitBtn : function(){
+  	clickSubmitBtn(){
 
   		this.$store.commit( 'pageName', 'textEditor' );
 
   	},
 
 
-	addBtns : function( type ){
+	addBtns( type ){
 
     	if( type == 'stamp' ){
 	      var ul = this.stamps;
@@ -126,11 +118,11 @@ export default {
 			    _filters.appendChild( li );
 			}
 			_filters.style.width = length * 90 + 'px';
-	
+
 		},
 
 
-	  initFilterBtns : function(){
+	  initFilterBtns(){
 	    
 	    this.filterBtns = this.filters.getElementsByTagName( 'li' );
 	    var length = this.filterBtns.length;
@@ -141,7 +133,7 @@ export default {
 	  },
 
 
-	  selectBtnClickHandler : function( type ){
+	  selectBtnClickHandler( type ){
 
 	    // if( Util.ua.platform != 'pc' ){
 	    //   if( new Date().getTime() - Util.downTime > Util.touchHitTime ) return;
@@ -178,7 +170,7 @@ export default {
 	  },
 
 
-	  stampBtnClickHandler : function( i ){
+	  stampBtnClickHandler( i ){
 
 	    var img = this.stampBtns[i].getElementsByTagName( 'img' )[0];
 	   
@@ -187,7 +179,7 @@ export default {
 	  },
 
 
-	  decorationBtnClickHandler : function( i ){
+	  decorationBtnClickHandler( i ){
 
 	    var img = this.decorationBtns[i].getElementsByTagName( 'img' )[0];
 	    
@@ -196,7 +188,7 @@ export default {
 	  },
 
 
-	  filterBtnClickHandler : function( i ){
+	  filterBtnClickHandler( i ){
 
 	    var img = this.filterBtns[i].getElementsByTagName( 'img' )[0];
 	    
@@ -205,14 +197,14 @@ export default {
 	  },
 
 
-	  submitBtnClickHandler : function(){
+	  submitBtnClickHandler(){
 
 	      this.element.dispatchEvent( new CustomEvent( 'ysdCallback', { detail:{ value:{ type:'submit' } } } ) );
 
 	  },
 
 
-	  resize : function(){
+	  resize(){
 	    
 	    this.width = this.element.clientWidth;
 	    this.height = this.element.clientHeight;

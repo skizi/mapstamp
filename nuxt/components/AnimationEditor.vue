@@ -13,15 +13,8 @@
 </template>
 
 
-<style lang="scss">
-/*@import "../../_scss/_vars.scss";*/
-
-</style>
-
 
 <script>
-import Vue from 'vue';
-// import Util from 'Util';
 import Util from '@/assets/js/Util'
 
 
@@ -29,7 +22,7 @@ export default {
 
   name: 'AnimationEditor',
 
-  mounted: function() {
+  mounted() {
 
     if (process.browser) {
       this.element = document.getElementsByClassName( 'animation_editor' )[0];
@@ -89,7 +82,7 @@ export default {
 
   methods: {
 
-  	clickSubmitBtn : function(){
+  	clickSubmitBtn(){
 
   		this.$store.commit( 'pageName', 'share' );
       this.$store.commit( 'animation', this.data[this.active] );

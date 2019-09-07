@@ -120,27 +120,20 @@
 
 
 <script>
-import Vue from 'vue';
-
 
 export default {
 
   name: 'About',
 
-  mounted: function() {
-
-  },
-
-
   methods: {
 
-  	clickStartBtn : function(){
+  	clickStartBtn(){
 
   		this.$store.commit( 'pageName', 'capture' );
 
   	}
 
-  },
+  }
 
 };
 

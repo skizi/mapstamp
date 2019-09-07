@@ -10,11 +10,8 @@
 
 
 <style lang="scss">
-/*@import "../../_scss/_vars.scss";*/
-
 
 .capture_btn_container{
-    //display:none;
     text-align: center;
 
     p{
@@ -30,8 +27,6 @@
 
 
 <script>
-import Vue from 'vue';
-
 
 export default {
 
@@ -40,7 +35,7 @@ export default {
 
   methods: {
 
-  	clickSubmitBtn : function(){
+  	clickSubmitBtn(){
 
   		this.$store.commit( 'pageName', 'editor' );
 

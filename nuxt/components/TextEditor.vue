@@ -10,15 +10,8 @@
 </template>
 
 
-<style lang="scss">
-/*@import "../../_scss/_vars.scss";*/
-
-</style>
-
 
 <script>
-import Vue from 'vue';
-
   
 export default {
 
@@ -43,7 +36,7 @@ export default {
 
   methods: {
 
-  	clickSubmitBtn : function(){
+  	clickSubmitBtn(){
 
   		this.$store.commit( 'pageName', 'animationEditor' );
 

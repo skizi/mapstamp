@@ -3,17 +3,17 @@
 
     <div class="container">
 
-      <map-vue :page-name="this.$store.getters.pageName" :stamp="this.$store.getters.stamp" :decoration="this.$store.getters.decoration" :filter="this.$store.getters.filter" :text="this.$store.getters.text" :animation="this.$store.getters.animation" :generate-gif="this.$store.getters.generateGif"></map-vue>
+      <MapVue :page-name="this.$store.getters.pageName" :stamp="this.$store.getters.stamp" :decoration="this.$store.getters.decoration" :filter="this.$store.getters.filter" :text="this.$store.getters.text" :animation="this.$store.getters.animation" :generate-gif="this.$store.getters.generateGif"></MapVue>
       
 
       <div class="interface">
 
-        <about v-if="this.$store.getters.pageName == 'about'"></about>
-        <capture v-else-if="this.$store.getters.pageName == 'capture'"></capture>
-        <editor v-else-if="this.$store.getters.pageName == 'editor'"></editor>
-        <text-editor v-else-if="this.$store.getters.pageName == 'textEditor'" :text="this.$store.getters.text"></text-editor>
-        <animation-editor v-else-if="this.$store.getters.pageName == 'animationEditor'"></animation-editor>
-        <share v-else-if="this.$store.getters.pageName == 'share'" :share="this.$store.getters.share"></share>
+        <About v-if="this.$store.getters.pageName == 'about'"></About>
+        <Capture v-else-if="this.$store.getters.pageName == 'capture'"></Capture>
+        <Editor v-else-if="this.$store.getters.pageName == 'editor'"></Editor>
+        <TextEditor v-else-if="this.$store.getters.pageName == 'textEditor'" :text="this.$store.getters.text"></TextEditor>
+        <AnimationEditor v-else-if="this.$store.getters.pageName == 'animationEditor'"></AnimationEditor>
+        <Share v-else-if="this.$store.getters.pageName == 'share'" :share="this.$store.getters.share"></Share>
 
       </div>
 
@@ -27,9 +27,6 @@
 
 
 <style lang="scss">
-/*@import "../../_scss/_vars.scss";*/
-
-
 
 /*-----------------other--------------------*/
 .interface{
@@ -48,17 +45,14 @@
 
 
 <script>
-import Vue from 'vue';
-import MapVue from '~/components/map-vue';
-import About from '~/components/about';
-import Capture from '~/components/capture';
-import Editor from '~/components/editor';
-import TextEditor from '~/components/text-editor';
-import AnimationEditor from '~/components/animation-editor';
-import Share from '~/components/share';
-import Loading from '~/components/loading';
-
-import { mapMutations, mapGetters } from 'vuex'
+import MapVue from '~/components/MapVue';
+import About from '~/components/About';
+import Capture from '~/components/Capture';
+import Editor from '~/components/Editor';
+import TextEditor from '~/components/TextEditor';
+import AnimationEditor from '~/components/AnimationEditor';
+import Share from '~/components/Share';
+import Loading from '~/components/Loading';
 
 import Util from '@/assets/js/Util'
 import axios from 'axios';
@@ -69,14 +63,14 @@ export default {
   name: 'Index',
 
   components: {
-    'map-vue': MapVue,
-    'about': About,
-    'capture': Capture,
-    'editor' : Editor,
-    'text-editor' : TextEditor,
-    'animation-editor' : AnimationEditor,
-    'share' : Share,
-    'loading' : Loading
+    MapVue,
+    About,
+    Capture,
+    Editor,
+    TextEditor,
+    AnimationEditor,
+    Share,
+    Loading
   },
 
   head: {
@@ -86,7 +80,7 @@ export default {
   },
 
 
-  created: function() {
+  created() {
 
     this.states = [ 'about', 'capture', 'editor', 'textEditor', 'animationEditor', 'share' ];
 
@@ -128,7 +122,7 @@ export default {
 
   computed : {
 
-    isLoggedin : function(){
+    isLoggedin(){
 
       return function( str ){
         var str = '未ログイン';
@@ -173,21 +167,21 @@ export default {
 
     },
 
-    nextBtnClick : function(){
+    nextBtnClick(){
       
         this.changeState( 1 );
 
         
     },
 
-    prevBtnClick : function(){
+    prevBtnClick(){
 
         this.changeState( -1 );
 
     },
 
 
-    changeState : function( adjustIndex ){
+    changeState( adjustIndex ){
 
         let state = this.$store.getters.pageName;
         let nextIndex = this.states.indexOf( state ) + adjustIndex;

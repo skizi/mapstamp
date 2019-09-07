@@ -25,7 +25,7 @@ export default {
   name: 'Header',
 
 
-  mounted: function() {
+  mounted() {
 
 	this.states = [ 'about', 'capture', 'editor', 'textEditor', 'animationEditor', 'share' ];
 
@@ -69,21 +69,21 @@ export default {
 
     },
 
-    nextBtnClick : function(){
+    nextBtnClick(){
       
         this.changeState( 1 );
 
         
     },
 
-    prevBtnClick : function(){
+    prevBtnClick(){
 
         this.changeState( -1 );
 
     },
 
 
-    changeState : function( adjustIndex ){
+    changeState( adjustIndex ){
 
         let state = this.$store.getters.pageName;
         let nextIndex = this.states.indexOf( state ) + adjustIndex;

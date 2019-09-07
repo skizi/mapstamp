@@ -22,6 +22,8 @@
 </template>
 
 <script>
+//FacebookのOGPが/images/post_images/1 を参照しており、
+//この方法ではOGPページを生成できないのでやめた。
 
 export default {
 
@@ -33,7 +35,7 @@ export default {
 		}
 	},
 
-	data: function(){
+	data(){
 		return {
 			imgId:0,
 			imgType:'gif'
@@ -41,7 +43,7 @@ export default {
 	},
 
 
-	mounted : function(){
+	mounted(){
 
       this.imgId = localStorage.getItem( 'imgId' );
       this.imgType = localStorage.getItem( 'imgType' );
