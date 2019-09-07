@@ -5,7 +5,7 @@ https://www.mapstamp.net/
 ## 技術構成
 ・サーバーサイドAPI : Rails  
 ・インフラ : nginx  
-・Webフロントエンド : gulp, vue.js, babel, sass  
+・Webフロントエンド : gulp, vue.js, nuxt.js, babel, sass  
 ruby 2.4.3  
 Rails 5.1.6   
 
