@@ -55,10 +55,10 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    vendor: ["jquery", /*'leaflet', 'pixi.js', 'html2canvas', 'gifencoder'*/],
+    vendor: [ /*'leaflet', 'pixi.js', 'html2canvas', 'gifencoder'*/],
     plugins: [
       new webpack.ProvidePlugin({
-        $: 'jquery',
+        // $: 'jquery',
         // L: 'leaflet',
         // PIXI: 'pixi.js',
         // html2canvas : 'html2canvas',
@@ -81,11 +81,11 @@ module.exports = {
 
   },
 
-  // server: {
-  //   port: 3005,
-  //   host: '160.16.62.37'
-  // },
+  server: {
+    port: 3000,
+    // host: '160.16.62.37'
+  },
 
-  serverMiddleware: ['~/server']
+  // serverMiddleware: ['~/server']
 
 }

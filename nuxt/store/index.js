@@ -22,14 +22,14 @@ const store = () => {
 		 */
 		state : {
 			pageName : 'about',
-			stamp : {},
-			decoration : {},
-			filter : {},
+			stamp : { img : null, index : 0 },
+			decoration : { img : null, index : 0 },
+			filter : { img : null, index : 0 },
 			text : '',
-			animation : {},
-			generateGif : {},
-			share : {},
-			loading : {}
+			animation : { name:'', frames:[] },
+			generateGif : { state : '', notLoginFlag : false },
+			share : { blob : null, lat : 0, lng : 0, content : '', imgType : '' },
+			loading : { state : '', message : '' },
 		},
 
 

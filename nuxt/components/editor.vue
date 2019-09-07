@@ -40,11 +40,9 @@ export default {
   name: 'Editor',
 
   mounted: function() {
-    console.log("Editor");
 
     if (process.browser) {
-    console.log("Editor browser");
-console.log(Util.clickEventName);
+    	
 	  	this.element = document.querySelector( '.editor' );
 
 	    this.selectBtns = document.getElementsByClassName( 'select_menu' )[0].getElementsByTagName( 'li' );

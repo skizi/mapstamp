@@ -76,7 +76,6 @@ export default {
   },
 
   created: function() {
-    console.log("map-vue : mounted!!");
 
     if (process.browser) {
 

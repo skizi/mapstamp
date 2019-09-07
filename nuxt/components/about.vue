@@ -128,8 +128,6 @@ export default {
   name: 'About',
 
   mounted: function() {
-    console.log("About");
-
 
   },
 

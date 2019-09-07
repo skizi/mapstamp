@@ -117,7 +117,6 @@ export default {
   name: 'Share',
 
   mounted: function() {
-    console.log("Share");
 
     if (process.browser) {
       this.element = document.querySelector( '.share' );
@@ -134,6 +133,7 @@ export default {
       if( localStorage.getItem('cacheImgBase64') ){
         var base64 = localStorage.getItem('cacheImgBase64');
         var imgType = localStorage.getItem('cacheImgType');
+        
         var blob = this.dataURLtoBlob( base64, imgType );
         var content = localStorage.getItem('cacheMessage');
         var pluseMessage = localStorage.getItem('cachePluseMessage');
@@ -217,7 +217,7 @@ export default {
           localStorage.setItem( 'cacheProvider', this.provider );
           localStorage.setItem( 'cacheLat', lat );
           localStorage.setItem( 'cacheLng', lng );
-          console.log(location.protocol );
+
           location.href = Util.apiHeadUrl + '/auth/' + this.provider;
         }.bind( this );
         return;
@@ -262,11 +262,13 @@ export default {
 
       this.postImageId = postImageId;
 
+      // localStorage.setItem( 'imgId', postImageId );
+      // localStorage.setItem( 'imgType', imgType );
 
       //ダウンロード
       if( this.provider == 'download' ){
 
-        var url = 'https://www.mapstamp.net/post_images/' + this.postImageId + ':444';
+        var url = Util.apiHeadUrl + '/post_images/' + this.postImageId;
         this.$store.commit( 'loading', { state:'showDownloadBtn', url:url } );
 
       }else if( this.provider == 'facebook' ){
@@ -328,6 +330,7 @@ export default {
       var http = axios.create();
       http.interceptors.response.use(function (response) {
           var token = response.headers['x-csrf-token'];
+
           if (token) {
               // save token in localStorage for later use
               // this.authenticity_token = token;

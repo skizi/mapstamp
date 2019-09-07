@@ -25,7 +25,6 @@ export default {
   name: 'TextEditor',
 
   mounted: function() {
-    console.log("TextEditor");
 
     if (process.browser) {
       this.textEditor = document.getElementsByClassName( 'text_editor' )[0];

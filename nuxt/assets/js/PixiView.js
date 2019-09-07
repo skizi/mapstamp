@@ -98,11 +98,11 @@ export default class PixiView{
 		//インスタンスの生成
 		this.refreshGifanimation();
 
-		var canvas = document.createElement( 'canvas' );
+		var canvas = window.document.createElement( 'canvas' );
 		canvas.setAttribute( 'width', 320 );
 		canvas.setAttribute( 'height', 320 );
 		this.gifCtx = canvas.getContext('2d');
-
+// document.body.appendChild(canvas);
 
 		//カメラ　アニメーション用
 		this.animationData = { frames:[] };
@@ -419,10 +419,10 @@ export default class PixiView{
 			//GIFアニメーションの生成終了
 			this.gifAnimation.finish();
 			
-	        var bin = new Uint8Array( this.gifAnimation.stream().bin);
+	        var bin = new Uint8Array( this.gifAnimation.stream().data);
 	        var blob = new Blob([bin.buffer], {type:'image/gif'});
 	        // var url = URL.createObjectURL(blob);
-	        //image.src = url;
+	        // image.src = url;
 	        // image.onload = function() {
 	        //   URL.revokeObjectURL(url);
 	        // }

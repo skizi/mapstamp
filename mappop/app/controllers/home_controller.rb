@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
 	protect_from_forgery except: :post_sns #エラー回避
+  	# skip_before_action :verify_authenticity_token
 
 	require 'twitter'
 	require 'koala'

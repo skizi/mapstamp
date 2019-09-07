@@ -30,7 +30,6 @@ export default {
   name: 'AnimationEditor',
 
   mounted: function() {
-    console.log("animation_editor");
 
     if (process.browser) {
       this.element = document.getElementsByClassName( 'animation_editor' )[0];

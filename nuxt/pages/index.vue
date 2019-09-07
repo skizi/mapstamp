@@ -1,16 +1,213 @@
 <template>
   <div>
-    <app/>
+
+    <div class="container">
+
+      <map-vue :page-name="this.$store.getters.pageName" :stamp="this.$store.getters.stamp" :decoration="this.$store.getters.decoration" :filter="this.$store.getters.filter" :text="this.$store.getters.text" :animation="this.$store.getters.animation" :generate-gif="this.$store.getters.generateGif"></map-vue>
+      
+
+      <div class="interface">
+
+        <about v-if="this.$store.getters.pageName == 'about'"></about>
+        <capture v-else-if="this.$store.getters.pageName == 'capture'"></capture>
+        <editor v-else-if="this.$store.getters.pageName == 'editor'"></editor>
+        <text-editor v-else-if="this.$store.getters.pageName == 'textEditor'" :text="this.$store.getters.text"></text-editor>
+        <animation-editor v-else-if="this.$store.getters.pageName == 'animationEditor'"></animation-editor>
+        <share v-else-if="this.$store.getters.pageName == 'share'" :share="this.$store.getters.share"></share>
+
+      </div>
+
+    </div>
+
+    <loading :loading="this.$store.getters.loading"></loading>
+  
   </div>
+
 </template>
 
-<script>
-import App from '~/components/app.vue'
 
-export default {
-  components: {
-    app:App
+<style lang="scss">
+/*@import "../../_scss/_vars.scss";*/
+
+
+
+/*-----------------other--------------------*/
+.interface{
+  padding: 20px 10px 40px;
+}
+
+
+@media screen and (min-width: 375px) {
+  body.home_index{
+    .container{
+      padding-top:20px;
+    }
   }
 }
+</style>
+
+
+<script>
+import Vue from 'vue';
+import MapVue from '~/components/map-vue';
+import About from '~/components/about';
+import Capture from '~/components/capture';
+import Editor from '~/components/editor';
+import TextEditor from '~/components/text-editor';
+import AnimationEditor from '~/components/animation-editor';
+import Share from '~/components/share';
+import Loading from '~/components/loading';
+
+import { mapMutations, mapGetters } from 'vuex'
+
+import Util from '@/assets/js/Util'
+import axios from 'axios';
+
+
+export default {
+
+  name: 'Index',
+
+  components: {
+    'map-vue': MapVue,
+    'about': About,
+    'capture': Capture,
+    'editor' : Editor,
+    'text-editor' : TextEditor,
+    'animation-editor' : AnimationEditor,
+    'share' : Share,
+    'loading' : Loading
+  },
+
+  head: {
+    bodyAttrs: {
+      class: 'home_index'
+    }
+  },
+
+
+  created: function() {
+
+    this.states = [ 'about', 'capture', 'editor', 'textEditor', 'animationEditor', 'share' ];
+
+    if (process.client) {
+      
+      Util.clickEventName = 'click';
+
+      //データ初期化
+      var params = this.getParams();
+      if( params['loginFlag'] ) Util.loginProvider = params['provider'];
+
+      if( localStorage.getItem('cacheImgBase64') ){
+
+          var content = localStorage.getItem('cacheMessage');
+          this.$store.commit( 'text', content );
+          this.$store.commit( 'pageName', 'share' );
+
+      }
+
+      /*
+      var header = document.body.getElementsByTagName( 'header' )[0];
+      this.nextBtn = header.getElementsByClassName( 'next' )[0];
+      this.prevBtn = header.getElementsByClassName( 'prev' )[0];
+      this.nextBtn.addEventListener( 'click', this.nextBtnClick.bind( this ) );
+      this.prevBtn.addEventListener( 'click', this.prevBtnClick.bind( this ) );
+
+      this.initHeaderBtns( this.$store.getters.pageName );
+      this.$store.watch(
+        (state, getters) => getters.pageName,
+        (to, from) => {
+          this.initHeaderBtns( to );
+        }
+      )
+      */
+    }
+
+  },
+
+
+  computed : {
+
+    isLoggedin : function(){
+
+      return function( str ){
+        var str = '未ログイン';
+        if (this.$auth.loggedIn) str = 'ログイン';
+
+        return str;
+      }
+
+    }
+
+  },
+
+
+  methods : {
+
+    getParams(){
+      
+      var arg = new Object;
+      var pair = location.search.substring(1).split('&');
+      for( var i = 0; pair[i]; i++ ){
+          var kv = pair[i].split('=');
+          arg[kv[0]]=kv[1];
+      }
+
+      return arg;
+
+    },
+
+
+    initHeaderBtns( state ){
+
+        if( state == 'about' ){
+            this.prevBtn.style.display = 'none';
+            this.nextBtn.style.display = 'block';
+        }else if( state == 'share' ){
+            this.prevBtn.style.display = 'block';
+            this.nextBtn.style.display = 'none';
+        }else{
+            this.prevBtn.style.display = 'block';
+            this.nextBtn.style.display = 'block';
+        }
+
+    },
+
+    nextBtnClick : function(){
+      
+        this.changeState( 1 );
+
+        
+    },
+
+    prevBtnClick : function(){
+
+        this.changeState( -1 );
+
+    },
+
+
+    changeState : function( adjustIndex ){
+
+        let state = this.$store.getters.pageName;
+        let nextIndex = this.states.indexOf( state ) + adjustIndex;
+        let nextState = this.states[ nextIndex ];
+
+        if( nextState ){
+            this.$store.commit( 'pageName', nextState );
+        }
+
+    },
+
+
+    authenticate() {
+      this.$auth.loginWith('github');
+    },
+
+  }
+
+};
+
 </script>
+
 

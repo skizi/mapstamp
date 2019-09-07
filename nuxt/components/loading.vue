@@ -72,7 +72,6 @@ export default {
   name: 'Loading',
 
   mounted: function() {
-    console.log("Loading");
 
     if (process.browser) {
     	this.element = document.getElementsByClassName( 'loading_cover' )[0];
