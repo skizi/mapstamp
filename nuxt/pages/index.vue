@@ -76,7 +76,8 @@ export default {
   head: {
     bodyAttrs: {
       class: 'home_index'
-    }
+    },
+    title: '位置情報共有サービス'
   },
 
 

@@ -103,7 +103,8 @@ export default {
   head: {
     bodyAttrs: {
       class: 'home_rule'
-    }
+    },
+  	title: '利用規約'
   },
 
 }

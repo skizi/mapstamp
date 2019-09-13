@@ -22,7 +22,8 @@ export default {
   head: {
     bodyAttrs: {
       class: 'home_info'
-    }
+    },
+  	title: '運営者情報'
   },
 
 }

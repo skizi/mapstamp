@@ -36,7 +36,8 @@ export default {
   head: {
     bodyAttrs: {
       class: 'home_privacypolicy'
-    }
+    },
+  	title: 'プライバシーポリシー'
   },
 
 }

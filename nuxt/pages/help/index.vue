@@ -18,7 +18,8 @@ export default {
   head: {
     bodyAttrs: {
       class: 'home_help'
-    }
+    },
+  	title: 'ヘルプ'
   },
 
 }
