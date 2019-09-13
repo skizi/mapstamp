@@ -172,7 +172,8 @@ class UsersController < ApplicationController
       # ユーザーデータ保存
       if @user.save
         log_in @user
-        redirect_to :root
+        redirect_to 'https://www.mapstamp.net?provider=' + session[:provider] + '&loginFlag=true'
+        # redirect_to :root
       else
         str = ''
         @user.errors.each{|key, value|

@@ -14,10 +14,32 @@ module Mappop
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-    config.action_dispatch.default_headers = {
-	  'Access-Control-Allow-Credentials' => 'true',
-	  'Access-Control-Allow-Origin' => 'http://localhost:3000',
-	  'Access-Control-Request-Method' => '*'
-	}
+   #  config.action_dispatch.default_headers = {
+  	#   'Access-Control-Allow-Credentials' => 'true',
+  	#   'Access-Control-Allow-Origin' => 'http://localhost:3000',
+  	#   'Access-Control-Request-Method' => '*'
+  	# }
+
+    #SPA対応
+    # config.middleware.use ActionDispatch::Cookies
+    # config.middleware.use ActionDispatch::Session::CookieStore, {:key=>"_csrf_protection_example_session"}
+    # config.navigational_formats = [:json]
+
+
+    # config.api_only = true
+
+
+    # rack-corsここから
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        # 許可するドメイン
+        origins "localhost:3000", "mapstamp.net", "www.mapstamp.net"
+        # 許可するヘッダとメソッドの種類
+        resource "*",
+                 headers: :any,
+                 methods: [:get, :post, :patch, :delete, :head, :options]
+      end
+    end
+
   end
 end
