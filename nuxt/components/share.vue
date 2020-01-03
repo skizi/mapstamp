@@ -326,43 +326,8 @@ export default {
 
     postAxios( url, formData, successCallback, errorCallback ){
 
-      var http = axios.create();
-      http.interceptors.response.use(function (response) {
-          var token = response.headers['x-csrf-token'];
-
-          if (token) {
-              // save token in localStorage for later use
-              // this.authenticity_token = token;
-              formData.append( 'authenticity_token', token );
-              window.localStorage.setItem('csrf-token', token);
-          }
-          return response;
-      }.bind( this ), function (error) {});
-      http.interceptors.request.use(function (config) {
-          var token = window.localStorage.getItem('csrf-token');
-          config.headers['X-CSRF-Token'] = token;
-          return config;
-      }, function (error) {});
-
-      http.post( url, formData, 
-        {
-          headers: {
-            'content-type': 'multipart/form-data',
-          },
-          validateStatus: function (status) {
-            return status < 300;
-          },
-        }
-      ).then(function(response){
-
-        if( response.status < 300 ){
-          successCallback(response.data);
-        }else{
-          errorCallback();
-        }
-
-      });
-
+      this.$store.dispatch('postMessage' , { url:url, formData:formData, successCallback:successCallback, errorCallback:errorCallback } );
+      
     },
 
 

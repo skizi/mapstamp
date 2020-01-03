@@ -110,35 +110,45 @@ const store = () => {
 		 */
 		actions: {
 
-		    async ajax( context, property ){
+		    async postMessage( context, property ){
 
-		      const payload = {
-		        get_works: [],
-		        get_work: {},
-		        get_members: {},
-		        get_member: {}
-		      };
+		      var http = axios.create();
+		      http.interceptors.response.use(function (response) {
+		          var token = response.headers['x-csrf-token'];
 
-		      var params = {
-			  	action : property.wpActionName,
-			    //secure : '<?php echo wp_create_nonce('text_test_ajax ') ?>'
-			  };
-			  if( property.wpActionName == 'get_work' || property.wpActionName == 'get_member' ){
-			  	params.id = property.id;
-			  }
+		          if (token) {
+		              // save token in localStorage for later use
+		              // this.authenticity_token = token;
+		              property.formData.append( 'authenticity_token', token );
+		              window.localStorage.setItem('csrf-token', token);
+		          }
+		          return response;
+		      }.bind( this ), function (error) {});
+		      http.interceptors.request.use(function (config) {
+		          var token = window.localStorage.getItem('csrf-token');
+		          config.headers['X-CSRF-Token'] = token;
+		          return config;
+		      }, function (error) {});
 
-		      await axios.get(
-		      	Vue.prototype.$_wpAjaxUrl, {
-				  params: params
-				},
-				{ headers: { 'Content-Type': 'application/json' } }
-		      ).then((res) => {
+		      http.post( property.url, property.formData, 
+		        {
+		          headers: {
+		            'content-type': 'multipart/form-data',
+		          },
+		          validateStatus: function (status) {
+		            return status < 300;
+		          },
+		        }
+		      ).then(function(response){
 
-				payload[property.wpActionName] = res.data;
+		        if( response.status < 300 ){
+		          property.successCallback(response.data);
+		        }else{
+		          property.errorCallback();
+		        }
 
 		      });
 
-			  context.commit( property.wpActionName, payload[property.wpActionName] );
 
 		    },
 
