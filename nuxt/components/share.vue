@@ -246,13 +246,13 @@ export default {
       // formData.append( 'authenticity_token', this.authenticity_token );
 
       var url = Util.apiHeadUrl + '/post_images/create.json';
-      this.postAxios( url, formData, function( response ){
+      this.postAxios( url, formData, response => {
         this.submitStep2( response.id, imgType, response.content );
-      }.bind( this ),
-      function(){
+      },
+      () => {
         this.$store.commit( 'loading', { state:'hide' } );
         alert( 'あれれ、エラーです。もう一度試してみよう！' );
-      }.bind( this ) );
+      } );
 
     },
 
@@ -311,14 +311,14 @@ export default {
       formData.append( 'message', message );
 
       var url = Util.apiHeadUrl + '/home/post_sns';
-      this.postAxios( url, formData, function(){
+      this.postAxios( url, formData, () => {
         this.$store.commit( 'loading', { state:'hide' } );
         alert( '投稿完了！' );
-      }.bind( this ),
-      function(){
+      },
+      () => {
         this.$store.commit( 'loading', { state:'hide' } );
         alert( 'あれれ、エラーです。もう一度試してみよう！' );
-      }.bind( this ) );
+      } );
 
     },
 
@@ -326,7 +326,15 @@ export default {
 
     postAxios( url, formData, successCallback, errorCallback ){
 
-      this.$store.dispatch('postMessage' , { url:url, formData:formData, successCallback:successCallback, errorCallback:errorCallback } );
+      this.$store.dispatch( 'postMessage', { url:url, formData:formData } ).then( result => {
+          
+        if( result == 'error' ){
+          errorCallback();
+        }else{
+          successCallback( result );
+        }
+
+      });
       
     },
 

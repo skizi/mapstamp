@@ -93,9 +93,9 @@ export default {
         this.text.innerHTML = message;
         this.element.style.display = 'block';
 		clearTimeout( this.timeoutId );
-		this.timeoutId = setTimeout(function(){
+		this.timeoutId = setTimeout( () => {
 			this.element.style.opacity = 1;
-		}.bind( this ), 100 );
+		}, 100 );
 	
 	},
 
@@ -104,10 +104,10 @@ export default {
 
 		this.element.style.opacity = 0;
 		clearTimeout( this.timeoutId );
-		this.timeoutId = setTimeout(function(){
+		this.timeoutId = setTimeout( () => {
 			this.element.style.display = 'none';
 			this.text.innerHTML = '';
-		}.bind( this ), 300 );
+		}, 300 );
 
 	},
 
@@ -122,10 +122,10 @@ export default {
 	showFaceBookShareBtn( url ){
 
 		this.faceBookShareBtn.style.display = 'block';
-		setTimeout(function(){
+		setTimeout( () => {
 			this.faceBookShareBtn.style.opacity = 1;
 			this.faceBookShareBtn.setAttribute( 'href', url );
-		}.bind( this ), 100 );
+		}, 100 );
 
 	},
 
@@ -133,10 +133,10 @@ export default {
 	showDownloadBtn( url ){
 
 		this.downloadBtn.style.display = 'block';
-		setTimeout(function(){
+		setTimeout( () => {
 			this.downloadBtn.style.opacity = 1;
 			this.downloadBtn.setAttribute( 'href', url );
-		}.bind( this ), 100 );
+		}, 100 );
 
 	},
 
