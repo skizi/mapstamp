@@ -83,9 +83,9 @@ export default {
         var lat = localStorage.getItem('cacheLat');
         var lng = localStorage.getItem('cacheLng');
         this.map.setLatLng( lat, lng );
-        setTimeout(function(){
+        setTimeout( () => {
           this.map.capture();
-        }.bind( this ), 1000 );
+        }, 1000 );
       }
     }
 

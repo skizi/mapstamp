@@ -130,7 +130,7 @@ const store = () => {
 		          return config;
 		      }, function (error) {});
 
-		      http.post( property.url, property.formData, 
+		      const response = await http.post( property.url, property.formData, 
 		        {
 		          headers: {
 		            'content-type': 'multipart/form-data',
@@ -139,16 +139,15 @@ const store = () => {
 		            return status < 300;
 		          },
 		        }
-		      ).then(function(response){
+		      ).catch( err => {
+				return 'error';
+			  });
 
-		        if( response.status < 300 ){
-		          property.successCallback(response.data);
-		        }else{
-		          property.errorCallback();
-		        }
-
-		      });
-
+	          if( response.status < 300 ){
+	            return response.data;
+	          }else{
+	            return 'error';
+	          }
 
 		    },
 
