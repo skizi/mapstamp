@@ -113,7 +113,7 @@ const store = () => {
 		    async postMessage( context, property ){
 
 		      var http = axios.create();
-		      http.interceptors.response.use(function (response) {
+		      http.interceptors.response.use( response => {
 		          var token = response.headers['x-csrf-token'];
 
 		          if (token) {
@@ -123,19 +123,19 @@ const store = () => {
 		              window.localStorage.setItem('csrf-token', token);
 		          }
 		          return response;
-		      }.bind( this ), function (error) {});
-		      http.interceptors.request.use(function (config) {
+		      }, error => {});
+		      http.interceptors.request.use( config => {
 		          var token = window.localStorage.getItem('csrf-token');
 		          config.headers['X-CSRF-Token'] = token;
 		          return config;
-		      }, function (error) {});
+		      }, error => {});
 
 		      const response = await http.post( property.url, property.formData, 
 		        {
 		          headers: {
 		            'content-type': 'multipart/form-data',
 		          },
-		          validateStatus: function (status) {
+		          validateStatus: status => {
 		            return status < 300;
 		          },
 		        }
